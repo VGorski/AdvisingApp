@@ -4,11 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var adminRouter = require("./routes/admin");
-var adviseeRouter = require("./routes/advisee");
-var programDRouter = require("./routes/programDirector");
+var indexRouter = require('./routes/indexRoute');
+var usersRouter = require('./routes/usersRoute');
+var adminRouter = require("./routes/adminRoute");
+var adviseeRouter = require("./routes/adviseeRoute");
+var programDRouter = require("./routes/programDirectorRoute");
 
 var app = express();
 

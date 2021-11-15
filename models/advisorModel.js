@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 var advisorModel = new Object();
 
 var advisorModel = {

@@ -1,5 +1,5 @@
 var express = require('express');
-var adviseeRoute = express.Router();
+var advisorRoute = express.Router();
 // Add designated model here
 // Add Microsoft database server here
 
@@ -19,4 +19,4 @@ adviseeRoute
         res.end();
     });
 
-module.exports = adviseeRoute;
+module.exports = advisorRoute;

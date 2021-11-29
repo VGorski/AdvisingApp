@@ -22,8 +22,7 @@ loginRoute
   .route("/login")
   .get((req, res, next) => {
     // Get login screen
-    
-
+    res.render('login');
     res.status(200);
     res.end();
   })

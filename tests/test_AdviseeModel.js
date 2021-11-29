@@ -34,13 +34,12 @@ findAdvisees()
 //     password: password,
 //     discipline: discipline,
 //   });
-//   // let's assume the default of isAdmin is false
 //   return advisee;
 // }
 
 // createAdvisee(1, "James", "Coomey", "James.Coomey@quinnipiac.edu", "password", "IER")
 //   .then((advisee) => {
-//     console.log(advisee.firstName);
+//     console.log(advisee);
 //   })
 //   .catch((error) => {
 //     console.log(error);

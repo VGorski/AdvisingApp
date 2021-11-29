@@ -14,29 +14,28 @@ findAdvisors()
     console.log(err);
   });
 
-// async function createAdvisee(
-//   advisor_id,
+// async function createAdvisor(
 //   firstName,
 //   lastName,
 //   email,
 //   password,
+//   role,
 //   discipline
 // ) {
-//   const advisee = await Advisee.create({
-//     advisor_id: advisor_id,
+//   const advisor = await Advisor.create({
 //     firstName: firstName,
 //     lastName: lastName,
 //     email: email,
 //     password: password,
+//     role: role,
 //     discipline: discipline,
 //   });
-//   // let's assume the default of isAdmin is false
-//   return advisee;
+//   return advisor;
 // }
 
-// createAdvisee(1, "James", "Coomey", "James.Coomey@quinnipiac.edu", "password", "IER")
-//   .then((advisee) => {
-//     console.log(advisee.firstName);
+// createAdvisor("Christian", "Duncan", "Christian.Duncan@quinnipiac.edu", "password", "CSC")
+//   .then((advisor) => {
+//     console.log(advisor);
 //   })
 //   .catch((error) => {
 //     console.log(error);

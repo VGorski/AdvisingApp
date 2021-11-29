@@ -5,12 +5,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/indexRoute');
+var loginRouter = require('./routes/loginRoute');
 var usersRouter = require('./routes/usersRoute');
 var adminRouter = require("./routes/adminRoute");
 var adviseeRouter = require("./routes/adviseeRoute");
 var programDRouter = require("./routes/programDirectorRoute");
 
 var app = express();
+const port = 3000;
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -22,7 +24,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+app.use("/", loginRouter);
+app.use("/register", loginRouter);
+app.use("/forgotPassword", loginRouter);
 app.use("/users", usersRouter);
 app.use("/admin", adminRouter);
 app.use("/advisee", adminRouter);
@@ -44,5 +48,12 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+/* app.get('', (req, res) => {
+  res.sendFile(__dirname + 'index');
+}); */
+
+// Find the port
+app.listen(port, () => console.log(`Listening on port ${port}`));
 
 module.exports = app;

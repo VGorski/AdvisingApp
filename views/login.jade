@@ -1,0 +1,24 @@
+doctype html 
+html
+    .fullscreen-container
+        .head 
+            style
+                include ../public/stylesheets/style.css
+        .body
+            .main-body 
+                h1 Welcome to Quinnipiac University's Advising Assistant App
+                img(src='../public/images/QUlogo.png', alt="Advising Assistant app logo")
+
+            .login-form
+                h2 Login
+                .form-group.form-inline
+                    h5 Quinnipiac email: 
+                    input(type='text', name='QU email', size='20')
+                
+                    h5 Password:
+                    input(type='text', name='Password', size='20')
+                <br>
+                button(type='button') Login
+                <br>
+                button(type='button', onclick="window.location.href='http://localhost:3000/forgotPassword';") Forgot Password
+                button(type='button', onclick="window.location.href='http://localhost:3000/register';") Create New Account

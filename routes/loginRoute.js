@@ -9,7 +9,7 @@ var bcrypt = require('bcrypt');
 loginRoute
   .route("/")
   .get((req, res, next) => {
-    // Get login screen
+    res.render('login');
     res.status(200);
     res.end();
   })
@@ -44,6 +44,7 @@ loginRoute
   .route("/register")
   .get((req, res, next) => {
     // Get register screen
+    res.render('register');
     res.status(200);
     res.end();
   })
@@ -85,6 +86,7 @@ loginRoute
   .route("/forgotPassword")
   .get((req, res, next) => {
     // Get forgot password screen
+    res.render('forgotPassword');
     res.status(200);
     res.end();
   })

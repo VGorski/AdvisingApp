@@ -1,5 +1,5 @@
-var Advisee = require("./models/adviseeModelSeq");
-async function findAdvisee() {
+var Advisee = require("../models/adviseeModelSeq");
+async function findAdvisees() {
   let advisees = await Advisee.findAll({
     where: {
       advisor_id: 3,
@@ -8,7 +8,7 @@ async function findAdvisee() {
   return advisees;
 }
 
-findAdvisee()
+findAdvisees()
   .then((advisees) => {
     advisees.forEach((advisee) => {
       console.log(advisee.dataValues);
@@ -38,7 +38,7 @@ findAdvisee()
 //   return advisee;
 // }
 
-// createAdvisee()
+// createAdvisee(1, "James", "Coomey", "James.Coomey@quinnipiac.edu", "password", "IER")
 //   .then((advisee) => {
 //     console.log(advisee.firstName);
 //   })

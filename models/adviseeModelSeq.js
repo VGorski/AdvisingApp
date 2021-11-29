@@ -1,6 +1,6 @@
-const { CHAR } = require("sequelize");
-let sequelize = require("./sequelize");
 const Sequelize = require("sequelize");
+
+const sequelize = require("./sequelize");
 
 const Advisee = sequelize.define("Advisee", {
   advisee_id: {
@@ -18,7 +18,7 @@ const Advisee = sequelize.define("Advisee", {
   lastName: Sequelize.STRING,
   email: Sequelize.STRING,
   password: Sequelize.STRING,
-  discipline: CHAR(3),
+  discipline: Sequelize.CHAR(3),
 });
 
 module.exports = Advisee;

@@ -3,7 +3,7 @@ let sequelize = require("./sequelize");
 const Sequelize = require("sequelize");
 
 const Schedule = sequelize.define("Schedule", {
-  scheduleId: {
+  schedule_id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
   },

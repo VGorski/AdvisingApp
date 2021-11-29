@@ -1,32 +1,47 @@
-require("dotenv").config();
-const { CHAR } = require("sequelize");
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    dialect: "mysql",
-
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000,
+var Advisee = require("./models/adviseeModelSeq");
+async function findAdvisee() {
+  let advisees = await Advisee.findAll({
+    where: {
+      advisor_id: 3,
     },
-  }
-);
+  });
+  return advisees;
+}
 
-const Advisor = sequelize.define("Advisor", {
-  firstName: Sequelize.STRING,
-  lastName: Sequelize.STRING,
-  email: Sequelize.STRING,
-  password: Sequelize.STRING,
-  role: Sequelize.ENUM("ADMIN", "PROGRAMDIRECTOR", "ADVISOR"),
-  discipline: CHAR(3),
-});
+findAdvisee()
+  .then((advisees) => {
+    advisees.forEach((advisee) => {
+      console.log(advisee.dataValues);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-sequelize.query("SELECT * FROM Advisor").then((advisor) => {
-  console.log(advisor[0]);
-});
+// async function createAdvisee(
+//   advisor_id,
+//   firstName,
+//   lastName,
+//   email,
+//   password,
+//   discipline
+// ) {
+//   const advisee = await Advisee.create({
+//     advisor_id: advisor_id,
+//     firstName: firstName,
+//     lastName: lastName,
+//     email: email,
+//     password: password,
+//     discipline: discipline,
+//   });
+//   // let's assume the default of isAdmin is false
+//   return advisee;
+// }
+
+// createAdvisee()
+//   .then((advisee) => {
+//     console.log(advisee.firstName);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });

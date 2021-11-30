@@ -2,10 +2,15 @@
   "name": "advisingapp",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
+    "@angular/core": "^13.0.2",
+    "@angular/forms": "^13.0.2",
+    "@angular/material": "^13.0.2",
+    "angular": "^1.8.2",
     "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

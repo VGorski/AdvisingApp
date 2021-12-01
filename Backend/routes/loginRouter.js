@@ -1,12 +1,12 @@
-var express = require('express');
-var loginRoute = express.Router();
+var express = require("express");
+var loginRouter = express.Router();
 // Add designated model here
 // Add Microsoft database server here
-var user = require('../models/advisorModel');
-var jsonToken = require('jsonwebtoken');
-var bcrypt = require('bcrypt');
+var user = require("../models/advisorModel");
+var jsonToken = require("jsonwebtoken");
+var bcrypt = require("bcrypt");
 
-loginRoute
+loginRouter
   .route("/")
   .get((req, res, next) => {
     // Get login screen
@@ -18,11 +18,10 @@ loginRoute
     res.end();
   });
 
-loginRoute
+loginRouter
   .route("/login")
   .get((req, res, next) => {
     // Get login screen
-    
 
     res.status(200);
     res.end();
@@ -33,14 +32,15 @@ loginRoute
 
     // User did not put in the email and / or password
     if (!email || !password) {
-      return res.status(500).json({message: 'Email and password are required!'})
+      return res
+        .status(500)
+        .json({ message: "Email and password are required!" });
     }
-
 
     res.end();
   });
 
-loginRoute
+loginRouter
   .route("/register")
   .get((req, res, next) => {
     // Get register screen
@@ -60,28 +60,28 @@ loginRoute
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashSalt,
-        role: req.body.role
+        role: req.body.role,
       });
-      
-        if (err) throw err;
-  
+
+      if (err) throw err;
+
       // Check to see if this user exists or not
       let promise = new Promise(newUser);
-      
+
       // User does not exist so a new account can be created
       promise.then(function (checkUser) {
         return res.status(200).json(checkUser);
-      })
+      });
 
       // User already exists so return an error
       promise.catch(function (err) {
-        return res.status(500).json({message: 'This user already exists!'})
-      })
-  });
+        return res.status(500).json({ message: "This user already exists!" });
+      });
+    });
     res.end();
   });
 
-loginRoute
+loginRouter
   .route("/forgotPassword")
   .get((req, res, next) => {
     // Get forgot password screen
@@ -93,4 +93,4 @@ loginRoute
     res.end();
   });
 
-module.exports = loginRoute;
+module.exports = loginRouter;

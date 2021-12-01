@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-const sequelize = require("./sequelize");
+const sequelize = require("./models/sequelize");
 
 const Advisee = sequelize.define("Advisee", {
   advisee_id: {

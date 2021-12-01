@@ -4,11 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/indexRoute');
-var usersRouter = require('./routes/usersRoute');
-var adminRouter = require("./routes/adminRoute");
-var adviseeRouter = require("./routes/adviseeRoute");
-var programDRouter = require("./routes/programDirectorRoute");
+var indexRouter = require("./routes/indexRoute");
+var usersRouter = require("./routes/usersRouter");
+var adminRouter = require("./routes/adminRouter");
+var adviseeRouter = require("./routes/adviseeRouter");
+var advisorRouter = require("./routes/advisorRouter");
+var programDRouter = require("./routes/programDirectorRouter");
 
 var app = express();
 
@@ -25,7 +26,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/admin", adminRouter);
-app.use("/advisee", adminRouter);
+app.use("/advisee", adviseeRouter);
+app.use("/advisor", advisorRouter);
 //app.use("/advisor", adviseeRoute); TODO: Fix advisorRouter.js to include all routes
 app.use("/programDirector", programDRouter);
 

@@ -1,14 +1,7 @@
 var Advisee = require("../models/adviseeModelSeq");
-async function findAdvisees() {
-  let advisees = await Advisee.findAll({
-    where: {
-      advisor_id: 3,
-    },
-  });
-  return advisees;
-}
+var au = require("../utils/adviseeUtil");
 
-findAdvisees()
+au.getAdvisees(4)
   .then((advisees) => {
     advisees.forEach((advisee) => {
       console.log(advisee.dataValues);

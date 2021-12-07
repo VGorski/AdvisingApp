@@ -1,4 +1,4 @@
-var Advisee = require("../models/adviseeModelSeq");
+var Advisee = require("../models/adviseeModel");
 async function getAdvisees(advisor_id) {
   let advisees = await Advisee.findAll({
     where: {

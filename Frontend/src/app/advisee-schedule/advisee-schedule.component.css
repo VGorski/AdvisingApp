@@ -1,0 +1,24 @@
+body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    color: white;
+    background-image: url("../images/QUplaid.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 0px;
+    margin: 0px;
+    min-height: 100%;
+  }
+
+.container {
+    text-align: center;
+    margin: auto;
+    width: 20%;
+  }
+
+.classRow {
+    width: 300px; 
+    height:20px; 
+    background-color: grey; 
+    padding-top: 40px; 
+    margin-top: 20px;
+}

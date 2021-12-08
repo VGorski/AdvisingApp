@@ -1,4 +1,3 @@
-let Advisee = require("./adviseeModelSeq");
 let sequelize = require("./sequelize");
 const Sequelize = require("sequelize");
 
@@ -18,7 +17,5 @@ const Schedule = sequelize.define("Schedule", {
   adviseeSignature: Sequelize.STRING,
   advisorSignature: Sequelize.STRING,
 });
-
-Schedule.hasOne(Advisee); // Set one to one relationship
 
 module.exports = Schedule;

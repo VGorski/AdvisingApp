@@ -21,6 +21,7 @@ advisorRouter.route("/:advisorId/advisees").get((req, res, next) => {
       res.end();
     });
 });
+
 advisorRouter
   .route("/:advisorId/advisees/:adviseeId/schedule")
   .get((req, res, next) => {

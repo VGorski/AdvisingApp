@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require("cors");
 
 var indexRouter = require("./routes/indexRoute");
 var usersRouter = require("./routes/usersRouter");
@@ -12,6 +13,7 @@ var advisorRouter = require("./routes/advisorRouter");
 var programDRouter = require("./routes/programDirectorRouter");
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

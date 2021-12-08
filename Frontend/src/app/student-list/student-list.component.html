@@ -5,7 +5,7 @@
 <ngb-accordion #acc="ngbAccordion" *ngFor="let advisee of advisees">
     <ngb-panel title="{{advisee.firstName}} {{advisee.lastName}}">
         <ng-template ngbPanelContent>
-            The schedule component will be presented here
+            <app-schedule [advisee_id]="advisee.advisee_id" [editable]="false"></app-schedule>
         </ng-template>
     </ngb-panel>
 </ngb-accordion>

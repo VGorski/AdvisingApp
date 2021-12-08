@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./advisor-view.component.css']
 })
 export class AdvisorViewComponent implements OnInit {
-  advisor_id = 3
+
   constructor() { }
 
   ngOnInit(): void {

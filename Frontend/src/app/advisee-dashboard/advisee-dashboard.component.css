@@ -3,7 +3,7 @@ body {
     color: white;
     background-image: url("../images/QUplaid.jpg");
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; 
     padding: 0px;
     margin: 0px;
     min-height: 100%;
@@ -27,4 +27,27 @@ button {
 
 .buttonCol {
     vertical-align: middle;
+}
+
+.imageContain {
+    background-image: url("../images/QUAdvisingLogo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 25px;
+}
+
+.logoContain {
+    background-image: url("../images/QUAdvisingLogo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.logoutContain {
+    background-image: url("../images/logout.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+/*     margin-left: 20px;
+    padding-left: 20px; */
 }

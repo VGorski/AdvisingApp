@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.component.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="row">
+        <div class="column">
+            <div id="main-body">
+                <h1 style="color: rgb(255, 255, 255); padding-top: 150px; padding-left: 40px; padding-bottom: 465px; font-size: xxx-large;">Welcome to Quinnipiac University's Advising Assistant App</h1>
+            </div>
+        </div>
+        <div class="column">
+            <div id="login-form" style="color: white; text-align: center; border-radius: 8px; background-color: rgb(23, 6, 122); margin-right: 50px; margin-top: 200px; padding-bottom: 50px;">
+                <h2 style="text-align: center; padding-top: 50px; font-size: 45px">Login</h2>
+                <br>
+                <!--Change to form group-->
+                <div class="column">
+                    <div class="row">
+                        <label style="padding-left: 160px;">Quinnipiac email: </label>
+                        <input style="margin-left: 50px; padding-left: 30px;" type="text" id="QUEmail" name="QUEmail" size="20" (onkeyup)="checkIfString($event, 'username')"/>
+                    </div>
+                    <br>
+                    <br/>
+                    <div class="row">
+                        <label style="padding-left: 160px;">Password: </label>
+                        <input style="margin-left: 105px; padding-left: 30px;" type='text' name='Password' name="Password" size="20" (onkeyup)="checkIfString($event, 'username')"/>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <button type="button" style="width: 400px;">Login</button>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="column">
+                        <button type="button" style="margin-left: 100px;">Forgot Password</button>
+                    </div>
+                    <div class="column">
+                        <button type="button" style="margin-right: 100px">Create New Account</button>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

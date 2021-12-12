@@ -1,0 +1,38 @@
+<div class="container text-center">
+    <div class="example-container">
+    <h2>Available Courses</h2>
+    Filter: <select name="filter" [(ngModel)]="filter" (change)="getFilteredCourses()">
+      <option [value]="">No Filter</option>
+      <option *ngFor="let discipline of disciplines" [value]="discipline.discipline">{{discipline.discipline}}</option>
+    </select>
+  
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="available"
+      [cdkDropListConnectedTo]="[doneList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box justify-content-center" *ngFor="let item of available" cdkDrag>{{item.name}}</div>
+    </div>
+  </div>
+  
+  <div class="example-container">
+    <h2>Planned Courses</h2>
+  <br>
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="chosen"
+      [cdkDropListConnectedTo]="[todoList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div *ngFor="let item of chosen">
+        <div class="example-box justify-content-center" *ngIf="item.course_id != -1" cdkDrag>
+          {{item.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

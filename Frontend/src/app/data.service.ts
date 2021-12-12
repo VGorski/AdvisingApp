@@ -18,4 +18,17 @@ export class DataService{
   getCourses(advisee_id: number): Observable<any> {
     return this.http.get(this.url + "/advisee/" + advisee_id + "/schedule")
   }
+
+  getAvailableCourses(discipline: string): Observable<any> {
+    if (discipline == "No Filter") {
+      return this.http.get(this.url + "/courses/")
+    }
+    else {
+      return this.http.get(this.url + "/courses/" + discipline)
+    }
+  }
+
+  getDisciplines(): Observable<any> {
+    return this.http.get(this.url + "/courses/disciplines")
+  }
 }

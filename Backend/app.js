@@ -11,6 +11,7 @@ var adminRouter = require("./routes/adminRouter");
 var adviseeRouter = require("./routes/adviseeRouter");
 var advisorRouter = require("./routes/advisorRouter");
 var programDRouter = require("./routes/programDirectorRouter");
+var courseRouter = require("./routes/courseRouter");
 
 var app = express();
 app.use(cors());
@@ -30,8 +31,8 @@ app.use("/users", usersRouter);
 app.use("/admin", adminRouter);
 app.use("/advisee", adviseeRouter);
 app.use("/advisor", advisorRouter);
-//app.use("/advisor", adviseeRoute); TODO: Fix advisorRouter.js to include all routes
 app.use("/programDirector", programDRouter);
+app.use("/courses", courseRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

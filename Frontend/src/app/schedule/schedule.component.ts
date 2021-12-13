@@ -19,7 +19,7 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
-      this.courses = courses[0]
+      this.courses = courses
     })
   }
 

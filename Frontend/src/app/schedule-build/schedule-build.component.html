@@ -1,38 +1,64 @@
-<div class="container text-center">
-    <div class="example-container">
-    <h2>Available Courses</h2>
-    Filter: <select name="filter" [(ngModel)]="filter" (change)="getFilteredCourses()">
-      <option [value]="">No Filter</option>
-      <option *ngFor="let discipline of disciplines" [value]="discipline.discipline">{{discipline.discipline}}</option>
-    </select>
-  
-    <div
-      cdkDropList
-      #todoList="cdkDropList"
-      [cdkDropListData]="available"
-      [cdkDropListConnectedTo]="[doneList]"
-      class="example-list"
-      (cdkDropListDropped)="drop($event)">
-      <div class="example-box justify-content-center" *ngFor="let item of available" cdkDrag>{{item.name}}</div>
+<div class="container">
+  <div class="row justify-content-center text-center">
+    <div class="col">
+       <div class="example-container">
+      <h2>Available Courses</h2>
+      Filter: <select name="filter" [(ngModel)]="filter" (change)="getFilteredCourses()">
+        <option [value]="">No Filter</option>
+        <option *ngFor="let discipline of disciplines" [value]="discipline.discipline">{{discipline.discipline}}</option>
+      </select>
+    
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="available_courses"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box justify-content-center overflow-auto" *ngFor="let item of available_courses" cdkDrag>{{item.name}}</div>
+      </div>
     </div>
-  </div>
-  
-  <div class="example-container">
-    <h2>Planned Courses</h2>
-  <br>
-    <div
-      cdkDropList
-      #doneList="cdkDropList"
-      [cdkDropListData]="chosen"
-      [cdkDropListConnectedTo]="[todoList]"
-      class="example-list"
-      (cdkDropListDropped)="drop($event)">
-      <div *ngFor="let item of chosen">
-        <div class="example-box justify-content-center" *ngIf="item.course_id != -1" cdkDrag>
-          {{item.name}}
+    </div>
+    <div class="col">
+      <div class="example-container">
+      <h2>Planned Courses</h2>
+    <br>
+      <div
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="chosen_courses"
+        [cdkDropListConnectedTo]="[todoList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let item of chosen_courses">
+          <div class="example-box justify-content-center" *ngIf="item.course_id != -1" cdkDrag>
+            {{item.name}}
+          </div>
         </div>
       </div>
     </div>
+    <div class="row text-center">
+      <div class="col">
+        <div class="row text-center">
+          <div class="col">
+            Advisor Signature: <input type="text" [(ngModel)]="scheduleForm.advisorSignature">
+          </div> 
+        </div>
+        <br>
+        <div class="row text-center">
+          <div class="col">
+             Advisee Signature: <input type="text" name="" id="" [(ngModel)]="scheduleForm.adviseeSignature">
+          </div> 
+        </div>
+        <br>
+        <div class="row text-center">
+          <div class="col">
+            <button type="button" class="btn btn-primary" (click)="submit()">Confirm Courses</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    </div>
   </div>
 </div>
-

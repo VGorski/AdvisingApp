@@ -10,31 +10,37 @@ import { DataService } from '../data.service';
 })
 export class ScheduleBuildComponent implements OnInit {
 
-  filter = ""
+  advisee_id = 2;
+  filter = "";
   disciplines = [{
     "discipline": ""
-  }]
-
-  available = [{
-    "course_id": -1,
-    "name": "",
-    "discipline": ""
   }];
 
-  chosen = [{
+  available_courses = [{
     "course_id": -1,
     "name": "",
-    "discipline": ""
   }];
+
+  chosen_courses = [{
+    "course_id": -1,
+    "name": "",
+  }];
+
+  scheduleForm = {
+    "advisee_id": this.advisee_id,
+    "modified_date": new Date().toISOString().slice(0, 10), //todays date
+    "adviseeSignature": "",
+    "advisorSignature": ""
+  }
   
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.available.pop()
-    this.chosen.pop()
+    this.available_courses.pop()
+    this.chosen_courses.pop()
 
     this.dataService.getAvailableCourses(this.filter).subscribe((courses) => {
-      this.available = courses
+      this.available_courses = courses
     })
 
     this.dataService.getDisciplines().subscribe((disciplines) => {
@@ -44,7 +50,7 @@ export class ScheduleBuildComponent implements OnInit {
 
   getFilteredCourses() {
     this.dataService.getAvailableCourses(this.filter).subscribe((courses) => {
-      this.available = courses
+      this.available_courses = courses
     })
   }
 
@@ -59,5 +65,11 @@ export class ScheduleBuildComponent implements OnInit {
         event.currentIndex,
       );
     }
+  }
+
+  submit() {
+    this.dataService.postSchedule(this.advisee_id, this.scheduleForm, this.chosen_courses).subscribe((res) => {
+      console.log(res);
+    })
   }
 }

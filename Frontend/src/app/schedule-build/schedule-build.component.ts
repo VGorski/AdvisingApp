@@ -10,7 +10,7 @@ import { DataService } from '../data.service';
 })
 export class ScheduleBuildComponent implements OnInit {
 
-  advisee_id = 2;
+  advisee_id = 2; //TODO make this dependent upon who logged in
   filter = "";
   disciplines = [{
     "discipline": ""

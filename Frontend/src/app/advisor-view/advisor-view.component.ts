@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-advisor-view',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./advisor-view.component.css']
 })
 export class AdvisorViewComponent implements OnInit {
+  advisor_id = 3; //TODO make this dependent upon who logged in
 
-  constructor() { }
+  advisor = {
+    "firstName": "",
+    "lastName": ""
+  }
+
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
+    this.dataService.getAdvisorName(this.advisor_id).subscribe((advisor) => {
+      console.log(advisor);
+      this.advisor = advisor
+    })
   }
 
 }

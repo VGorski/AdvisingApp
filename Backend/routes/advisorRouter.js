@@ -1,11 +1,16 @@
 var express = require("express");
 var advisorRouter = express.Router();
 var adviseeUtil = require("../utils/adviseeUtil");
+var advisorUtil = require("../utils/advisorUtil");
 
-advisorRouter.route("/:advisorId").get((req, res, next) => {
-  // Get advisor dashboard
-  res.end();
+advisorRouter.route("/:advisorId/name").get((req, res, next) => {
+  advisorUtil.getAdvisorName(req.params.advisorId).then((advisor) => {
+    res.status(200);
+    res.json(advisor);
+    res.end();
+  });
 });
+
 advisorRouter.route("/:advisorId/advisees").get((req, res, next) => {
   // Get the advisees that belong to the advisor
   adviseeUtil

@@ -1,7 +1,7 @@
 <ngb-accordion #acc="ngbAccordion" *ngFor="let advisee of advisees">
     <ngb-panel title="{{advisee.firstName}} {{advisee.lastName}}">
         <ng-template ngbPanelContent>
-            <app-schedule [advisee_id]="advisee.advisee_id" [editable]="false"></app-schedule>
+            <app-schedule [advisee_id]="advisee.advisee_id"></app-schedule>
         </ng-template>
     </ngb-panel>
 </ngb-accordion>

@@ -1,0 +1,29 @@
+.col {
+    min-height: 100vh;
+  }
+  
+  .buttonCol {
+    width: 50%;
+  }
+    
+    
+  body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    color: white;
+    background-image: url("../../assets/QUplaid.jpg");
+    background-size: cover;
+    background-repeat: no-repeat; 
+    padding: 0px;
+    margin: 0px;
+    min-height: 100%;
+  }
+  
+    
+  
+    .imageContain {
+      background-image: url("../../assets/QUAdvisingLogo.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: 20px;
+      margin-left: 100px;
+  }

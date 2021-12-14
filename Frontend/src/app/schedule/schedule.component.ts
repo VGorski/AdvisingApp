@@ -11,7 +11,6 @@ export class ScheduleComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   @Input() advisee_id: number = 0
-  @Input() editable: boolean = false
 
   courses = [{
     "name": ""

@@ -15,6 +15,10 @@ export class DataService{
     return this.http.get(this.url + "/advisor/" + advisor_id + "/advisees")
   }
 
+  getAdviseeName(advisee_id: number): Observable<any> {
+    return this.http.get(this.url + "/advisee/" + advisee_id + "/name")
+  }
+
   getAdvisorName(advisor_id: number): Observable<any> {
     return this.http.get(this.url + "/advisor/" + advisor_id + "/name")
   }

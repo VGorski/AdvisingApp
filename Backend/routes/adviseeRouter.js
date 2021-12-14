@@ -10,6 +10,15 @@ adviseeRouter.route("/:adviseeId").get((req, res, next) => {
   res.end();
 });
 
+adviseeRouter.route("/:adviseeId/name").get((req, res, next) => {
+  // Get advisee name
+  adviseeUtil.getAdviseeName(req.params.adviseeId).then((advisee) => {
+    res.status(200);
+    res.json(advisee);
+    res.end();
+  });
+});
+
 adviseeRouter
   .route("/:adviseeId/schedule")
   .get((req, res, next) => {

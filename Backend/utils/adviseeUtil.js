@@ -14,6 +14,14 @@ async function getAdvisees(advisor_id) {
   return advisees;
 }
 
+// Returns advisor given id
+async function getAdviseeName(advisee_id) {
+  let advisee = await sequelize.query(
+    `SELECT firstName, lastName FROM Advisee WHERE advisee_id = ${advisee_id}`
+  );
+  return advisee[0][0];
+}
+
 // Returns all courses for the given advisee
 async function getSchedule(advisee_id) {
   courses = sequelize.query(`SELECT * FROM Course Where Course.course_id IN (
@@ -41,6 +49,7 @@ async function postSchedule(scheduleInfo, courses) {
 
 module.exports = {
   getAdvisees,
+  getAdviseeName,
   getSchedule,
   postSchedule,
 };

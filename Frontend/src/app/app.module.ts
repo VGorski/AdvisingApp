@@ -14,6 +14,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { AdvisorViewAdviseesComponent } from './advisor-view-advisees/advisor-view-advisees.component';
+import { AdviseeScheduleComponent } from './advisee-schedule/advisee-schedule.component';
+import { AdviseeViewComponent } from './advisee-view/advisee-view.component';
 
 
 @NgModule({
@@ -24,7 +27,10 @@ import { LoginComponent } from './login/login.component';
     AdvisorReportComponent,
     ScheduleComponent,
     ScheduleBuildComponent,
-    LoginComponent
+    LoginComponent,
+    AdvisorViewAdviseesComponent,
+    AdviseeScheduleComponent,
+    AdviseeViewComponent
   ],
   imports: [
     BrowserModule,

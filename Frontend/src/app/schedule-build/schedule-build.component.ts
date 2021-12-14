@@ -11,6 +11,12 @@ import { DataService } from '../data.service';
 export class ScheduleBuildComponent implements OnInit {
 
   advisee_id = 2; //TODO make this dependent upon who logged in
+
+  advisee = {
+    "firstName": "",
+    "lastName": ""
+  }
+
   filter = "";
   disciplines = [{
     "discipline": ""
@@ -45,6 +51,10 @@ export class ScheduleBuildComponent implements OnInit {
 
     this.dataService.getDisciplines().subscribe((disciplines) => {
       this.disciplines = disciplines
+    })
+
+    this.dataService.getAdviseeName(this.advisee_id).subscribe((advisee) => {
+      this.advisee = advisee
     })
   }
 

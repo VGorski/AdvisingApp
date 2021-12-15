@@ -22,10 +22,11 @@
   <div class="row">
     <div class="col">
       <div class="viewContain">
-        <h2 style="color:white; text-align:center; padding-top: 30px; padding-bottom: 30px;">Planned Schedule for Fall Term 2022</h2>
+        <h1 style="color:white; text-align:center; padding-top: 30px; padding-bottom: 30px;">{{advisee.firstName}} {{advisee.lastName}}</h1>
+        <h2 style="color:white; text-align:center;">Planned Schedule for Fall Term 2022</h2>
         <!--Component start-->  
         <div style="color:black">
-            <app-schedule [advisee_id]="2"></app-schedule>
+            <app-schedule [advisee_id]="advisee_id"></app-schedule>
         </div>
           <!--Component end-->
       </div>

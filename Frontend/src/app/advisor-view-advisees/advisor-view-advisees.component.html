@@ -26,6 +26,7 @@
         <div class="row">
           <div class="col">
             <div class="row" style="font-size: 40px; padding-top: 40px;">Welcome, {{advisor.firstName}} {{advisor.lastName}}</div>
+            <div class="row justify-content-center" style="font-size: 40px">Select an advisee to view</div>
             <div class="row justify-content-center" style="color: black;">
               <app-student-list [advisor_id]="advisor_id" [advisingPeriodInProgress]="true"></app-student-list>
             </div>

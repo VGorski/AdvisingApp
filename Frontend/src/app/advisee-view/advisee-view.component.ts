@@ -8,7 +8,7 @@ import { DataService } from '../data.service';
 })
 export class AdviseeViewComponent implements OnInit {
 
-  advisee_id = 2 //TODO make this dependent upon who logged in
+  advisee_id = 4 //TODO make this dependent upon who logged in
 
   advisee = {
     "firstName": "",

@@ -7,7 +7,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./advisor-view-advisees.component.css']
 })
 export class AdvisorViewAdviseesComponent implements OnInit {
-  advisor_id = 3; //TODO make this dependent upon who logged in
+  advisor_id = 4; //TODO make this dependent upon who logged in
 
   advisor = {
     "firstName": "",

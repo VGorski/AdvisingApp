@@ -1,12 +1,12 @@
 var express = require('express');
-var loginRoute = express.Router();
+var loginRouter = express.Router();
 // Add designated model here
 // Add Microsoft database server here
 var user = require('../models/advisorModel');
 var jsonToken = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 
-loginRoute
+loginRouter
   .route("/")
   .get((req, res, next) => {
     res.render('login');
@@ -18,7 +18,7 @@ loginRoute
     res.end();
   });
 
-loginRoute
+loginRouter
   .route("/login")
   .get((req, res, next) => {
     // Get login screen
@@ -39,7 +39,7 @@ loginRoute
     res.end();
   });
 
-loginRoute
+loginRouter
   .route("/register")
   .get((req, res, next) => {
     // Get register screen
@@ -81,7 +81,7 @@ loginRoute
     res.end();
   });
 
-loginRoute
+loginRouter
   .route("/forgotPassword")
   .get((req, res, next) => {
     // Get forgot password screen
@@ -94,4 +94,4 @@ loginRoute
     res.end();
   });
 
-module.exports = loginRoute;
+module.exports = loginRouter;

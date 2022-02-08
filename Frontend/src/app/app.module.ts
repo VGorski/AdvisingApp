@@ -9,6 +9,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { AdvisorReportComponent } from './advisor-report/advisor-report.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { ScheduleBuildComponent } from './schedule-build/schedule-build.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DragDropModule } from '@angular/cdk/drag-drop'
+import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { AdvisorViewAdviseesComponent } from './advisor-view-advisees/advisor-view-advisees.component';
+import { AdviseeScheduleComponent } from './advisee-schedule/advisee-schedule.component';
+import { AdviseeViewComponent } from './advisee-view/advisee-view.component';
+
 
 @NgModule({
   declarations: [
@@ -16,13 +25,21 @@ import { ScheduleComponent } from './schedule/schedule.component';
     AdvisorViewComponent,
     StudentListComponent,
     AdvisorReportComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    ScheduleBuildComponent,
+    LoginComponent,
+    AdvisorViewAdviseesComponent,
+    AdviseeScheduleComponent,
+    AdviseeViewComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    DragDropModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

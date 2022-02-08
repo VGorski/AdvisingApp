@@ -1,11 +1,17 @@
-<div class="row justify-content-center">
-    <h1>Select an Advisee to View</h1>
+<div *ngIf="!advisingPeriodInProgress">
+    <ngb-accordion #acc="ngbAccordion" *ngFor="let advisee of advisees">
+        <ngb-panel title="{{advisee.firstName}} {{advisee.lastName}}">
+            <ng-template ngbPanelContent>
+                <app-schedule [advisee_id]="advisee.advisee_id"></app-schedule>
+            </ng-template>
+        </ngb-panel>
+    </ngb-accordion>
 </div>
 
-<ngb-accordion #acc="ngbAccordion" *ngFor="let advisee of advisees">
-    <ngb-panel title="{{advisee.firstName}} {{advisee.lastName}}">
-        <ng-template ngbPanelContent>
-            <app-schedule [advisee_id]="advisee.advisee_id" [editable]="false"></app-schedule>
-        </ng-template>
-    </ngb-panel>
-</ngb-accordion>
+<div *ngIf="advisingPeriodInProgress">
+    <div class="card text-center" style="width: 1250px;" *ngFor="let advisee of advisees">
+        <div class="card-body">
+        <h1 class="card-title" routerLink="/build-schedule">{{advisee.firstName}} {{advisee.lastName}}</h1>
+        </div>
+    </div>
+</div>

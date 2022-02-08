@@ -11,7 +11,6 @@ export class ScheduleComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   @Input() advisee_id: number = 0
-  @Input() editable: boolean = false
 
   courses = [{
     "name": ""
@@ -19,7 +18,7 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
-      this.courses = courses[0]
+      this.courses = courses
     })
   }
 

@@ -9,6 +9,7 @@ import { DataService} from '../data.service';
 export class StudentListComponent implements OnInit {
 
   @Input() advisor_id: number = -1;
+  @Input() advisingPeriodInProgress: boolean = false
 
   advisees = [
     {

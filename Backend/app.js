@@ -1,22 +1,16 @@
-import { NgModule } from '@angular/core';
-//import { } from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
+var createError = require("http-errors");
+var express = require("express");
+var path = require("path");
+var cookieParser = require("cookie-parser");
+var logger = require("morgan");
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-
-var indexRouter = require('./routes/indexRoute');
-var loginRouter = require('./routes/loginRoute');
-var usersRouter = require('./routes/usersRoute');
-var adminRouter = require("./routes/adminRoute");
-var adviseeRouter = require("./routes/adviseeRoute");
-var programDRouter = require("./routes/programDirectorRoute");
-
-var loginComponent = require("./components/login");
+var indexRouter = require("./routes/indexRoute");
+var usersRouter = require("./routes/usersRouter");
+var adminRouter = require("./routes/adminRouter");
+var adviseeRouter = require("./routes/adviseeRouter");
+var advisorRouter = require("./routes/advisorRouter");
+var programDRouter = require("./routes/programDirectorRouter");
+var courseRouter = require("./routes/courseRouter");
 
 var app = express();
 const port = 3000;
@@ -32,31 +26,27 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 //app.get('/public', express.static('public'));
 
-app.use("/", loginComponent);
-app.use("/login", loginRouter);
-app.use("/register", loginRouter);
-app.use("/forgotPassword", loginRouter);
 app.use("/users", usersRouter);
 app.use("/admin", adminRouter);
-app.use("/advisee", adminRouter);
-//app.use("/advisor", adviseeRoute); TODO: Fix advisorRouter.js to include all routes
+app.use("/advisee", adviseeRouter);
+app.use("/advisor", advisorRouter);
 app.use("/programDirector", programDRouter);
-
+app.use("/courses", courseRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render("error");
 });
 
 /* app.get('', (req, res) => {

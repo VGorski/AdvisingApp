@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./advisor-report.component.css']
 })
 export class AdvisorReportComponent implements OnInit {
-  advisor_id = 3
+  advisor_id = 4 //TODO make this dependent upon who logged in
   constructor() { }
 
   ngOnInit(): void {

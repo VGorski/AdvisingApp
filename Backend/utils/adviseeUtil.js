@@ -47,9 +47,32 @@ async function postSchedule(scheduleInfo, courses) {
   });
 }
 
+async function postAdvisees(uniqueAdvisees) {
+  uniqueAdvisees.forEach(async (advisee) => {
+    // Double check that the advisee is an actual advisee
+    if (advisee.firstName != undefined && advisee.email != undefined) {
+      // Get the corresponding Advisor for this advisee
+      let advisor_id = await sequelize.query(
+        `SELECT advisor_id FROM Advisor WHERE email = '${advisee.advisorEmail}'`
+      );
+
+      // Add the advisee to the database
+      await sequelize
+        .query(
+          `INSERT IGNORE INTO Advisee (advisor_id, firstName, lastName, email, password, discipline)
+        VALUES (${advisor_id[0][0].advisor_id}, '${advisee.firstName}', '${advisee.lastName}', '${advisee.email}', 'password', '${advisee.discipline}')`
+        )
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  });
+}
+
 module.exports = {
   getAdvisees,
   getAdviseeName,
   getSchedule,
   postSchedule,
+  postAdvisees,
 };

@@ -1,24 +1,42 @@
 var express = require('express');
 var adminRouter = express.Router();
-// Add designated model here
-// Add Microsoft database server here
+var advisorUtil = require("../utils/advisorUtil");
+var adviseeUtil = require("../utils/adviseeUtil");
 
 adminRouter.route("/").get((req, res, next) => {
   // Get admin dashboard
   res.end();
 });
 
-adminRouter
-  .route("/upload")
-  .get((req, res, next) => {
-    // Get upload screen
-    res.status(200);
-    res.end();
-  })
-  .post((req, res, next) => {
-    // Post file to be uploaded and type of file selected
-    res.end();
-  });
+adminRouter.route("/upload/advisors").post((req, res, next) => {
+  console.log(req.body);
+  advisorUtil
+    .postAdvisors(req.body)
+    .then(() => {
+      res.status(201);
+      res.end();
+    })
+    .catch((err) => {
+      res.status(404);
+      res.json(err);
+      res.end();
+    });
+});
+
+adminRouter.route("/upload/advisees").post((req, res, next) => {
+  console.log(req.body);
+  adviseeUtil
+    .postAdvisees(req.body)
+    .then(() => {
+      res.status(201);
+      res.end();
+    })
+    .catch((err) => {
+      res.status(404);
+      res.json(err);
+      res.end();
+    });
+});
 
 adminRouter.route("/:advisorId/advisees").get((req, res, next) => {
   // Get all advisees with advisor_id == admin's id

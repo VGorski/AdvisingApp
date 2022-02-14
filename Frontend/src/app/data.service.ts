@@ -45,6 +45,22 @@ export class DataService {
     );
   }
 
+  // Post the courses provided by the file uploaded by the administrator
+  postCourses(data: any) {
+    // Pull the info that pertains to the course
+    let courseData = data.map((element: any) => {
+      return {
+        name: element['Number'],
+        discipline: element['UC Area'],
+        iCourse: true ? element['I-Course?'] == 'Yes' : false,
+      };
+    });
+
+    this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
+  }
+
+  // Post all of the user info for advisors and advisees
+  // Creates the relationship between advisor and advisee
   postBatchUserInfo(data: any) {
     // Pull the info that pertains to the advisors
     let advisorData = data.map((element: any) => {
@@ -82,7 +98,6 @@ export class DataService {
     );
 
     // Send the advisor information to the backend
-    console.log(uniqueAdvisorData);
     this.http
       .post(this.url + '/admin/upload/advisors', uniqueAdvisorData)
       .subscribe();

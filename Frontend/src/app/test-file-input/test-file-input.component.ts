@@ -24,13 +24,33 @@ export class TestFileInputComponent implements OnInit {
       let extension = file.name.split('.').pop(); //Get the file extension
 
       if (extension == 'csv') {
-        this.processCSV(file);
+        file.text().then((text) => {
+          if (text.includes("I-Course?")) {
+            this.processCoursesCSV(file)
+          } else {
+            this.processUsersCoursesCSV(file)
+          }
+        });
       } else if (extension == 'xlsx') {
       }
     }
   }
 
-  processCSV(file: File) {
+  processCoursesCSV(file: File) {
+    console.log("Processing Courses CSV...");
+    this.papa.parse(file, {
+      complete: (result) => {
+        result.data.forEach((element: any) => {
+          delete element['Title'];
+        })
+        this.dataService.postCourses(result.data)
+      },
+      header: true
+    })
+  }
+
+  processUsersCoursesCSV(file: File) {
+    console.log("Processing Users and Courses CSV...");
     this.papa.parse(file, {
       complete: (result) => {
         // Remove data that doesn't need to be sent to the backend

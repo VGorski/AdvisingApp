@@ -39,7 +39,7 @@ async function postCourses(courses) {
         if (secondCourse.slice(-1) == "L" || secondCourse.slice(-1) == "H") {
           /// If it is listed as a course as well as its lab or honors
           let baseCourse = courseName[0].trim();
-          // Get the Course name (AN) and add it to the lab (104L) to get the full course name (AN104L)
+          // Get the Course name (AN) and add it to the lab (104L) to get the full course name (AN 104L)
           let labCourse = baseCourse.split(" ")[0] + " " + courseName[1].trim();
 
           await sequelize.query(

@@ -61,7 +61,7 @@ export class DataService {
 
   // Post all of the user info for advisors and advisees
   // Creates the relationship between advisor and advisee
-  postBatchUserInfo(data: any) {
+  async postBatchUserInfo(data: any) {
     // Pull the info that pertains to the advisors
     let advisorData = data.map((element: any) => {
       return {
@@ -109,19 +109,22 @@ export class DataService {
     });
 
     // Send the advisor information to the backend
-    this.http
+    await this.http
       .post(this.url + '/admin/upload/advisors', uniqueAdvisorData)
       .subscribe();
 
     // Send the advisee information to the backend
-    this.http
+    await this.http
       .post(this.url + '/admin/upload/advisees', uniqueAdviseeData)
       .subscribe();
 
-    // Send the advisor information to the backend
-    this.http
-      .post(this.url + '/admin/upload/takenCourses', takenCourseData)
-      .subscribe();
+    // This fixes the race condition between the advisee being added and the courses requiring the advisee_id
+    setTimeout(async () => {
+      // Send the courses taken information to the backend
+      await this.http
+        .post(this.url + '/admin/upload/takenCourses', takenCourseData)
+        .subscribe();
+    }, 2000);
   }
 
   getAvailableCourses(discipline: string): Observable<any> {

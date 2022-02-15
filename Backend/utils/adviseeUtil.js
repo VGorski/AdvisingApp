@@ -58,7 +58,7 @@ async function postSchedule(scheduleInfo, courses) {
 }
 
 async function postAdvisees(uniqueAdvisees) {
-  uniqueAdvisees.forEach(async (advisee) => {
+  await uniqueAdvisees.forEach(async (advisee) => {
     // Double check that the advisee is an actual advisee
     if (advisee.firstName && advisee.email) {
       // Get the corresponding Advisor for this advisee
@@ -80,34 +80,38 @@ async function postAdvisees(uniqueAdvisees) {
 }
 
 async function postTakenCourses(takenCourseData) {
-  takenCourseData.forEach(async (courseData) => {
-    // Ensure that there is an object there
-    if (courseData.email && courseData.course) {
-      let adviseeObject = await sequelize.query(
-        `SELECT advisee_id FROM Advisee WHERE email = '${courseData.email}'`
-      );
+  takenCourseData
+    .forEach(async (courseData) => {
+      // Ensure that there is an object there
+      if (courseData.email && courseData.course) {
+        let adviseeObject = await sequelize.query(
+          `SELECT advisee_id FROM Advisee WHERE email = '${courseData.email}'`
+        );
 
-      let courseObject = await sequelize.query(
-        `SELECT course_id FROM Course WHERE name = '${courseData.course}'`
-      );
+        let courseObject = await sequelize.query(
+          `SELECT course_id FROM Course WHERE name = '${courseData.course}'`
+        );
 
-      // Make a new schedule that is at date 0 so that it will never be considered as a recent schedule
-      let scheduleInfo = {
-        advisee_id: adviseeObject[0][0].advisee_id,
-        modified_date: new Date(0),
-        adviseeSignature: "PREVIOUSLY TAKEN",
-        advisorSignature: "PREVIOUSLY TAKEN",
-      };
+        // Make a new schedule that is at date 0 so that it will never be considered as a recent schedule
+        let scheduleInfo = {
+          advisee_id: adviseeObject[0][0].advisee_id,
+          modified_date: new Date(0),
+          adviseeSignature: "PREVIOUSLY TAKEN",
+          advisorSignature: "PREVIOUSLY TAKEN",
+        };
 
-      let course = {
-        course_id: courseObject[0][0].course_id,
-      };
+        let course = {
+          course_id: courseObject[0][0].course_id,
+        };
 
-      let courses = [course];
+        let courses = [course];
 
-      postSchedule(scheduleInfo, courses);
-    }
-  });
+        postSchedule(scheduleInfo, courses);
+      }
+    })
+    .catch((err) => {
+      console.log("ERROR: " + err);
+    });
 }
 
 module.exports = {

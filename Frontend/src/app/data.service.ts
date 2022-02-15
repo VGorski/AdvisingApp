@@ -97,6 +97,17 @@ export class DataService {
       }
     );
 
+    let takenCourseData = data.map((element: any) => {
+      let course = element['Course'];
+      if (course) {
+        course = course.replace('*', ' ');
+      }
+      return {
+        course: course,
+        email: element['Qu Email'],
+      };
+    });
+
     // Send the advisor information to the backend
     this.http
       .post(this.url + '/admin/upload/advisors', uniqueAdvisorData)
@@ -105,6 +116,11 @@ export class DataService {
     // Send the advisee information to the backend
     this.http
       .post(this.url + '/admin/upload/advisees', uniqueAdviseeData)
+      .subscribe();
+
+    // Send the advisor information to the backend
+    this.http
+      .post(this.url + '/admin/upload/takenCourses', takenCourseData)
       .subscribe();
   }
 

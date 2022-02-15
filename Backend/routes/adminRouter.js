@@ -54,6 +54,20 @@ adminRouter.route("/upload/courses").post((req, res, next) => {
     });
 });
 
+adminRouter.route("/upload/takenCourses").post((req, res, next) => {
+  adviseeUtil
+    .postTakenCourses(req.body)
+    .then(() => {
+      res.status(201);
+      res.end();
+    })
+    .catch((err) => {
+      res.status(404);
+      res.json(err);
+      res.end();
+    });
+});
+
 adminRouter.route("/:advisorId/advisees").get((req, res, next) => {
   // Get all advisees with advisor_id == admin's id
   res.status(200);

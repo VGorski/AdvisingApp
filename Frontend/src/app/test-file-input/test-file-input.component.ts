@@ -21,14 +21,17 @@ export class TestFileInputComponent implements OnInit {
     // If a file has actually been uploaded
     if (files.length > 0) {
       let file: File = files[0];
-      let extension = file.name.split('.').pop(); //Get the file extension
+      let extension = file.name.split('.').pop(); // Get the file extension
 
       if (extension == 'csv') {
         file.text().then((text) => {
-          if (text.includes("I-Course?")) {
-            this.processCoursesCSV(file)
+          if (text.includes('I-Course?')) {
+            this.processCoursesCSV(file);
+          } else if (text.includes('')) {
+            this.processUsersCoursesCSV(file);
           } else {
-            this.processUsersCoursesCSV(file)
+            // TODO: Throw an error and display that to the user
+            console.log("File uploaded was not of the correct format...");
           }
         });
       } else if (extension == 'xlsx') {
@@ -41,8 +44,17 @@ export class TestFileInputComponent implements OnInit {
     this.papa.parse(file, {
       complete: (result) => {
         result.data.forEach((element: any) => {
+          // Remove data that does not need to be sent
           delete element['Title'];
         })
+
+        //Format of Data
+        /*
+        Number: "",
+        I-Course?: "",
+        UC Area: ""
+        */
+
         this.dataService.postCourses(result.data)
       },
       header: true

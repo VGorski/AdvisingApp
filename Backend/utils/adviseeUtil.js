@@ -35,24 +35,34 @@ async function getSchedule(advisee_id) {
 // Add a new schedule to the schedule table and then update the Course_Schedule table
 async function postSchedule(scheduleInfo, courses) {
   // Insert the planned schedule
-  await sequelize.query(`INSERT INTO Schedule (advisee_id, modified_date, adviseeSignature, advisorSignature) VALUES(${scheduleInfo.advisee_id},"${scheduleInfo.modified_date}","${scheduleInfo.adviseeSignature}","${scheduleInfo.advisorSignature}");`);
+  await sequelize.query(
+    `INSERT INTO Schedule (advisee_id, modified_date, adviseeSignature, advisorSignature) VALUES(${scheduleInfo.advisee_id},"${scheduleInfo.modified_date}","${scheduleInfo.adviseeSignature}","${scheduleInfo.advisorSignature}");`
+  );
 
   // Get the id of the last schedule (the one we just put in)
-  let increment_object = await sequelize.query("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'Schedule';");
-  schedule_id = increment_object[0][0]["AUTO_INCREMENT"]-1;
+  let increment_object = await sequelize.query(
+    "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'Schedule';"
+  );
+  schedule_id = increment_object[0][0]["AUTO_INCREMENT"] - 10;
 
   // Update Course_Schedule table with all of the courses inserted
   courses.forEach(async (course) => {
-    await sequelize.query(`INSERT INTO Course_Schedule (schedule_id, course_id) VALUES(${schedule_id},${course.course_id});`);
+    await sequelize
+      .query(
+        `INSERT INTO Course_Schedule (schedule_id, course_id) VALUES(${schedule_id},${course.course_id});`
+      )
+      .catch((err) => {
+        console.log(err);
+      });
   });
 }
 
 async function postAdvisees(uniqueAdvisees) {
   uniqueAdvisees.forEach(async (advisee) => {
     // Double check that the advisee is an actual advisee
-    if (advisee.firstName != undefined && advisee.email != undefined) {
+    if (advisee.firstName && advisee.email) {
       // Get the corresponding Advisor for this advisee
-      let advisor_id = await sequelize.query(
+      let advisorObject = await sequelize.query(
         `SELECT advisor_id FROM Advisor WHERE email = '${advisee.advisorEmail}'`
       );
 
@@ -60,11 +70,42 @@ async function postAdvisees(uniqueAdvisees) {
       await sequelize
         .query(
           `INSERT IGNORE INTO Advisee (advisor_id, firstName, lastName, email, password, discipline)
-        VALUES (${advisor_id[0][0].advisor_id}, '${advisee.firstName}', '${advisee.lastName}', '${advisee.email}', 'password', '${advisee.discipline}')`
+        VALUES (${advisorObject[0][0].advisor_id}, '${advisee.firstName}', '${advisee.lastName}', '${advisee.email}', 'password', '${advisee.discipline}')`
         )
         .catch((err) => {
           console.log(err);
         });
+    }
+  });
+}
+
+async function postTakenCourses(takenCourseData) {
+  takenCourseData.forEach(async (courseData) => {
+    // Ensure that there is an object there
+    if (courseData.email && courseData.course) {
+      let adviseeObject = await sequelize.query(
+        `SELECT advisee_id FROM Advisee WHERE email = '${courseData.email}'`
+      );
+
+      let courseObject = await sequelize.query(
+        `SELECT course_id FROM Course WHERE name = '${courseData.course}'`
+      );
+
+      // Make a new schedule that is at date 0 so that it will never be considered as a recent schedule
+      let scheduleInfo = {
+        advisee_id: adviseeObject[0][0].advisee_id,
+        modified_date: new Date(0),
+        adviseeSignature: "PREVIOUSLY TAKEN",
+        advisorSignature: "PREVIOUSLY TAKEN",
+      };
+
+      let course = {
+        course_id: courseObject[0][0].course_id,
+      };
+
+      let courses = [course];
+
+      postSchedule(scheduleInfo, courses);
     }
   });
 }
@@ -75,4 +116,5 @@ module.exports = {
   getSchedule,
   postSchedule,
   postAdvisees,
+  postTakenCourses,
 };

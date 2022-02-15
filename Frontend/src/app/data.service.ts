@@ -52,7 +52,7 @@ export class DataService {
       return {
         name: element['Number'],
         discipline: element['UC Area'],
-        iCourse: true ? element['I-Course?'] == 'Yes' : false,
+        iCourse: 1 ? element['I-Course?'] == 'Yes' : 0,
       };
     });
 

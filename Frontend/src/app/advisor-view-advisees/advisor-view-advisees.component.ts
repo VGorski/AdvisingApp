@@ -4,22 +4,21 @@ import { DataService } from '../data.service';
 @Component({
   selector: 'app-advisor-view-advisees',
   templateUrl: './advisor-view-advisees.component.html',
-  styleUrls: ['./advisor-view-advisees.component.css']
+  styleUrls: ['./advisor-view-advisees.component.css'],
 })
 export class AdvisorViewAdviseesComponent implements OnInit {
-  advisor_id = 4; //TODO make this dependent upon who logged in
+  advisor_id = 24; //TODO make this dependent upon who logged in
 
   advisor = {
-    "firstName": "",
-    "lastName": ""
-  }
-  constructor(private dataService: DataService) { }
+    firstName: '',
+    lastName: '',
+  };
+  constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
     this.dataService.getAdvisorName(this.advisor_id).subscribe((advisor) => {
       console.log(advisor);
-      this.advisor = advisor
-    })
+      this.advisor = advisor;
+    });
   }
-
 }

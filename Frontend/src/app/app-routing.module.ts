@@ -7,6 +7,7 @@ import { AdvisorViewAdviseesComponent } from './advisor-view-advisees/advisor-vi
 import { AdvisorViewComponent } from './advisor-view/advisor-view.component';
 import { LoginComponent } from './login/login.component';
 import { ScheduleBuildComponent } from './schedule-build/schedule-build.component';
+import { TestFileInputComponent } from './test-file-input/test-file-input.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'build-schedule', component: ScheduleBuildComponent },
   { path: 'advisee-view', component: AdviseeViewComponent },
   { path: 'advisee-schedule', component: AdviseeScheduleComponent },
+  { path: 'fileTest', component: TestFileInputComponent },
 ];
 
 @NgModule({

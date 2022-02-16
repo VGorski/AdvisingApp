@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { AdvisorViewAdviseesComponent } from './advisor-view-advisees/advisor-view-advisees.component';
 import { AdviseeScheduleComponent } from './advisee-schedule/advisee-schedule.component';
 import { AdviseeViewComponent } from './advisee-view/advisee-view.component';
+import { TestFileInputComponent } from './test-file-input/test-file-input.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AdviseeViewComponent } from './advisee-view/advisee-view.component';
     LoginComponent,
     AdvisorViewAdviseesComponent,
     AdviseeScheduleComponent,
-    AdviseeViewComponent
+    AdviseeViewComponent,
+    TestFileInputComponent
   ],
   imports: [
     BrowserModule,

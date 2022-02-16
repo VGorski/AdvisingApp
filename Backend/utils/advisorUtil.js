@@ -8,6 +8,24 @@ async function getAdvisorName(advisor_id) {
   return advisor[0][0];
 }
 
+async function postAdvisors(uniqueAdvisors) {
+  uniqueAdvisors.forEach(async (advisor) => {
+    // Double check that the advisor is an actual advisor
+    if (advisor.firstName != undefined && advisor.email != undefined) {
+      // Add the advisee to the database
+      await sequelize
+        .query(
+          `INSERT IGNORE INTO Advisor (firstName, lastName, email, password, role, discipline)
+        VALUES ('${advisor.firstName}', '${advisor.lastName}', '${advisor.email}', 'password', 'ADVISOR', '${advisor.discipline}')`
+        )
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  });
+}
+
 module.exports = {
   getAdvisorName,
+  postAdvisors,
 };

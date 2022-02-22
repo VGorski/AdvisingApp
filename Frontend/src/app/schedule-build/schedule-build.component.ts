@@ -45,6 +45,10 @@ export class ScheduleBuildComponent implements OnInit {
     this.available_courses.pop()
     this.chosen_courses.pop()
 
+    this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
+      this.chosen_courses = courses;
+    });
+
     this.dataService.getAvailableCourses(this.filter).subscribe((courses) => {
       this.available_courses = courses
     })

@@ -24,10 +24,16 @@ async function getAdviseeName(advisee_id) {
 
 // Returns all courses for the given advisee
 async function getSchedule(advisee_id) {
-  courses = sequelize.query(`SELECT * FROM Course Where Course.course_id IN (
-    SELECT Course_Schedule.course_id FROM Course_Schedule WHERE schedule_id IN (
-        SELECT Schedule.schedule_id FROM Schedule WHERE Schedule.advisee_id = ${advisee_id}))
-    `);
+  courses = sequelize.query(`SELECT * FROM Course
+  WHERE course_id IN 
+    (SELECT course_id FROM Course_Schedule
+      WHERE schedule_id IN
+      (SELECT schedule_id FROM Schedule
+          WHERE advisee_id IN
+        (SELECT advisee_id FROM Advisee WHERE advisee_id = ${advisee_id})
+      AND Schedule.modified_date != 0
+          )
+    );`);
 
   return courses;
 }

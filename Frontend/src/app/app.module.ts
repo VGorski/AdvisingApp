@@ -18,6 +18,9 @@ import { AdvisorViewAdviseesComponent } from './advisor-view-advisees/advisor-vi
 import { AdviseeScheduleComponent } from './advisee-schedule/advisee-schedule.component';
 import { AdviseeViewComponent } from './advisee-view/advisee-view.component';
 import { TestFileInputComponent } from './test-file-input/test-file-input.component';
+import { AdminViewComponent } from './admin-view/admin-view.component';
+import { AdminFileUploadComponent } from './admin-file-upload/admin-file-upload.component';
+import { FileUploadListComponent } from './file-upload-list/file-upload-list.component';
 
 
 @NgModule({
@@ -32,7 +35,10 @@ import { TestFileInputComponent } from './test-file-input/test-file-input.compon
     AdvisorViewAdviseesComponent,
     AdviseeScheduleComponent,
     AdviseeViewComponent,
-    TestFileInputComponent
+    TestFileInputComponent,
+    AdminViewComponent,
+    AdminFileUploadComponent,
+    FileUploadListComponent
   ],
   imports: [
     BrowserModule,

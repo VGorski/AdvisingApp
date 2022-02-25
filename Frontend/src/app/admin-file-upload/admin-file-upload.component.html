@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--Checklist: whatever is in the example files-->
+<!--Make program upload multiple files at the same time-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="admin-file-upload.component.css">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #17067a;">
+        <div class="container-fluid">
+            <div class="logoContain" style="height: 40px; width: 40px;"></div>
+          <a class="navbar-brand" routerLink="/admin-view">Admin Dashboard</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" routerLink="/admin-file-upload">Upload Files</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" routerLink="../student-list">View Advisees</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" routerLink="../admin-report">Check Discrepancies</a>
+              </li>
+            </ul>
+          </div>
+          <div class="logoutContain" style="height: 30px; width: 30px;"></div>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <div class="viewContain">
+                        <h2 style="color:white; text-align:center; padding-top: 30px; padding-bottom: 30px;">Select Files to Upload</h2>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend" style="padding-left: 40px;">
+                              <div class="input-group-text" style="background-color: darkblue; border-color: darkblue;">
+                                <input type="checkbox" aria-label="advisor and their advisees checkbox">
+                              </div>
+                            </div>
+                            <h5 style="margin-left: 40px;">Advisors and Their Advisees</h5>
+                          </div>
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend" style="padding-left: 40px;">
+                              <div class="input-group-text" style="background-color: darkblue; border-color: darkblue;">
+                                <input type="checkbox" aria-label="advisor and their advisees checkbox">
+                              </div>
+                            </div>
+                            <h5 style="margin-left: 40px;">Advisees and the Courses Taken</h5>
+                          </div>
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend" style="padding-left: 40px;">
+                              <div class="input-group-text" style="background-color: darkblue; border-color: darkblue;">
+                                <input type="checkbox" aria-label="advisor and their advisees checkbox">
+                              </div>
+                            </div>
+                            <h5 style="margin-left: 40px;">All Available Courses</h5>
+                          </div>
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend" style="padding-left: 40px;">
+                              <div class="input-group-text" style="background-color: darkblue; border-color: darkblue;">
+                                <input type="checkbox" aria-label="advisor and their advisees checkbox">
+                              </div>
+                            </div>
+                            <h5 style="margin-left: 40px;">UC Humanities, Fine Arts,</h5>
+                            <h5 style="margin-left: 120px;"> and Major - Specific Courses</h5>
+                          </div>
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend" style="padding-left: 40px;">
+                              <div class="input-group-text" style="background-color: darkblue; border-color: darkblue;">
+                                <input type="checkbox" aria-label="advisor and their advisees checkbox">
+                              </div>
+                            </div>
+                            <h5 style="margin-left: 40px;">Inquiry Courses</h5>
+                          </div>
+                </div>
+                  </div>
+                  <div class="col">
+                    <div class="viewContain">
+                        <h2 style="color:white; text-align:center; padding-top: 30px; padding-bottom: 20px;">Uploaded Files</h2>
+                        <app-file-upload-list></app-file-upload-list>
+                      </div>
+                  </div>
+            </div>
+
+            </div>
+            <div class="row">
+                  <button type="button" class="btn btn-primary" style="margin-top: 30px; padding-left: 130px;">Upload Files</button>
+                  <button type="button" class="btn btn-primary" style="margin-top: 30px; padding-left: 130px;">Submit Files</button>
+                <div>
+            </div>
+        </div>
+      </div>
+</body>
+</html>

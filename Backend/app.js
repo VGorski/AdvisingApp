@@ -14,7 +14,7 @@ var programDRouter = require("./routes/programDirectorRouter");
 var courseRouter = require("./routes/courseRouter");
 
 var app = express();
-const port = 3000;
+const port = process.env.PORT || 3000
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

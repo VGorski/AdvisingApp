@@ -120,6 +120,23 @@ async function postTakenCourses(takenCourseData) {
     });
 }
 
+async function getTakenCourses(adviseeId) {
+  courses = await sequelize.query(
+    `SELECT * FROM Course
+        WHERE course_id IN 
+          (SELECT course_id FROM Course_Schedule
+            WHERE schedule_id IN
+            (SELECT schedule_id FROM Schedule
+                WHERE advisee_id IN
+              (SELECT advisee_id FROM Advisee WHERE advisee_id = ${adviseeId})
+            AND Schedule.modified_date = 0
+                )
+          );`
+  );
+
+  return courses[0];
+}
+
 module.exports = {
   getAdvisees,
   getAdviseeName,
@@ -127,4 +144,5 @@ module.exports = {
   postSchedule,
   postAdvisees,
   postTakenCourses,
+  getTakenCourses,
 };

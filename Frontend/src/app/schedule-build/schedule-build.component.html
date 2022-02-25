@@ -81,6 +81,7 @@
                     class="example-box justify-content-center overflow-auto"
                     *ngFor="let item of available_courses"
                     cdkDrag
+                    [cdkDragDisabled]="hasCourseBeenTaken(item.course_id)"
                   >
                     {{ item.name }}
                   </div>

@@ -9,7 +9,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./schedule-build.component.css'],
 })
 export class ScheduleBuildComponent implements OnInit {
-  advisee_id = 554; //TODO make this dependent upon who logged in
+  advisee_id = 4; //TODO make this dependent upon who logged in
 
   advisee = {
     firstName: '',
@@ -67,7 +67,6 @@ export class ScheduleBuildComponent implements OnInit {
     });
 
     this.dataService.getTakenCourses(this.advisee_id).subscribe((courses) => {
-      console.log(courses);
       this.taken_courses = courses;
     });
 

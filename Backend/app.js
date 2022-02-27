@@ -24,7 +24,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "/")));
+app.use(express.static(path.join(__dirname, "/dist/advising-assistant")));
 app.use(
   cors({
     origin: "*",
@@ -40,7 +40,7 @@ app.use("/advisor", advisorRouter);
 app.use("/programDirector", programDRouter);
 app.use("/courses", courseRouter);
 app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/dist/advising-assistant/index.html");
+  res.sendFile(__dirname + "/index.html");
 });
 
 // catch 404 and forward to error handler

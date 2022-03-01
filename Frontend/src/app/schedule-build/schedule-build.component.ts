@@ -56,6 +56,8 @@ export class ScheduleBuildComponent implements OnInit {
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
+    this.advisee_id = history.state.advisee_id;
+    
     this.available_courses.pop();
     this.chosen_courses.pop();
     this.taken_courses.pop();

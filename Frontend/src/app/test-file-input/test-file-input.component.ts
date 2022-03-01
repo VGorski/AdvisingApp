@@ -14,6 +14,7 @@ export class TestFileInputComponent implements OnInit {
 
   // Whenever a new file is selected to upload
   // Just for testing - this will be changed to be upon form submit
+  
   fileChange(event: any) {
     // Get any files from the file input
     let files: FileList = event.target.files;

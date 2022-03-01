@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,6 +12,20 @@ export class DataService {
   });
 
   constructor(private http: HttpClient) {}
+
+  // Upload files
+  fileUpload(file: File): Observable<HttpEvent<any>> {
+    const dataForm: FormData = new FormData();
+    dataForm.append('file', file);
+    const req = new HttpRequest('POST', `${this.url}/upload`, dataForm, {responseType: 'json'});
+    return this.http.request(req);
+  }
+
+  // Return the status of the files
+  fileStatus(): Observable<any> {
+    return this.http.get(`${this.url}/files`);
+  }
+
 
   getAdvisees(advisor_id: number): Observable<any> {
     return this.http.get(this.url + '/advisor/' + advisor_id + '/advisees');
@@ -128,9 +142,10 @@ export class DataService {
   }
 
   getAvailableCourses(discipline: string): Observable<any> {
-    if (discipline == 'No Filter') {
+     if (discipline == '') {
       return this.http.get(this.url + '/courses/');
-    } else {
+    }
+    else {
       return this.http.get(this.url + '/courses/' + discipline);
     }
   }

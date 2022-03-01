@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminFileUploadComponent implements OnInit {
 
-  constructor() { }
+  fileName = '';
+
+  constructor(private http: HttpClient) { }
+
+  selectFile(event:any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.fileName = file.name;
+      const dataForm = new FormData();
+      dataForm.append("file", file);
+      //const upload$ = this.http.post("/")
+      //upload$.subscribe;
+    }
+  }
 
   ngOnInit(): void {
   }

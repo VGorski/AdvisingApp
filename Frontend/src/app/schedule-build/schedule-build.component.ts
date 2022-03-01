@@ -115,6 +115,7 @@ export class ScheduleBuildComponent implements OnInit {
       .postSchedule(this.advisee_id, this.scheduleForm, this.chosen_courses)
       .subscribe((res) => {
         console.log(res);
+        window.location.reload();
       });
   }
 }

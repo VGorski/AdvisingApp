@@ -40,6 +40,16 @@ async function getSchedule(advisee_id) {
 
 // Add a new schedule to the schedule table and then update the Course_Schedule table
 async function postSchedule(scheduleInfo, courses) {
+  // [BEGIN] Delete previous schedule
+  await sequelize.query(
+    `DELETE FROM course_schedule WHERE schedule_id IN (select schedule_id FROM Schedule WHERE modified_date != 0 AND advisee_id = ${scheduleInfo.advisee_id});`
+  );
+
+  await sequelize.query(
+    `DELETE FROM Schedule WHERE advisee_id = ${scheduleInfo.advisee_id};`
+  );
+  // [END] delete previous schedule
+
   // Insert the planned schedule
   await sequelize.query(
     `INSERT INTO Schedule (advisee_id, modified_date, adviseeSignature, advisorSignature) VALUES(${scheduleInfo.advisee_id},"${scheduleInfo.modified_date}","${scheduleInfo.adviseeSignature}","${scheduleInfo.advisorSignature}");`

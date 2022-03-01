@@ -51,6 +51,8 @@ export class ScheduleBuildComponent implements OnInit {
     advisorSignature: '',
   };
 
+  displayFillData = false;
+
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
@@ -111,11 +113,24 @@ export class ScheduleBuildComponent implements OnInit {
   }
 
   submit() {
-    this.dataService
-      .postSchedule(this.advisee_id, this.scheduleForm, this.chosen_courses)
-      .subscribe((res) => {
-        console.log(res);
-        window.location.reload();
-      });
+    if (
+      this.scheduleForm.adviseeSignature != '' &&
+      this.scheduleForm.advisorSignature != ''
+    ) {
+      this.dataService
+        .postSchedule(this.advisee_id, this.scheduleForm, this.chosen_courses)
+        .subscribe((res) => {
+          this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
+            this.chosen_courses = courses;
+            this.scheduleForm.adviseeSignature = '';
+            this.scheduleForm.advisorSignature = '';
+          });
+        });
+    } else {
+      this.displayFillData = true;
+      setTimeout(() => {
+        this.displayFillData = false;
+      }, 5000);
+    }
   }
 }

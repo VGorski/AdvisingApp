@@ -70,6 +70,11 @@
     width: 50%;
 }
 
+.example-box.cdk-drag-disabled {
+  background: #ccc;
+  cursor: default;
+}
+
 .scheduleContain {
     height: 80vh; 
     width: 90vh; 

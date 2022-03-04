@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
-  url = 'http://localhost:3000';
+  url = 'https://quinnipiac-advising-assistant.herokuapp.com';
   headers = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
   });
@@ -41,6 +41,12 @@ export class DataService {
 
   getCourses(advisee_id: number): Observable<any> {
     return this.http.get(this.url + '/advisee/' + advisee_id + '/schedule');
+  }
+
+  getTakenCourses(advisee_id: number): Observable<any> {
+    return this.http.get(
+      this.url + '/advisee/' + advisee_id + '/taken-courses'
+    );
   }
 
   postSchedule(
@@ -142,12 +148,11 @@ export class DataService {
   }
 
   getAvailableCourses(discipline: string): Observable<any> {
-     if (discipline == '') {
-      return this.http.get(this.url + '/courses/');
-    }
-    else {
-      return this.http.get(this.url + '/courses/' + discipline);
-    }
+     if (discipline == 'No Filter') {
+       return this.http.get(this.url + '/courses/');
+     } else {
+       return this.http.get(this.url + '/courses/' + discipline);
+     }
   }
 
   getDisciplines(): Observable<any> {

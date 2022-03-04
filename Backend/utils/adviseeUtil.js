@@ -24,16 +24,32 @@ async function getAdviseeName(advisee_id) {
 
 // Returns all courses for the given advisee
 async function getSchedule(advisee_id) {
-  courses = sequelize.query(`SELECT * FROM Course Where Course.course_id IN (
-    SELECT Course_Schedule.course_id FROM Course_Schedule WHERE schedule_id IN (
-        SELECT Schedule.schedule_id FROM Schedule WHERE Schedule.advisee_id = ${advisee_id}))
-    `);
+  courses = sequelize.query(`SELECT * FROM Course
+  WHERE course_id IN 
+    (SELECT course_id FROM Course_Schedule
+      WHERE schedule_id IN
+      (SELECT schedule_id FROM Schedule
+          WHERE advisee_id IN
+        (SELECT advisee_id FROM Advisee WHERE advisee_id = ${advisee_id})
+      AND Schedule.modified_date != 0
+          )
+    );`);
 
   return courses;
 }
 
 // Add a new schedule to the schedule table and then update the Course_Schedule table
 async function postSchedule(scheduleInfo, courses) {
+  // [BEGIN] Delete previous schedule
+  await sequelize.query(
+    `DELETE FROM course_schedule WHERE schedule_id IN (select schedule_id FROM Schedule WHERE modified_date != 0 AND advisee_id = ${scheduleInfo.advisee_id});`
+  );
+
+  await sequelize.query(
+    `DELETE FROM Schedule WHERE advisee_id = ${scheduleInfo.advisee_id};`
+  );
+  // [END] delete previous schedule
+
   // Insert the planned schedule
   await sequelize.query(
     `INSERT INTO Schedule (advisee_id, modified_date, adviseeSignature, advisorSignature) VALUES(${scheduleInfo.advisee_id},"${scheduleInfo.modified_date}","${scheduleInfo.adviseeSignature}","${scheduleInfo.advisorSignature}");`
@@ -114,6 +130,23 @@ async function postTakenCourses(takenCourseData) {
     });
 }
 
+async function getTakenCourses(adviseeId) {
+  courses = await sequelize.query(
+    `SELECT * FROM Course
+        WHERE course_id IN 
+          (SELECT course_id FROM Course_Schedule
+            WHERE schedule_id IN
+            (SELECT schedule_id FROM Schedule
+                WHERE advisee_id IN
+              (SELECT advisee_id FROM Advisee WHERE advisee_id = ${adviseeId})
+            AND Schedule.modified_date = 0
+                )
+          );`
+  );
+
+  return courses[0];
+}
+
 module.exports = {
   getAdvisees,
   getAdviseeName,
@@ -121,4 +154,5 @@ module.exports = {
   postSchedule,
   postAdvisees,
   postTakenCourses,
+  getTakenCourses,
 };

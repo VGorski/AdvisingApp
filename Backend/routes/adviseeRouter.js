@@ -50,4 +50,12 @@ adviseeRouter
       });
   });
 
+  adviseeRouter.route("/:adviseeId/taken-courses").get((req, res, next) => {
+    adviseeUtil.getTakenCourses(req.params.adviseeId).then((courses) => {
+      res.status(200);
+      res.json(courses);
+      res.end();
+    });
+  });
+
 module.exports = adviseeRouter;

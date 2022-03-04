@@ -59,7 +59,7 @@
                 (change)="getFilteredCourses()"
                 style="color:black"
               >
-                <option [value]="">No Filter Selected</option>
+                <option value="No Filter">No Filter Selected</option>
                 <option
                   *ngFor="let discipline of disciplines"
                   [value]="discipline.discipline"
@@ -170,5 +170,6 @@
         </div>
       </div>
     </div>
+  
   </div>
 </body>

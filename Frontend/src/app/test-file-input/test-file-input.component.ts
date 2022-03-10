@@ -60,7 +60,6 @@ export class TestFileInputComponent implements OnInit {
         UC Area: ""
         */
 
-        console.log(result.data);
         this.dataService.postGeneralCourses(result.data)
       },
       header: true
@@ -88,8 +87,6 @@ export class TestFileInputComponent implements OnInit {
 
           delete element['Program 1'];
         });
-
-        console.log(result.data);
 
         //Format of Data
         /*

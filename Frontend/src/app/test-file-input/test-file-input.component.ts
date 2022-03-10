@@ -61,7 +61,7 @@ export class TestFileInputComponent implements OnInit {
         */
 
         console.log(result.data);
-        //this.dataService.postGeneralCourses(result.data)
+        this.dataService.postGeneralCourses(result.data)
       },
       header: true
     })
@@ -103,7 +103,7 @@ export class TestFileInputComponent implements OnInit {
         discipline: ""
         */
 
-        //this.dataService.postBatchUserInfo(result.data);
+        this.dataService.postBatchUserInfo(result.data);
       },
       header: true,
     });
@@ -155,7 +155,7 @@ export class TestFileInputComponent implements OnInit {
             delete element['Min Cred'];
         })
 
-        //this.dataService.postMathCourses(result.data)
+        this.dataService.postMathCourses(result.data)
       },
       header: true,
     })

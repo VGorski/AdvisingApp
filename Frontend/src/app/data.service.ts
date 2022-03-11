@@ -104,6 +104,10 @@ export class DataService {
     this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
   }
 
+  postRegisteredCourses(data: any) {
+    console.log(data);
+  }
+
   // Post all of the user info for advisors and advisees
   // Creates the relationship between advisor and advisee
   async postBatchUserInfo(data: any) {

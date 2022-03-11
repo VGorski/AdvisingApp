@@ -14,7 +14,7 @@ export class TestFileInputComponent implements OnInit {
 
   // Whenever a new file is selected to upload
   // Just for testing - this will be changed to be upon form submit
-  
+
   fileChange(event: any) {
     // Get any files from the file input
     let files: FileList = event.target.files;
@@ -34,9 +34,11 @@ export class TestFileInputComponent implements OnInit {
             this.processMathCourses(file);
           } else if (text.includes('Crs Name')) {
             this.processEngineeringCourses(file);
+          } else if (text.includes('ID')) {
+            this.processRegisteredCourses(file);
           } else {
             // TODO: Throw an error and display that to the user
-            console.log("File uploaded was not of the correct format...");
+            console.log('File uploaded was not of the correct format...');
           }
         });
       } else if (extension == 'xlsx') {
@@ -45,13 +47,13 @@ export class TestFileInputComponent implements OnInit {
   }
 
   processCourses(file: File) {
-    console.log("Processing Courses CSV...");
+    console.log('Processing Courses CSV...');
     this.papa.parse(file, {
       complete: (result) => {
         result.data.forEach((element: any) => {
           // Remove data that does not need to be sent
           delete element['Title'];
-        })
+        });
 
         //Format of Data
         /*
@@ -60,14 +62,14 @@ export class TestFileInputComponent implements OnInit {
         UC Area: ""
         */
 
-        this.dataService.postGeneralCourses(result.data)
+        this.dataService.postGeneralCourses(result.data);
       },
-      header: true
-    })
+      header: true,
+    });
   }
 
   processUsersCourses(file: File) {
-    console.log("Processing Users and Courses CSV...");
+    console.log('Processing Users and Courses CSV...');
     this.papa.parse(file, {
       complete: (result) => {
         // Remove data that doesn't need to be sent to the backend
@@ -107,55 +109,54 @@ export class TestFileInputComponent implements OnInit {
   }
 
   processMathCourses(file: File) {
-    console.log("Processing Specialized Courses CSV...");
+    console.log('Processing Specialized Courses CSV...');
     this.papa.parse(file, {
       complete: (result) => {
-
         // Remove empty names
         result.data = result.data.filter((element: any) => {
-          return element["Sec Name"] != ''
-        })
+          return element['Sec Name'] != '';
+        });
 
         // Remove * and section number
         result.data.map((element: any) => {
-          let nameArray = element["Sec Name"].split('*');
-          element["Sec Name"] = nameArray[0] + " " + nameArray[1]
-        })
+          let nameArray = element['Sec Name'].split('*');
+          element['Sec Name'] = nameArray[0] + ' ' + nameArray[1];
+        });
 
         // Remove data that does not need to exist
-        result.data.forEach((element:any) => { 
-            delete element['Long Title'];
-            delete element['Short Title'];
-            delete element['Term'];
-            delete element['Start Date'];
-            delete element['End Date'];
-            delete element[' Start Time'];
-            delete element['End Time'];
-            delete element['Days'];
-            delete element['Fac L Name'];
-            delete element['Fac F Name'];
-            delete element['Loc'];
-            delete element['Bldg'];
-            delete element['Room'];
-            delete element['Status'];
-            delete element['Avail Status'];
-            delete element['Rm Cap'];
-            delete element['Sec Cap'];
-            delete element['Stu Count'];
-            delete element['Avail'];
-            delete element['Xlists Capacity'];
-            delete element['Cap/Size'];
-            delete element['Instr Methods'];
-            delete element['Modality '];
-            delete element['Classification '];
-            delete element['Attribute '];
-            delete element['Min Cred'];
-        })
+        result.data.forEach((element: any) => {
+          delete element['Long Title'];
+          delete element['Short Title'];
+          delete element['Term'];
+          delete element['Start Date'];
+          delete element['End Date'];
+          delete element[' Start Time'];
+          delete element['End Time'];
+          delete element['Days'];
+          delete element['Fac L Name'];
+          delete element['Fac F Name'];
+          delete element['Loc'];
+          delete element['Bldg'];
+          delete element['Room'];
+          delete element['Status'];
+          delete element['Avail Status'];
+          delete element['Rm Cap'];
+          delete element['Sec Cap'];
+          delete element['Stu Count'];
+          delete element['Avail'];
+          delete element['Xlists Capacity'];
+          delete element['Cap/Size'];
+          delete element['Instr Methods'];
+          delete element['Modality '];
+          delete element['Classification '];
+          delete element['Attribute '];
+          delete element['Min Cred'];
+        });
 
-        this.dataService.postMathCourses(result.data)
+        this.dataService.postMathCourses(result.data);
       },
       header: true,
-    })
+    });
   }
 
   processEngineeringCourses(file: File) {
@@ -163,17 +164,17 @@ export class TestFileInputComponent implements OnInit {
       complete: (result) => {
         // Remove empty names
         result.data = result.data.filter((element: any) => {
-          return element["Crs Name"] != ''
-        })
+          return element['Crs Name'] != '';
+        });
 
         // Remove *
         result.data.map((element: any) => {
-          let nameArray = element["Crs Name"].split('*');
-          element["Crs Name"] = nameArray[0] + " " + nameArray[1]
-        })
+          let nameArray = element['Crs Name'].split('*');
+          element['Crs Name'] = nameArray[0] + ' ' + nameArray[1];
+        });
 
         // Remove data that does not need to exist
-        result.data.forEach((element:any) => { 
+        result.data.forEach((element: any) => {
           delete element['Sec No'];
           delete element['Long Title'];
           delete element['Term'];
@@ -185,7 +186,7 @@ export class TestFileInputComponent implements OnInit {
           delete element['Instr Methods'];
           delete element['Fac First Name'];
           delete element['Fac Last Name'];
-          delete element['Location']
+          delete element['Location'];
           delete element['Bldg'];
           delete element['Room'];
           delete element['Status'];
@@ -201,12 +202,57 @@ export class TestFileInputComponent implements OnInit {
           delete element['Sec Max Cred'];
           delete element['Attribute '];
           delete element['Sec Min Cred'];
-      })
-        
-        this.dataService.postEngineeringCourses(result.data)
+        });
+
+        this.dataService.postEngineeringCourses(result.data);
       },
       header: true,
-    })
+    });
+  }
+
+  processRegisteredCourses(file: File) {
+    this.papa.parse(file, {
+      complete: (result) => {
+        // Remove empty names
+        result.data = result.data.filter((element: any) => {
+          return element['Course Name'];
+        });
+
+        // Remove data that does not need to exist
+        result.data.forEach((element: any) => {
+          delete element['ID'];
+          delete element['Class'];
+          delete element['Program 1'];
+          delete element['Program 2'];
+          delete element['Term'];
+          delete element['Status'];
+          delete element['Stc Title'];
+          delete element['Start Time'];
+          delete element['End Time'];
+          delete element['Days '];
+          delete element['Instr Method'];
+          delete element['Location'];
+          delete element['Bldg'];
+          delete element['Room'];
+          delete element['Room Cap'];
+          delete element['Sec Cap'];
+          delete element['Advisor 1 First Name'];
+          delete element['Advisor 1 Last Name'];
+          delete element['Advisor 2 First Name'];
+          delete element['Advisor 2 Last Name'];
+          delete element['Section'];
+        });
+
+        // Remove * and section number
+        result.data.map((element: any) => {
+          let nameArray = element['Course Name'].split('*');
+          element['Course Name'] = nameArray[0] + ' ' + nameArray[1];
+        });
+
+        this.dataService.postRegisteredCourses(result.data)
+      },
+      header: true,
+    });
   }
 
   getDisciplineFromCode(code: string): string {

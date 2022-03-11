@@ -105,7 +105,18 @@ export class DataService {
   }
 
   postRegisteredCourses(data: any) {
-    console.log(data);
+    //Reformat data to be like the MySQL database
+    let courseData = data.map((element: any) => {
+      return {
+        course: element['Course Name'],
+        firstName: element['First Name'],
+        lastName: element['Last Name'],
+      };
+    });
+
+    this.http
+      .post(this.url + '/admin/upload/registeredCourses', courseData)
+      .subscribe();
   }
 
   // Post all of the user info for advisors and advisees

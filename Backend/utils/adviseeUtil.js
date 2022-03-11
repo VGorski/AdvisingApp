@@ -46,7 +46,7 @@ async function postSchedule(scheduleInfo, courses) {
   );
 
   await sequelize.query(
-    `DELETE FROM Schedule WHERE advisee_id = ${scheduleInfo.advisee_id};`
+    `DELETE FROM Schedule WHERE advisee_id = ${scheduleInfo.advisee_id} AND modified_date != 0;`
   );
   // [END] delete previous schedule
 
@@ -130,6 +130,43 @@ async function postTakenCourses(takenCourseData) {
     });
 }
 
+async function postRegisteredCourses(registeredCourseData) {
+  registeredCourseData
+    .forEach(async (courseData) => {
+      // Ensure that there is an object there
+      if (courseData.firstName && courseData.course) {
+        let adviseeObject = await sequelize.query(
+          `SELECT advisee_id FROM Advisee WHERE firstName = '${courseData.firstName}' AND lastName = '${courseData.lastName}'`
+        );
+
+        let courseObject = await sequelize.query(
+          `SELECT course_id FROM Course WHERE name = '${courseData.course}'`
+        );
+
+        // Make a new schedule that is at date 0 so that it will never be considered as a recent schedule
+        let scheduleInfo = {
+          advisee_id: adviseeObject[0][0].advisee_id,
+          modified_date: new Date(0),
+          adviseeSignature: "REGISTERED",
+          advisorSignature: "REGISTERED",
+        };
+
+        if (courseObject[0][0]) {
+          let course = {
+            course_id: courseObject[0][0].course_id,
+          };
+
+          let courses = [course];
+
+          postSchedule(scheduleInfo, courses);
+        }
+      }
+    })
+    .catch((err) => {
+      console.log("ERROR: " + err);
+    });
+}
+
 async function getTakenCourses(adviseeId) {
   courses = await sequelize.query(
     `SELECT * FROM Course
@@ -140,6 +177,25 @@ async function getTakenCourses(adviseeId) {
                 WHERE advisee_id IN
               (SELECT advisee_id FROM Advisee WHERE advisee_id = ${adviseeId})
             AND Schedule.modified_date = 0
+            AND Schedule.adviseeSignature = 'PREVIOUSLY TAKEN'
+                )
+          );`
+  );
+
+  return courses[0];
+}
+
+async function getRegisteredCourses(adviseeId) {
+  courses = await sequelize.query(
+    `SELECT * FROM Course
+        WHERE course_id IN 
+          (SELECT course_id FROM Course_Schedule
+            WHERE schedule_id IN
+            (SELECT schedule_id FROM Schedule
+                WHERE advisee_id IN
+              (SELECT advisee_id FROM Advisee WHERE advisee_id = ${adviseeId})
+            AND Schedule.modified_date = 0
+            AND Schedule.adviseeSignature = 'REGISTERED'
                 )
           );`
   );
@@ -155,4 +211,6 @@ module.exports = {
   postAdvisees,
   postTakenCourses,
   getTakenCourses,
+  getRegisteredCourses,
+  postRegisteredCourses,
 };

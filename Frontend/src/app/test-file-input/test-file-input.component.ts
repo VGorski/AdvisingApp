@@ -243,13 +243,20 @@ export class TestFileInputComponent implements OnInit {
           delete element['Section'];
         });
 
+        // Format of Data
+        /*
+          Course Name: "FLW 130"
+          First Name: "First"
+          Last Name: "Last"
+        */
+
         // Remove * and section number
         result.data.map((element: any) => {
           let nameArray = element['Course Name'].split('*');
           element['Course Name'] = nameArray[0] + ' ' + nameArray[1];
         });
 
-        this.dataService.postRegisteredCourses(result.data)
+        this.dataService.postRegisteredCourses(result.data);
       },
       header: true,
     });

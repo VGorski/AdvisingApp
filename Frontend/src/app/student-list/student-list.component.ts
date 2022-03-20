@@ -26,4 +26,8 @@ export class StudentListComponent implements OnInit {
       this.advisees = response;
     });
   }
+
+  flagAdvisee(advisee: any) {
+    advisee.flagged = true;
+  }
 }

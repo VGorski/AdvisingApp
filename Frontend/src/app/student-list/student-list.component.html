@@ -7,7 +7,7 @@
                     </button>
             </ng-template>
             <ng-template ngbPanelContent>
-                <app-schedule [advisee_id]="advisee.advisee_id" (flagAdvisee)="advisee.flagged = true" [advisingPeriodInProgress]="advisingPeriodInProgress"></app-schedule>
+                <app-schedule [advisee_id]="advisee.advisee_id" (flagAdvisee)="flagAdvisee(advisee)" [advisingPeriodInProgress]="advisingPeriodInProgress"></app-schedule>
             </ng-template>
         </ngb-panel>
     </ngb-accordion>

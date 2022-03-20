@@ -30,20 +30,29 @@ export class ScheduleComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
-      this.plannedCourses = courses;
-      console.log(courses);
-    });
+    this.plannedCourses.pop()
+    this.registeredCourses.pop()
 
     this.dataService
       .getRegisteredCourses(this.advisee_id)
       .subscribe((registeredCourses) => {
         this.registeredCourses = registeredCourses;
       });
+    
+    this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
+      this.plannedCourses = courses;
+    });
+
+    
   }
 
   tellParent() {
     if (!this.flagged) {
+      console.log(this.advisee_id + ":");
+      console.log("Planned");
+      console.log(this.plannedCourses);
+      console.log("Registered");
+      console.log(this.registeredCourses);
       this.flagged = true;
       this.flagAdvisee.emit();
     }
@@ -52,6 +61,9 @@ export class ScheduleComponent implements OnInit {
   // Return true if a course has been registered for but was not planned during an advising meeting
   registeredNotPlanned(course_id: number) {
     if (
+      this.plannedCourses.filter((course) => {
+        return course.course_id == course_id;
+      }).length != 0 &&
       this.registeredCourses.filter((course) => {
         return course.course_id == course_id;
       }).length == 0
@@ -67,7 +79,10 @@ export class ScheduleComponent implements OnInit {
     if (
       this.plannedCourses.filter((course) => {
         return course.course_id == course_id;
-      }).length == 0
+      }).length == 0 &&
+      this.registeredCourses.filter((course) => {
+        return course.course_id == course_id;
+      }).length != 0
     ) {
       this.tellParent();
       return true;
@@ -93,11 +108,13 @@ export class ScheduleComponent implements OnInit {
   // Return true if a course was planned and also registered for
   plannedAndRegistered(course_id: number) {
     if (
+      this.plannedCourses.filter((course) => {
+        return course.course_id == course_id;
+      }).length > 0 &&
       this.registeredCourses.filter((course) => {
         return course.course_id == course_id;
       }).length > 0
     ) {
-      this.tellParent();
       return true;
     }
     return false;

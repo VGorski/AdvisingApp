@@ -1,8 +1,13 @@
 <div *ngIf="!advisingPeriodInProgress">
-    <ngb-accordion #acc="ngbAccordion" *ngFor="let advisee of advisees">
-        <ngb-panel title="{{advisee.firstName}} {{advisee.lastName}}">
+    <ngb-accordion #acc="ngbAccordion" *ngFor="let advisee of advisees" [destroyOnHide]="false">
+        <ngb-panel>
+            <ng-template ngbPanelHeader>
+                    <button ngbPanelToggle class="accordion-button justify-content-center" [ngClass]="{flagged: advisee.flagged}">
+                        {{advisee.firstName}} {{advisee.lastName}}
+                    </button>
+            </ng-template>
             <ng-template ngbPanelContent>
-                <app-schedule [advisee_id]="advisee.advisee_id"></app-schedule>
+                <app-schedule [advisee_id]="advisee.advisee_id" (flagAdvisee)="advisee.flagged = true" [advisingPeriodInProgress]="advisingPeriodInProgress"></app-schedule>
             </ng-template>
         </ngb-panel>
     </ngb-accordion>

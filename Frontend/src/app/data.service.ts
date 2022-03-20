@@ -50,6 +50,12 @@ export class DataService {
     );
   }
 
+  getRegisteredCourses(advisee_id: number): Observable<any> {
+    return this.http.get(
+      this.url + '/advisee/' + advisee_id + '/registered-courses'
+    );
+  }
+
   postSchedule(
     advisee_id: number,
     scheduleForm: any,

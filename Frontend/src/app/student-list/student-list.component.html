@@ -2,7 +2,7 @@
     <ngb-accordion #acc="ngbAccordion" *ngFor="let advisee of advisees" [destroyOnHide]="false">
         <ngb-panel>
             <ng-template ngbPanelHeader>
-                    <button ngbPanelToggle class="accordion-button justify-content-center" [ngClass]="{flagged: advisee.flagged}">
+                    <button ngbPanelToggle class="accordion-button justify-content-center" [ngClass]="{'flagged': advisee.flagged, 'not-flagged': !advisee.flagged}">
                         {{advisee.firstName}} {{advisee.lastName}}
                     </button>
             </ng-template>

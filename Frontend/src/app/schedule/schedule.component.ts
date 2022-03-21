@@ -48,11 +48,6 @@ export class ScheduleComponent implements OnInit {
 
   tellParent() {
     if (!this.flagged) {
-      console.log(this.advisee_id + ":");
-      console.log("Planned");
-      console.log(this.plannedCourses);
-      console.log("Registered");
-      console.log(this.registeredCourses);
       this.flagged = true;
       this.flagAdvisee.emit();
     }
@@ -117,6 +112,7 @@ export class ScheduleComponent implements OnInit {
     ) {
       return true;
     }
+    this.tellParent()
     return false;
   }
 }

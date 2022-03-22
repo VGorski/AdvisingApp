@@ -30,20 +30,18 @@ export class ScheduleComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.plannedCourses.pop()
-    this.registeredCourses.pop()
+    this.plannedCourses.pop();
+    this.registeredCourses.pop();
 
     this.dataService
       .getRegisteredCourses(this.advisee_id)
       .subscribe((registeredCourses) => {
         this.registeredCourses = registeredCourses;
       });
-    
+
     this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
       this.plannedCourses = courses;
     });
-
-    
   }
 
   tellParent() {
@@ -85,6 +83,7 @@ export class ScheduleComponent implements OnInit {
     return false;
   }
 
+  // Return true if a student has not registered nor attended an advising meeting
   neitherPlannedNorRegistered(course_id: number) {
     if (
       this.plannedCourses.filter((course) => {
@@ -112,7 +111,7 @@ export class ScheduleComponent implements OnInit {
     ) {
       return true;
     }
-    this.tellParent()
+    this.tellParent();
     return false;
   }
 }

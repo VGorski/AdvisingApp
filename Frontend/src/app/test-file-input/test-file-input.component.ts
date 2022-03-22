@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Papa } from 'ngx-papaparse';
 import { DataService } from '../data.service';
 
@@ -10,12 +10,16 @@ import { DataService } from '../data.service';
 export class TestFileInputComponent implements OnInit {
   constructor(private papa: Papa, private dataService: DataService) {}
 
+  @Output() updateCheckboxes = new EventEmitter<string>();
+  doingWork = false;
+
   ngOnInit(): void {}
 
   // Whenever a new file is selected to upload
   // Just for testing - this will be changed to be upon form submit
 
   fileChange(event: any) {
+    this.doingWork = true;
     // Get any files from the file input
     let files: FileList = event.target.files;
 
@@ -25,28 +29,35 @@ export class TestFileInputComponent implements OnInit {
       let extension = file.name.split('.').pop(); // Get the file extension
 
       if (extension == 'csv') {
-        file.text().then((text) => {
-          if (text.includes('I-Course?')) {
-            this.processCourses(file);
-          } else if (text.includes('Sec Short Title')) {
-            this.processUsersCourses(file);
-          } else if (text.includes('Sec Name')) {
-            this.processMathCourses(file);
-          } else if (text.includes('Crs Name')) {
-            this.processEngineeringCourses(file);
-          } else if (text.includes('ID')) {
-            this.processRegisteredCourses(file);
-          } else {
-            // TODO: Throw an error and display that to the user
-            console.log('File uploaded was not of the correct format...');
-          }
-        });
+        file
+          .text()
+          .then(async (text) => {
+            if (text.includes('I-Course?')) {
+              await this.processUCCourses(file);
+            } else if (text.includes('Sec Short Title')) {
+              await this.processUsersCourses(file);
+            } else if (text.includes('Sec Name')) {
+              await this.processMathCourses(file);
+            } else if (text.includes('Crs Name')) {
+              // This will process both engineering and all course upload
+              await this.processEngineeringAllCourses(file);
+            } else if (text.includes('ID')) {
+              await this.processRegisteredCourses(file);
+            } else {
+              // TODO: Throw an error and display that to the user
+              console.log('File uploaded was not of the correct format...');
+            }
+          })
+          .then(() => {
+            this.doingWork = false;
+            this.updateCheckboxes.emit();
+          });
       } else if (extension == 'xlsx') {
       }
     }
   }
 
-  processCourses(file: File) {
+  processUCCourses(file: File) {
     console.log('Processing Courses CSV...');
     this.papa.parse(file, {
       complete: (result) => {
@@ -62,7 +73,9 @@ export class TestFileInputComponent implements OnInit {
         UC Area: ""
         */
 
-        this.dataService.postGeneralCourses(result.data);
+        this.dataService.postUCCourses(result.data).then(() => {
+          this.dataService.markFileAsUploaded('ucCourses');
+        });
       },
       header: true,
     });
@@ -102,7 +115,9 @@ export class TestFileInputComponent implements OnInit {
         discipline: ""
         */
 
-        this.dataService.postBatchUserInfo(result.data);
+        this.dataService.postBatchUserInfo(result.data).then(() => {
+          this.dataService.markFileAsUploaded('studentsFaculty');
+        });
       },
       header: true,
     });
@@ -153,13 +168,15 @@ export class TestFileInputComponent implements OnInit {
           delete element['Min Cred'];
         });
 
-        this.dataService.postMathCourses(result.data);
+        this.dataService.postMathCourses(result.data).then(() => {
+          this.dataService.markFileAsUploaded('mathCourses');
+        });
       },
       header: true,
     });
   }
 
-  processEngineeringCourses(file: File) {
+  processEngineeringAllCourses(file: File) {
     this.papa.parse(file, {
       complete: (result) => {
         // Remove empty names
@@ -204,7 +221,9 @@ export class TestFileInputComponent implements OnInit {
           delete element['Sec Min Cred'];
         });
 
-        this.dataService.postEngineeringCourses(result.data);
+        this.dataService.postEngineeringCourses(result.data).then(() => {
+          this.dataService.markFileAsUploaded('engineeringCourses');
+        });
       },
       header: true,
     });
@@ -256,7 +275,9 @@ export class TestFileInputComponent implements OnInit {
           element['Course Name'] = nameArray[0] + ' ' + nameArray[1];
         });
 
-        this.dataService.postRegisteredCourses(result.data);
+        this.dataService.postRegisteredCourses(result.data).then(() => {
+          this.dataService.markFileAsUploaded('registeredCourses');
+        });
       },
       header: true,
     });

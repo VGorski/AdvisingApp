@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
-  url = 'https://quinnipiac-advising-assistant.herokuapp.com';
+  url = 'http://localhost:3000';
   headers = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
   });
@@ -73,7 +73,7 @@ export class DataService {
   }
 
   // Post the courses provided by the file uploaded by the administrator
-  postGeneralCourses(data: any) {
+  async postUCCourses(data: any) {
     // Pull the info that pertains to the course
     let courseData = data.map((element: any) => {
       return {
@@ -86,7 +86,7 @@ export class DataService {
     this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
   }
 
-  postMathCourses(data: any) {
+  async postMathCourses(data: any) {
     let courseData = data.map((element: any) => {
       return {
         name: element['Sec Name'],
@@ -98,7 +98,7 @@ export class DataService {
     this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
   }
 
-  postEngineeringCourses(data: any) {
+  async postEngineeringCourses(data: any) {
     let courseData = data.map((element: any) => {
       return {
         name: element['Crs Name'],
@@ -110,7 +110,7 @@ export class DataService {
     this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
   }
 
-  postRegisteredCourses(data: any) {
+  async postRegisteredCourses(data: any) {
     //Reformat data to be like the MySQL database
     let courseData = data.map((element: any) => {
       return {
@@ -191,6 +191,61 @@ export class DataService {
         .post(this.url + '/admin/upload/takenCourses', takenCourseData)
         .subscribe();
     }, 2000);
+  }
+
+  markFileAsUploaded(fileType: string) {
+    this.http.post(this.url + '/admin/files/', { fileType }).subscribe();
+    /*
+      This can be: 
+        mathCourses
+        engineeringCourses
+        ucCourses
+        allCourses
+        studentsFaculty
+        registeredCourses
+    */
+  }
+
+  async getUploadedFiles() {
+    let data = {
+      math: '',
+      engineering: '',
+      uc: '',
+      all: '',
+      studentFaculty: '',
+      registered: '',
+    };
+
+    await this.http.get(this.url + '/admin/files/math').subscribe((file) => {
+      data.math = file.toString();
+    });
+    await this.http
+      .get(this.url + '/admin/files/engineering')
+      .subscribe((file) => {
+        data.engineering = file.toString();
+      });
+    await this.http
+      .get(this.url + '/admin/files/ucCourses')
+      .subscribe((file) => {
+        data.uc = file.toString();
+      });
+    await this.http
+      .get(this.url + '/admin/files/allCourses')
+      .subscribe((file) => {
+        data.all = file.toString();
+      });
+    await this.http
+      .get(this.url + '/admin/files/studentsFaculty')
+      .subscribe((file) => {
+        data.studentFaculty = file.toString();
+      });
+    await this.http
+      .get(this.url + '/admin/files/registered')
+      .subscribe((file) => {
+        data.registered = file.toString();
+      });
+
+    return data;
   }
 
   getAvailableCourses(discipline: string): Observable<any> {

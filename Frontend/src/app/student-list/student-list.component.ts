@@ -30,4 +30,8 @@ export class StudentListComponent implements OnInit {
   flagAdvisee(advisee: any) {
     advisee.flagged = true;
   }
+
+  setGlobalAdvisee(advisee_id: number) {
+    this.dataService.setSelectedAdvisee(advisee_id);
+  }
 }

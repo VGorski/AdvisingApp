@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
-  url = 'http://localhost:3000';
+  url = 'https://quinnipiac-advising-assistant.herokuapp.com';
   headers = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
   });
@@ -266,5 +266,14 @@ export class DataService {
       password: newPassword,
     };
     this.http.post(this.url + '/login/changePassword', data).subscribe();
+  }
+
+  //Acts as a holder for the selected advisee of the advisor
+  selectedAdvisee = -1;
+  getSelectedAdvisee() {
+    return this.selectedAdvisee;
+  }
+  setSelectedAdvisee(advisee_id: number) {
+    this.selectedAdvisee = advisee_id;
   }
 }

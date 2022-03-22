@@ -41,6 +41,9 @@ export class ScheduleComponent implements OnInit {
 
     this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
       this.plannedCourses = courses;
+      if (courses.length == 0) {
+        this.tellParent();
+      }
     });
   }
 

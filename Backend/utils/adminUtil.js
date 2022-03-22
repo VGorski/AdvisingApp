@@ -25,7 +25,7 @@ function uploadFile(fileType) {
         break;
 
       case "registeredCourses":
-        sequelize.query(`INSERT INTO Files (registeredCourses) VALUES ()`);
+        sequelize.query(`INSERT INTO Files (registeredCourses) VALUES (1)`);
         break;
     }
   }

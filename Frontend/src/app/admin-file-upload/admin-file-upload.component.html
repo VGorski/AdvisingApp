@@ -39,6 +39,9 @@
       <div class="container">
         <div class="col">
             <div class="row">
+              <div class="alert alert-success" role="alert" *ngIf="showSuccessfulUpload">
+                Successfully Uploaded!
+              </div>
                 <div class="col">
                     <div class="viewContain">
                         <h2 style="color:white; text-align:center; padding-top: 30px; padding-bottom: 20px;">The Following Files Can Be Uploaded:</h2>
@@ -53,12 +56,10 @@
                   <div class="col">
                     <div class="viewContain">
                         <h2 style="color:white; text-align:center; padding-top: 30px; padding-bottom: 20px;">Uploaded Files</h2>
-                        <app-test-file-input (updateCheckboxes)="getUploadedFiles()"></app-test-file-input>
+                        <app-test-file-input (updateCheckboxes)="getUploadedFiles()" (successfulUpload)="successfulUpload()"></app-test-file-input>
                       </div>
                   </div>
             </div>
-
-
         </div>
       </div>
 </body>

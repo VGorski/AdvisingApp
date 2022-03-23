@@ -11,6 +11,7 @@ export class TestFileInputComponent implements OnInit {
   constructor(private papa: Papa, private dataService: DataService) {}
 
   @Output() updateCheckboxes = new EventEmitter<string>();
+  @Output() successfulUpload = new EventEmitter<string>();
   doingWork = false;
 
   ngOnInit(): void {}
@@ -75,6 +76,7 @@ export class TestFileInputComponent implements OnInit {
 
         this.dataService.postUCCourses(result.data).then(() => {
           this.dataService.markFileAsUploaded('ucCourses');
+          this.successfulUpload.emit();
         });
       },
       header: true,
@@ -117,6 +119,7 @@ export class TestFileInputComponent implements OnInit {
 
         this.dataService.postBatchUserInfo(result.data).then(() => {
           this.dataService.markFileAsUploaded('studentsFaculty');
+          this.successfulUpload.emit();
         });
       },
       header: true,
@@ -170,6 +173,7 @@ export class TestFileInputComponent implements OnInit {
 
         this.dataService.postMathCourses(result.data).then(() => {
           this.dataService.markFileAsUploaded('mathCourses');
+          this.successfulUpload.emit();
         });
       },
       header: true,
@@ -223,6 +227,7 @@ export class TestFileInputComponent implements OnInit {
 
         this.dataService.postEngineeringCourses(result.data).then(() => {
           this.dataService.markFileAsUploaded('engineeringCourses');
+          this.successfulUpload.emit();
         });
       },
       header: true,
@@ -277,6 +282,7 @@ export class TestFileInputComponent implements OnInit {
 
         this.dataService.postRegisteredCourses(result.data).then(() => {
           this.dataService.markFileAsUploaded('registeredCourses');
+          this.successfulUpload.emit();
         });
       },
       header: true,

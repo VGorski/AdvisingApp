@@ -19,6 +19,8 @@ export class AdminFileUploadComponent implements OnInit {
     registered: '',
   };
 
+  showSuccessfulUpload = false;
+
   constructor(private http: HttpClient, private dataservice: DataService) {}
 
   selectFile(event: any) {
@@ -33,12 +35,19 @@ export class AdminFileUploadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUploadedFiles()
+    this.getUploadedFiles();
   }
 
   getUploadedFiles() {
     this.dataservice.getUploadedFiles().then((files) => {
       this.files = files;
     });
+  }
+
+  successfulUpload() {
+    this.showSuccessfulUpload = true;
+    setTimeout(() => {
+      this.showSuccessfulUpload = false;
+    }, 5000);
   }
 }

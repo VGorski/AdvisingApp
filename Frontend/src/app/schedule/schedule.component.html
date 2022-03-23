@@ -1,3 +1,8 @@
+
+<div class="text-center" *ngIf="plannedCourses.length != 0">
+    <hr>
+    <p class="registered-message">Planned Courses</p>
+</div>
 <div class="container" *ngIf="plannedCourses.length != 0">
     <div class="card" *ngFor="let course of plannedCourses">
         <div class="card-body text-center"
@@ -15,16 +20,11 @@
 
 <div class="text-center" *ngIf="registeredCourses.length != 0">
     <hr>
-    <p>Registered Courses</p>
+    <p class="registered-message">Registered Courses</p>
 </div>
 <div class="container" *ngIf="registeredCourses.length != 0">
     <div class="card" *ngFor="let course of registeredCourses">
-        <div class="card-body text-center"
-        [ngClass]="{'flagged-registration':registeredNotPlanned(course.course_id),
-            'correct-registration':plannedAndRegistered(course.course_id),
-            'flagged-planning':plannedNotRegistered(course.course_id),
-            'flagged-neither':neitherPlannedNorRegistered(course.course_id)}">
-            
+        <div class="card-body text-center">
             <p class="card-text">{{course.name}}</p>
         </div>
     </div>

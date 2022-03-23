@@ -13,3 +13,7 @@
 .correct-registration {
     background-color: lightgreen;
 }
+
+.registered-message {
+    font-size: larger;
+}

@@ -1,0 +1,19 @@
+.flagged-registration {
+    background-color: red;
+}
+
+.flagged-planning {
+
+}
+
+.flagged-neither {
+    background-color: lightblue;
+}
+
+.correct-registration {
+    background-color: lightgreen;
+}
+
+.registered-message {
+    font-size: larger;
+}

@@ -17,7 +17,9 @@ export class DataService {
   fileUpload(file: File): Observable<HttpEvent<any>> {
     const dataForm: FormData = new FormData();
     dataForm.append('file', file);
-    const req = new HttpRequest('POST', `${this.url}/upload`, dataForm, {responseType: 'json'});
+    const req = new HttpRequest('POST', `${this.url}/upload`, dataForm, {
+      responseType: 'json',
+    });
     return this.http.request(req);
   }
 
@@ -25,7 +27,6 @@ export class DataService {
   fileStatus(): Observable<any> {
     return this.http.get(`${this.url}/files`);
   }
-
 
   getAdvisees(advisor_id: number): Observable<any> {
     return this.http.get(this.url + '/advisor/' + advisor_id + '/advisees');
@@ -49,6 +50,12 @@ export class DataService {
     );
   }
 
+  getRegisteredCourses(advisee_id: number): Observable<any> {
+    return this.http.get(
+      this.url + '/advisee/' + advisee_id + '/registered-courses'
+    );
+  }
+
   postSchedule(
     advisee_id: number,
     scheduleForm: any,
@@ -66,7 +73,7 @@ export class DataService {
   }
 
   // Post the courses provided by the file uploaded by the administrator
-  postCourses(data: any) {
+  async postUCCourses(data: any) {
     // Pull the info that pertains to the course
     let courseData = data.map((element: any) => {
       return {
@@ -77,6 +84,45 @@ export class DataService {
     });
 
     this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
+  }
+
+  async postMathCourses(data: any) {
+    let courseData = data.map((element: any) => {
+      return {
+        name: element['Sec Name'],
+        discipline: 'MA',
+        iCourse: 0,
+      };
+    });
+
+    this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
+  }
+
+  async postEngineeringCourses(data: any) {
+    let courseData = data.map((element: any) => {
+      return {
+        name: element['Crs Name'],
+        discipline: element['Crs Name'].split(' ')[0],
+        iCourse: 0,
+      };
+    });
+
+    this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
+  }
+
+  async postRegisteredCourses(data: any) {
+    //Reformat data to be like the MySQL database
+    let courseData = data.map((element: any) => {
+      return {
+        course: element['Course Name'],
+        firstName: element['First Name'],
+        lastName: element['Last Name'],
+      };
+    });
+
+    this.http
+      .post(this.url + '/admin/upload/registeredCourses', courseData)
+      .subscribe();
   }
 
   // Post all of the user info for advisors and advisees
@@ -147,15 +193,87 @@ export class DataService {
     }, 2000);
   }
 
+  markFileAsUploaded(fileType: string) {
+    this.http.post(this.url + '/admin/files/', { fileType }).subscribe();
+    /*
+      This can be: 
+        mathCourses
+        engineeringCourses
+        ucCourses
+        allCourses
+        studentsFaculty
+        registeredCourses
+    */
+  }
+
+  async getUploadedFiles() {
+    let data = {
+      math: '',
+      engineering: '',
+      uc: '',
+      all: '',
+      studentFaculty: '',
+      registered: '',
+    };
+
+    await this.http.get(this.url + '/admin/files/math').subscribe((file) => {
+      data.math = file.toString();
+    });
+    await this.http
+      .get(this.url + '/admin/files/engineering')
+      .subscribe((file) => {
+        data.engineering = file.toString();
+      });
+    await this.http
+      .get(this.url + '/admin/files/ucCourses')
+      .subscribe((file) => {
+        data.uc = file.toString();
+      });
+    await this.http
+      .get(this.url + '/admin/files/allCourses')
+      .subscribe((file) => {
+        data.all = file.toString();
+      });
+    await this.http
+      .get(this.url + '/admin/files/studentsFaculty')
+      .subscribe((file) => {
+        data.studentFaculty = file.toString();
+      });
+    await this.http
+      .get(this.url + '/admin/files/registered')
+      .subscribe((file) => {
+        data.registered = file.toString();
+      });
+
+    return data;
+  }
+
   getAvailableCourses(discipline: string): Observable<any> {
-     if (discipline == 'No Filter') {
-       return this.http.get(this.url + '/courses/');
-     } else {
-       return this.http.get(this.url + '/courses/' + discipline);
-     }
+    if (discipline == 'No Filter') {
+      return this.http.get(this.url + '/courses/');
+    } else {
+      return this.http.get(this.url + '/courses/' + discipline);
+    }
   }
 
   getDisciplines(): Observable<any> {
     return this.http.get(this.url + '/courses/disciplines');
+  }
+
+  changePassword(user_id: number, newPassword: string) {
+    let data = {
+      id: user_id,
+      password: newPassword,
+    };
+    this.http.post(this.url + '/login/changePassword', data).subscribe();
+  }
+
+  //Acts as a holder for the selected advisee of the advisor
+  selectedAdvisee = -1;
+  getSelectedAdvisee() {
+    return this.selectedAdvisee;
+  }
+  setSelectedAdvisee(advisee_id: number) {
+    this.selectedAdvisee = advisee_id;
   }
 }

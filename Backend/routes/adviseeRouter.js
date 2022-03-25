@@ -58,4 +58,14 @@ adviseeRouter
     });
   });
 
+  adviseeRouter
+    .route("/:adviseeId/registered-courses")
+    .get((req, res, next) => {
+      adviseeUtil.getRegisteredCourses(req.params.adviseeId).then((courses) => {
+        res.status(200);
+        res.json(courses);
+        res.end();
+      });
+    });
+
 module.exports = adviseeRouter;

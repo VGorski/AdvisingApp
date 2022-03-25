@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Papa } from 'ngx-papaparse';
 import { DataService } from '../data.service';
 
@@ -10,12 +10,17 @@ import { DataService } from '../data.service';
 export class TestFileInputComponent implements OnInit {
   constructor(private papa: Papa, private dataService: DataService) {}
 
+  @Output() updateCheckboxes = new EventEmitter<string>();
+  @Output() successfulUpload = new EventEmitter<string>();
+  doingWork = false;
+
   ngOnInit(): void {}
 
   // Whenever a new file is selected to upload
   // Just for testing - this will be changed to be upon form submit
-  
+
   fileChange(event: any) {
+    this.doingWork = true;
     // Get any files from the file input
     let files: FileList = event.target.files;
 
@@ -25,29 +30,42 @@ export class TestFileInputComponent implements OnInit {
       let extension = file.name.split('.').pop(); // Get the file extension
 
       if (extension == 'csv') {
-        file.text().then((text) => {
-          if (text.includes('I-Course?')) {
-            this.processCoursesCSV(file);
-          } else if (text.includes('')) {
-            this.processUsersCoursesCSV(file);
-          } else {
-            // TODO: Throw an error and display that to the user
-            console.log("File uploaded was not of the correct format...");
-          }
-        });
+        file
+          .text()
+          .then(async (text) => {
+            if (text.includes('I-Course?')) {
+              await this.processUCCourses(file);
+            } else if (text.includes('Sec Short Title')) {
+              await this.processUsersCourses(file);
+            } else if (text.includes('Sec Name')) {
+              await this.processMathCourses(file);
+            } else if (text.includes('Crs Name')) {
+              // This will process both engineering and all course upload
+              await this.processEngineeringAllCourses(file);
+            } else if (text.includes('ID')) {
+              await this.processRegisteredCourses(file);
+            } else {
+              // TODO: Throw an error and display that to the user
+              console.log('File uploaded was not of the correct format...');
+            }
+          })
+          .then(() => {
+            this.doingWork = false;
+            this.updateCheckboxes.emit();
+          });
       } else if (extension == 'xlsx') {
       }
     }
   }
 
-  processCoursesCSV(file: File) {
-    console.log("Processing Courses CSV...");
+  processUCCourses(file: File) {
+    console.log('Processing Courses CSV...');
     this.papa.parse(file, {
       complete: (result) => {
         result.data.forEach((element: any) => {
           // Remove data that does not need to be sent
           delete element['Title'];
-        })
+        });
 
         //Format of Data
         /*
@@ -56,14 +74,17 @@ export class TestFileInputComponent implements OnInit {
         UC Area: ""
         */
 
-        this.dataService.postCourses(result.data)
+        this.dataService.postUCCourses(result.data).then(() => {
+          this.dataService.markFileAsUploaded('ucCourses');
+          this.successfulUpload.emit();
+        });
       },
-      header: true
-    })
+      header: true,
+    });
   }
 
-  processUsersCoursesCSV(file: File) {
-    console.log("Processing Users and Courses CSV...");
+  processUsersCourses(file: File) {
+    console.log('Processing Users and Courses CSV...');
     this.papa.parse(file, {
       complete: (result) => {
         // Remove data that doesn't need to be sent to the backend
@@ -96,7 +117,173 @@ export class TestFileInputComponent implements OnInit {
         discipline: ""
         */
 
-        this.dataService.postBatchUserInfo(result.data);
+        this.dataService.postBatchUserInfo(result.data).then(() => {
+          this.dataService.markFileAsUploaded('studentsFaculty');
+          this.successfulUpload.emit();
+        });
+      },
+      header: true,
+    });
+  }
+
+  processMathCourses(file: File) {
+    console.log('Processing Specialized Courses CSV...');
+    this.papa.parse(file, {
+      complete: (result) => {
+        // Remove empty names
+        result.data = result.data.filter((element: any) => {
+          return element['Sec Name'] != '';
+        });
+
+        // Remove * and section number
+        result.data.map((element: any) => {
+          let nameArray = element['Sec Name'].split('*');
+          element['Sec Name'] = nameArray[0] + ' ' + nameArray[1];
+        });
+
+        // Remove data that does not need to exist
+        result.data.forEach((element: any) => {
+          delete element['Long Title'];
+          delete element['Short Title'];
+          delete element['Term'];
+          delete element['Start Date'];
+          delete element['End Date'];
+          delete element[' Start Time'];
+          delete element['End Time'];
+          delete element['Days'];
+          delete element['Fac L Name'];
+          delete element['Fac F Name'];
+          delete element['Loc'];
+          delete element['Bldg'];
+          delete element['Room'];
+          delete element['Status'];
+          delete element['Avail Status'];
+          delete element['Rm Cap'];
+          delete element['Sec Cap'];
+          delete element['Stu Count'];
+          delete element['Avail'];
+          delete element['Xlists Capacity'];
+          delete element['Cap/Size'];
+          delete element['Instr Methods'];
+          delete element['Modality '];
+          delete element['Classification '];
+          delete element['Attribute '];
+          delete element['Min Cred'];
+        });
+
+        this.dataService.postMathCourses(result.data).then(() => {
+          this.dataService.markFileAsUploaded('mathCourses');
+          this.successfulUpload.emit();
+        });
+      },
+      header: true,
+    });
+  }
+
+  processEngineeringAllCourses(file: File) {
+    this.papa.parse(file, {
+      complete: (result) => {
+        // Remove empty names
+        result.data = result.data.filter((element: any) => {
+          return element['Crs Name'] != '';
+        });
+
+        // Remove *
+        result.data.map((element: any) => {
+          let nameArray = element['Crs Name'].split('*');
+          element['Crs Name'] = nameArray[0] + ' ' + nameArray[1];
+        });
+
+        // Remove data that does not need to exist
+        result.data.forEach((element: any) => {
+          delete element['Sec No'];
+          delete element['Long Title'];
+          delete element['Term'];
+          delete element['Sec Start Date'];
+          delete element['Sec End Date'];
+          delete element[' Start Time'];
+          delete element['End Time'];
+          delete element['Days'];
+          delete element['Instr Methods'];
+          delete element['Fac First Name'];
+          delete element['Fac Last Name'];
+          delete element['Location'];
+          delete element['Bldg'];
+          delete element['Room'];
+          delete element['Status'];
+          delete element['Avail Status'];
+          delete element['Room Cap'];
+          delete element['Sec Cap'];
+          delete element['Stu Count'];
+          delete element['Available'];
+          delete element['Xlists Capacity'];
+          delete element['Cap/Size'];
+          delete element['Classification '];
+          delete element['Modality '];
+          delete element['Sec Max Cred'];
+          delete element['Attribute '];
+          delete element['Sec Min Cred'];
+        });
+
+        this.dataService.postEngineeringCourses(result.data).then(() => {
+          this.dataService.markFileAsUploaded('engineeringCourses');
+          this.successfulUpload.emit();
+        });
+      },
+      header: true,
+    });
+  }
+
+  processRegisteredCourses(file: File) {
+    this.papa.parse(file, {
+      complete: (result) => {
+        // Remove empty names
+        result.data = result.data.filter((element: any) => {
+          return element['Course Name'];
+        });
+
+        // Remove data that does not need to exist
+        result.data.forEach((element: any) => {
+          delete element['ID'];
+          delete element['Class'];
+          delete element['Program 1'];
+          delete element['Program 2'];
+          delete element['Term'];
+          delete element['Status'];
+          delete element['Stc Title'];
+          delete element['Start Time'];
+          delete element['End Time'];
+          delete element['Days '];
+          delete element['Instr Method'];
+          delete element['Location'];
+          delete element['Bldg'];
+          delete element['Room'];
+          delete element['Room Cap'];
+          delete element['Sec Cap'];
+          delete element['Advisor 1 First Name'];
+          delete element['Advisor 1 Last Name'];
+          delete element['Advisor 2 First Name'];
+          delete element['Advisor 2 Last Name'];
+          delete element['Section'];
+        });
+
+        // Format of Data
+        /*
+          Course Name: "FLW 130"
+          First Name: "First"
+          Last Name: "Last"
+        */
+
+        // Remove * and section number
+        result.data.map((element: any) => {
+          let nameArray = element['Course Name'].split('*');
+          element['Course Name'] = nameArray[0] + ' ' + nameArray[1];
+        });
+
+        this.dataService.postRegisteredCourses(result.data).then(() => {
+          this.dataService.markFileAsUploaded('registeredCourses');
+          this.successfulUpload.emit();
+        });
       },
       header: true,
     });
@@ -121,7 +308,7 @@ export class TestFileInputComponent implements OnInit {
         newCode = '???';
         break;
       case 'ESOFT.SER':
-        newCode = 'CER';
+        newCode = 'SER';
         break;
     }
     return newCode;

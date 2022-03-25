@@ -9,7 +9,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./schedule-build.component.css'],
 })
 export class ScheduleBuildComponent implements OnInit {
-  advisee_id = 4; //TODO make this dependent upon who logged in
+  advisee_id = -1;
 
   advisee = {
     firstName: '',
@@ -56,8 +56,9 @@ export class ScheduleBuildComponent implements OnInit {
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
-    this.advisee_id = history.state.advisee_id;
-    
+    this.advisee_id = this.dataService.getSelectedAdvisee();
+    this.scheduleForm.advisee_id = this.advisee_id;
+
     this.available_courses.pop();
     this.chosen_courses.pop();
     this.taken_courses.pop();

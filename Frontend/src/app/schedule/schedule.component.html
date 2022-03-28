@@ -1,7 +1,7 @@
 
 <div class="text-center" *ngIf="plannedCourses.length != 0">
     <hr>
-    <p class="registered-message">Planned Courses</p>
+    <p class="registered-message" [ngClass]="{'advisee-view':adviseeView}">Planned Courses</p>
 </div>
 <div class="container" *ngIf="plannedCourses.length != 0">
     <div class="card" *ngFor="let course of plannedCourses">
@@ -18,9 +18,10 @@
     <h1 style="color: red;">No Planned Courses</h1>
 </div>
 
+<hr>
 <div class="text-center" *ngIf="registeredCourses.length != 0">
-    <hr>
-    <p class="registered-message">Registered Courses</p>
+
+    <p class="registered-message" [ngClass]="{'advisee-view':adviseeView}" >Registered Courses</p>
 </div>
 <div class="container" *ngIf="registeredCourses.length != 0">
     <div class="card" *ngFor="let course of registeredCourses">
@@ -28,4 +29,7 @@
             <p class="card-text">{{course.name}}</p>
         </div>
     </div>
+</div>
+<div class="container text-center" *ngIf="registeredCourses.length == 0">
+    <h1 style="color: red;">No Registered Courses</h1>
 </div>

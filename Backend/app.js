@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
+var bodyParser = require("body-parser");
 
 var indexRouter = require("./routes/indexRoute");
 var usersRouter = require("./routes/usersRouter");
@@ -12,9 +13,26 @@ var adviseeRouter = require("./routes/adviseeRouter");
 var advisorRouter = require("./routes/advisorRouter");
 var programDRouter = require("./routes/programDirectorRouter");
 var courseRouter = require("./routes/courseRouter");
+var databaseConnect = require("./models/sequelize");
 
 var app = express();
 const port = process.env.PORT || 3000;
+
+// Connect to the database
+databaseConnect.authenticate().then(() => {
+  console.log("Database is good to go");
+}).catch((error) =>
+console.error("Database cannot connect", error));
+
+// Parse the incoming JSON
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+// API for users
+app.use("/api/users", require("./api/users"));
+app.get("/*", (req, res) => res.sendFile(path.join(__dirname, "/dist/advising-assistant")))
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

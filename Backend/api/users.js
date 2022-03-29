@@ -62,5 +62,30 @@ if (email == undefined || email == "" || password == undefined || password == ""
         };
     });
 };
+/* 
+// User info API
+loginRouter.get("/userCredentials", (req, res) => {
+    const authenticate = req.header['authorization'];
+    if(authenticate) {
+        // Give the user a security token
+        const token = authenticate.substr("Bearer".length, +1);
+        jwt.verify(token, process.env.SECRET_KEY, (error, login) => {
+            if(login) {
+                // Send the login info just to make sure you got the right user
+                res.statusCode(200).json ({
+                    message: "login success",
+                    status: res.status,
+                    data: login
+                })
+            }
+        })
+    } else {
+    // User hasn't logged in so you have to tell them that 
+    res.status(401).json({
+        message: "You haven't logged in yet",
+        status: res.status  
+    })
+    
+}); */
 
 module.exports = router;

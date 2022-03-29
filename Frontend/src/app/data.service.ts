@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
-  url = 'https://quinnipiac-advising-assistant.herokuapp.com';
+  url = 'http://localhost:3000';
   headers = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
   });
@@ -112,6 +112,7 @@ export class DataService {
 
   async postRegisteredCourses(data: any) {
     //Reformat data to be like the MySQL database
+    console.log("Working")
     let courseData = data.map((element: any) => {
       return {
         course: element['Course Name'],

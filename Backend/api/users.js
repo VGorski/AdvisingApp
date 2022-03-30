@@ -1,3 +1,5 @@
+// Control + shift + p, format (forced)
+
 const express = require("express");
 const loginRouter = express.Router();
 const Advisee = require("../models/adviseeModel");
@@ -9,113 +11,128 @@ var password = "password";
 
 // Register API
 loginRouter.post("/register", (req, res) => {
-    const credentials = {
-        email: req.body.email,
-        password: req.body.password,
-    }
+  const credentials = {
+    email: req.body.email,
+    password: req.body.password,
+  };
 
-    if (req.body.email == undefined || req.body.email == "" || req.body.password == undefined || req.body.password == "") {
-        res.status(401).json({
-            message: "You must fill out all fields",
-            status: res.status
-        });
-    } else {
-        // Check if the email exists in the database
-        Advisee.findOne({
-            attributes: ["email"],
-            where: {
-                email: req.body.email
-            }
-        }).then((value) => {
-            bcrypt.genSalt(10, function(error, salt) {
-                bcrypt.hash(credentials.password, salt, (error, hash) => {
-                    console.log(hash);
-                    Advisee.create({
-                        firstName: req.body.firstName,
-                        lastName: req.body.lastName,
-                        email: req.body.email,
-                        advisor_id: req.body.advisor_id,
-                        password: hash
-                    }).then((value) => {
-                        res.status(201).json({
-                            message: "Yeet",
-                            status: res.status
-                        }).catch(
-                            error => res.status(404).json({
-                                message: "Nope"
-                            })
-                        );
-                    })
+  if (
+    req.body.email == undefined ||
+    req.body.email == "" ||
+    req.body.password == undefined ||
+    req.body.password == ""
+  ) {
+    res.status(401).json({
+      message: "You must fill out all fields",
+      status: res.status,
+    });
+  } else {
+    // Check if the email exists in the database
+    Advisee.findOne({
+      attributes: ["email"],
+      where: {
+        email: req.body.email,
+      },
+    }).then((value) => {
+      bcrypt.genSalt(10, function (error, salt) {
+        bcrypt.hash(credentials.password, salt, (error, hash) => {
+          console.log(hash);
+          Advisee.create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            advisor_id: req.body.advisor_id,
+            password: hash,
+          }).then((value) => {
+            res
+              .status(201)
+              .json({
+                message: "Yeet",
+                status: res.status,
+              })
+              .catch((error) =>
+                res.status(404).json({
+                  message: "Nope",
                 })
-            })
-})};
+              );
+          });
+        });
+      });
+    });
+  }
+});
 
 // Login API
 loginRouter.post("/login", (req, res) => {
-    const credentials = {
-        email: req.body.email,
-        password: req.body.password,
-    }
+  const credentials = {
+    email: req.body.email,
+    password: req.body.password,
+  };
 
-// Check if all the fields are filled out
-if (req.body.email == undefined || req.body.email == "" || req.body.password == undefined || req.body.password == "") {
+  // Check if all the fields are filled out
+  if (
+    req.body.email == undefined ||
+    req.body.email == "" ||
+    req.body.password == undefined ||
+    req.body.password == ""
+  ) {
     res.status(401).json({
-        message: "You must fill out all fields",
-        status: res.status
+      message: "You must fill out all fields",
+      status: res.status,
     });
-} else {
+  } else {
     // Check if the email exists in the database
     Advisee.findOne({
-        where: {
-            email: req.body.email
-        }
+      where: {
+        email: req.body.email,
+      },
     }).then((value) => {
-        if(value === null) {
-            res.status(401).json({
-                message: "No account could be found",
-                status: res.status,
-                jwt: ""
-            });
-        } else {
-            // Email does exist, so check the password
-            const checkPassword = value.getDataValue('password');
-/*             bcrypt.hash("password").then(hash => {
+      if (value === null) {
+        res.status(401).json({
+          message: "No account could be found",
+          status: res.status,
+          jwt: "",
+        });
+      } else {
+        // Email does exist, so check the password
+        const checkPassword = value.getDataValue("password");
+        /*             bcrypt.hash("password").then(hash => {
                 console.log(hash);
             }); */
-            bcrypt.compare(req.body.password, checkPassword, function(error, validity) {
-                if(validity) {
-                    // If password matches, then user is good to go
-                    const userCredentials = {
-                        email:value.getDataValue("email"),
-                        id:value.getDataValue("advisee_id")
-                    };
+        bcrypt.compare(
+          req.body.password,
+          checkPassword,
+          function (error, validity) {
+            if (validity) {
+              // If password matches, then user is good to go
+              const userCredentials = {
+                email: value.getDataValue("email"),
+                id: value.getDataValue("advisee_id"),
+              };
 
-                    const token = jwt.sign(userCredentials, process.env.SECRET_KEY, {expiresIn: "120s"});
+              const token = jwt.sign(userCredentials, process.env.SECRET_KEY, {
+                expiresIn: "1200s",
+              });
 
-                    res.status(200).json({
-                        message: "Hopefully logged in",
-                        status: res.status,
-                        token
-                    });
-                } else {
-                    // Nope, wrong password
-                    res.status(401).json({
-                        message: "Wrong password",
-                        status: res.status,
-                        token: ""
-                    });
-                };
-            }); 
-        };
+              res.status(200).json({
+                message: "Hopefully logged in",
+                status: res.status,
+                token,
+              });
+            } else {
+              // Nope, wrong password
+              res.status(401).json({
+                message: "Wrong password",
+                status: res.status,
+                token: "",
+              });
+            }
+          }
+        );
+      }
     });
-};
-
+  }
 });
-
-    })
-
-
-
 
 /* 
 // User info API

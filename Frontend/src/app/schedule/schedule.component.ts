@@ -60,10 +60,10 @@ export class ScheduleComponent implements OnInit {
     if (
       this.plannedCourses.filter((course) => {
         return course.course_id == course_id;
-      }).length != 0 &&
+      }).length == 0 &&
       this.registeredCourses.filter((course) => {
         return course.course_id == course_id;
-      }).length == 0
+      }).length != 0
     ) {
       if (!this.adviseeView) {
         this.tellParent();
@@ -78,10 +78,10 @@ export class ScheduleComponent implements OnInit {
     if (
       this.plannedCourses.filter((course) => {
         return course.course_id == course_id;
-      }).length == 0 &&
+      }).length != 0 &&
       this.registeredCourses.filter((course) => {
         return course.course_id == course_id;
-      }).length != 0
+      }).length == 0
     ) {
       if (!this.adviseeView) {
         this.tellParent();

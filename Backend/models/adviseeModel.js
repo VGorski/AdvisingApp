@@ -1,5 +1,6 @@
 const { Model } = require("sequelize");
-const Sequelize = require("./sequelize");
+const sequelize = require("./sequelize");
+const Sequelize = require('sequelize');
 
 class adviseeModel extends Model{};
 
@@ -18,14 +19,15 @@ advisee_id: {
     firstName: Sequelize.STRING,
     lastName: Sequelize.STRING,
     email: Sequelize.STRING,
+    password: Sequelize.STRING,
     //discipline: Sequelize.CHAR(3),
   }, {
-    modelName: "adviseeTable",
-    Sequelize,
-    tableName: "adviseeTable"
+    modelName: "advisee",
+    sequelize,
+    tableName: "advisee"
   });
 
 
 
 
-module.exports = Advisee;
+module.exports = adviseeModel;

@@ -4,17 +4,61 @@ const Advisee = require("../models/adviseeModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const saltRounds = 10;
+var password = "password";
+
+// Register API
+loginRouter.post("/register", (req, res) => {
+    const credentials = {
+        email: req.body.email,
+        password: req.body.password,
+    }
+
+    if (req.body.email == undefined || req.body.email == "" || req.body.password == undefined || req.body.password == "") {
+        res.status(401).json({
+            message: "You must fill out all fields",
+            status: res.status
+        });
+    } else {
+        // Check if the email exists in the database
+        Advisee.findOne({
+            attributes: ["email"],
+            where: {
+                email: req.body.email
+            }
+        }).then((value) => {
+            bcrypt.genSalt(10, function(error, salt) {
+                bcrypt.hash(credentials.password, salt, (error, hash) => {
+                    console.log(hash);
+                    Advisee.create({
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        email: req.body.email,
+                        advisor_id: req.body.advisor_id,
+                        password: hash
+                    }).then((value) => {
+                        res.status(201).json({
+                            message: "Yeet",
+                            status: res.status
+                        }).catch(
+                            error => res.status(404).json({
+                                message: "Nope"
+                            })
+                        );
+                    })
+                })
+            })
+})};
 
 // Login API
 loginRouter.post("/login", (req, res) => {
     const credentials = {
-        email,
-        password,
-    } = req.body;
-});
+        email: req.body.email,
+        password: req.body.password,
+    }
 
 // Check if all the fields are filled out
-if (email == undefined || email == "" || password == undefined || password == "") {
+if (req.body.email == undefined || req.body.email == "" || req.body.password == undefined || req.body.password == "") {
     res.status(401).json({
         message: "You must fill out all fields",
         status: res.status
@@ -23,7 +67,7 @@ if (email == undefined || email == "" || password == undefined || password == ""
     // Check if the email exists in the database
     Advisee.findOne({
         where: {
-            email
+            email: req.body.email
         }
     }).then((value) => {
         if(value === null) {
@@ -35,7 +79,10 @@ if (email == undefined || email == "" || password == undefined || password == ""
         } else {
             // Email does exist, so check the password
             const checkPassword = value.getDataValue('password');
-            bcrypt.compare(password, checkPassword, function(error, validity) {
+/*             bcrypt.hash("password").then(hash => {
+                console.log(hash);
+            }); */
+            bcrypt.compare(req.body.password, checkPassword, function(error, validity) {
                 if(validity) {
                     // If password matches, then user is good to go
                     const userCredentials = {
@@ -62,6 +109,14 @@ if (email == undefined || email == "" || password == undefined || password == ""
         };
     });
 };
+
+});
+
+    })
+
+
+
+
 /* 
 // User info API
 loginRouter.get("/userCredentials", (req, res) => {
@@ -88,4 +143,4 @@ loginRouter.get("/userCredentials", (req, res) => {
     
 }); */
 
-module.exports = router;
+module.exports = loginRouter;

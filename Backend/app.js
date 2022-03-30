@@ -14,6 +14,7 @@ var advisorRouter = require("./routes/advisorRouter");
 var programDRouter = require("./routes/programDirectorRouter");
 var courseRouter = require("./routes/courseRouter");
 var databaseConnect = require("./models/sequelize");
+var router = require("./api/users");
 
 var app = express();
 const port = process.env.PORT || 3000;
@@ -57,6 +58,7 @@ app.use("/advisee", adviseeRouter);
 app.use("/advisor", advisorRouter);
 app.use("/programDirector", programDRouter);
 app.use("/courses", courseRouter);
+app.use("/api/users", router);
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });

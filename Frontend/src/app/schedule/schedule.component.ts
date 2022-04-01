@@ -67,8 +67,8 @@ export class ScheduleComponent implements OnInit {
     ) {
       if (!this.adviseeView) {
         this.tellParent();
-        return true;
       }
+      return true;
     }
     return false;
   }
@@ -85,8 +85,8 @@ export class ScheduleComponent implements OnInit {
     ) {
       if (!this.adviseeView) {
         this.tellParent();
-        return true;
       }
+      return true;
     }
     return false;
   }
@@ -103,8 +103,8 @@ export class ScheduleComponent implements OnInit {
     ) {
       if (!this.adviseeView) {
         this.tellParent();
-        return true;
       }
+      return true;
     }
     return false;
   }

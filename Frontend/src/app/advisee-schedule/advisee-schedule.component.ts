@@ -8,7 +8,7 @@ import { DataService } from '../data.service';
 })
 export class AdviseeScheduleComponent implements OnInit {
 
-  advisee_id = 4
+  advisee_id = -1
   advisee = {
     "firstName": "",
     "lastName": ""
@@ -16,9 +16,19 @@ export class AdviseeScheduleComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.dataService.getAdviseeName(this.advisee_id).subscribe((advisee) => {
-      this.advisee = advisee
+
+
+    this.getAdviseeId().then(() => {
+      this.dataService.getAdviseeName(this.advisee_id).subscribe((advisee) => {
+      this.advisee = advisee;
     })
+    })
+  }
+
+  
+  
+  async getAdviseeId() {
+    this.advisee_id = await Number.parseInt(localStorage.getItem('advisee_id') || "-1");
   }
 
 }

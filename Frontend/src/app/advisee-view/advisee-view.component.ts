@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-advisee-view',
@@ -15,7 +16,7 @@ export class AdviseeViewComponent implements OnInit {
     "lastName": ""
   }
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private logoutRouter: Router) { }
 
   ngOnInit(): void {
    
@@ -24,6 +25,8 @@ export class AdviseeViewComponent implements OnInit {
       this.advisee = advisee;
     })
     })
+
+  
     
   }
 
@@ -31,4 +34,12 @@ export class AdviseeViewComponent implements OnInit {
     this.advisee_id = await Number.parseInt(localStorage.getItem('advisee_id') || "-1");
   }
 
+  logout() {
+    console.log("Logging out");
+    localStorage.removeItem('token');
+    localStorage.removeItem('advisee_id');
+    this.logoutRouter.navigate(['/']);
+  }
+
 }
+

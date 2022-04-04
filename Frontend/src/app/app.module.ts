@@ -22,9 +22,9 @@ import { TestFileInputComponent } from './test-file-input/test-file-input.compon
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { AdminFileUploadComponent } from './admin-file-upload/admin-file-upload.component';
 import { FileUploadListComponent } from './file-upload-list/file-upload-list.component';
-import { HeaderComponent } from './header/header.component';
+//import { HeaderComponent } from './header/header.component';
 import { ReadInputComponent } from './read-input/read-input.component';
-import { GenericLayoutComponent } from './generic-layout/generic-layout.component';
+//import { GenericLayoutComponent } from './generic-layout/generic-layout.component';
 
 
 @NgModule({
@@ -43,9 +43,9 @@ import { GenericLayoutComponent } from './generic-layout/generic-layout.componen
     AdminViewComponent,
     AdminFileUploadComponent,
     FileUploadListComponent,
-    HeaderComponent,
+    //HeaderComponent,
     ReadInputComponent,
-    GenericLayoutComponent
+    //GenericLayoutComponent
   ],
   imports: [
     BrowserModule,

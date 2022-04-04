@@ -29,7 +29,9 @@ export class LoginComponent implements OnInit {
     this.authRouter.navigate(['/advisee-view']);
     });
 
-  }
+  };
+
+
 
   /* checkIfString(event: any, type: string) {
     if (type === 'QUEmail') {

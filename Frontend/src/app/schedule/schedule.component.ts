@@ -8,10 +8,12 @@ import { DataService } from '../data.service';
 })
 export class ScheduleComponent implements OnInit {
   constructor(private dataService: DataService) {}
-
+  
   @Input() advisee_id: number = 0;
   @Input() advisingPeriodInProgress: boolean = false;
   @Output() flagAdvisee = new EventEmitter();
+
+/*    */
 
   flagged = false;
 

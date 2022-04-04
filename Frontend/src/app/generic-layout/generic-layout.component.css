@@ -1,0 +1,9 @@
+.container {
+  content: justify;
+  align-items: center;
+  height: 40vh;
+}
+
+.form {
+  width: 400px;
+}

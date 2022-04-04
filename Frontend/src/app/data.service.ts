@@ -9,6 +9,8 @@ export class DataService {
   url = 'http://localhost:3000';
   headers = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
+    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
   });
 
   constructor(private http: HttpClient) {}

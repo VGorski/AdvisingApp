@@ -39,7 +39,7 @@
               padding-bottom: 30px;
             "
           >
-            <form class="px-4 py-3">
+             <form class="px-4 py-3" [formGroup] = 'loginForm' >
               <h1 style="text-align: center; padding-bottom: 20px">Login</h1>
               <div class="form-group">
                 <label
@@ -48,10 +48,12 @@
                   >Email address:</label
                 >
                 <input
+                  formControlName = "email"
                   type="email"
                   class="form-control"
                   id="exampleDropdownFormEmail1"
                   style="margin-bottom: 30px"
+            
                 />
               </div>
               <div class="form-group">
@@ -61,6 +63,7 @@
                   >Password:</label
                 >
                 <input
+                  formControlName = "password"
                   type="password"
                   class="form-control"
                   id="exampleDropdownFormPassword1"
@@ -68,14 +71,38 @@
                 />
               </div>
               <button
-                type="submit"
+                type="button"
                 class="btn btn-primary"
                 style="margin-top: 15px; width: 450px; margin-left: 50px"
-                routerLink="/advisor-view"
+                (click) = "handleSubmit()"
+                
               >
                 Login
               </button>
             </form>
+            <!-- <app-generic-layout>
+              <h1 style="text-align: center; padding-bottom: 20px">Login</h1>
+              <form [formGroup] = "loginForm" class="py-3 px-4" (ngSubmit)="handleSubmit()">
+                <app-read-input
+                type="text" class="form-control form-control-sm"
+                control="email"
+                [controller]="loginForm.controls.email"
+                [formGroup]="loginForm"
+                label="Email Address">
+                </app-read-input>
+                <br>
+                <br>
+                <br>
+                <app-read-input
+                type="password" class="form-control form-control-sm"
+                control="password"
+                [controller]="loginForm.controls.password"
+                [formGroup]="loginForm"
+                label="Password">
+                </app-read-input>
+                <button type="submit" >Login</button>
+              </form>
+            </app-generic-layout> -->
             <div class="dropdown-divider" style="border-top-color: white"></div>
             <div class="row">
               <div class="buttonCol">

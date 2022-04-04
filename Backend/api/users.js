@@ -116,9 +116,14 @@ loginRouter.post("/login", (req, res) => {
 
               res.status(200).json({
                 message: "Hopefully logged in",
-                status: res.status,
-                token,
+                status: 200,
+                data:{
+                  'token': token,
+                  'id': userCredentials.id
+                }
               });
+
+              
             } else {
               // Nope, wrong password
               res.status(401).json({
@@ -134,7 +139,7 @@ loginRouter.post("/login", (req, res) => {
   }
 });
 
-/* 
+
 // User info API
 loginRouter.get("/userCredentials", (req, res) => {
     const authenticate = req.header['authorization'];
@@ -156,8 +161,8 @@ loginRouter.get("/userCredentials", (req, res) => {
     res.status(401).json({
         message: "You haven't logged in yet",
         status: res.status  
-    })
+    });
     
-}); */
+}});
 
 module.exports = loginRouter;

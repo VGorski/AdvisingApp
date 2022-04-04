@@ -13,6 +13,7 @@ import { ScheduleBuildComponent } from './schedule-build/schedule-build.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AdvisorViewAdviseesComponent } from './advisor-view-advisees/advisor-view-advisees.component';
 import { AdviseeScheduleComponent } from './advisee-schedule/advisee-schedule.component';
@@ -21,6 +22,9 @@ import { TestFileInputComponent } from './test-file-input/test-file-input.compon
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { AdminFileUploadComponent } from './admin-file-upload/admin-file-upload.component';
 import { FileUploadListComponent } from './file-upload-list/file-upload-list.component';
+import { HeaderComponent } from './header/header.component';
+import { ReadInputComponent } from './read-input/read-input.component';
+import { GenericLayoutComponent } from './generic-layout/generic-layout.component';
 
 
 @NgModule({
@@ -38,7 +42,10 @@ import { FileUploadListComponent } from './file-upload-list/file-upload-list.com
     TestFileInputComponent,
     AdminViewComponent,
     AdminFileUploadComponent,
-    FileUploadListComponent
+    FileUploadListComponent,
+    HeaderComponent,
+    ReadInputComponent,
+    GenericLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +54,8 @@ import { FileUploadListComponent } from './file-upload-list/file-upload-list.com
     DragDropModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

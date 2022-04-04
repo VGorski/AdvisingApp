@@ -8,7 +8,7 @@ import { DataService } from '../data.service';
 })
 export class AdviseeViewComponent implements OnInit {
 
-  advisee_id = 4 //TODO make this dependent upon who logged in
+  advisee_id = -1; //TODO make this dependent upon who logged in
 
   advisee = {
     "firstName": "",
@@ -18,9 +18,17 @@ export class AdviseeViewComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.dataService.getAdviseeName(this.advisee_id).subscribe((advisee) => {
+   
+    this.getAdviseeId().then(() => {
+      this.dataService.getAdviseeName(this.advisee_id).subscribe((advisee) => {
       this.advisee = advisee;
     })
+    })
+    
+  }
+
+  async getAdviseeId() {
+    this.advisee_id = await Number.parseInt(localStorage.getItem('advisee_id') || "-1");
   }
 
 }

@@ -109,7 +109,11 @@ export class DataService {
       };
     });
 
-    this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
+    let chunkSize = 100;
+    for (let i = 0; i < courseData.length; i += chunkSize) {
+      let splitData = courseData.slice(i, i + chunkSize);
+      this.http.post(this.url + '/admin/upload/courses', splitData).subscribe();
+    }
   }
 
   async postRegisteredCourses(data: any) {

@@ -40,35 +40,34 @@ async function getSchedule(advisee_id) {
 
 // Add a new schedule to the schedule table and then update the Course_Schedule table
 async function postSchedule(scheduleInfo, courses) {
-  // [BEGIN] Delete previous schedule
-  await sequelize.query(
-    `DELETE FROM course_schedule WHERE schedule_id IN (select schedule_id FROM Schedule WHERE modified_date != 0 AND advisee_id = ${scheduleInfo.advisee_id});`
-  );
+  if (scheduleInfo.adviseeSignature != "REGISTERED") {
+    // [BEGIN] Delete previous schedule
+    await sequelize.query(
+      `DELETE FROM course_schedule WHERE schedule_id IN (select schedule_id FROM Schedule WHERE modified_date != 0 AND advisee_id = ${scheduleInfo.advisee_id});`
+    );
 
-  await sequelize.query(
-    `DELETE FROM Schedule WHERE advisee_id = ${scheduleInfo.advisee_id} AND modified_date != 0;`
-  );
-  // [END] delete previous schedule
-
-  // Insert the planned schedule
-  await sequelize.query(
-    `INSERT INTO Schedule (advisee_id, modified_date, adviseeSignature, advisorSignature) VALUES(${scheduleInfo.advisee_id},"${scheduleInfo.modified_date}","${scheduleInfo.adviseeSignature}","${scheduleInfo.advisorSignature}");`
-  );
-
-  // Get the id of the last schedule (the one we just put in)
-  let increment_object = await sequelize.query(
-    "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'Schedule';"
-  );
-  schedule_id = increment_object[0][0]["AUTO_INCREMENT"] - 10;
+    await sequelize.query(
+      `DELETE FROM Schedule WHERE advisee_id = ${scheduleInfo.advisee_id} AND modified_date != 0;`
+    );
+    // [END] delete previous schedule
+  }
 
   // Update Course_Schedule table with all of the courses inserted
   courses.forEach(async (course) => {
+    // Insert the planned schedule
     await sequelize
       .query(
-        `INSERT INTO Course_Schedule (schedule_id, course_id) VALUES(${schedule_id},${course.course_id});`
+        `INSERT INTO Schedule (advisee_id, modified_date, adviseeSignature, advisorSignature) VALUES(${scheduleInfo.advisee_id},"${scheduleInfo.modified_date}","${scheduleInfo.adviseeSignature}","${scheduleInfo.advisorSignature}");`
       )
-      .catch((err) => {
-        console.log(err);
+      .then(async (increment_object) => {
+        let schedule_id = increment_object[0];
+        await sequelize
+          .query(
+            `INSERT INTO Course_Schedule (schedule_id, course_id) VALUES(${schedule_id},${course.course_id});`
+          )
+          .catch((err) => {
+            console.log(err);
+          });
       });
   });
 }

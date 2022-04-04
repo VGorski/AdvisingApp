@@ -1,31 +1,44 @@
 
-<div class="text-center" *ngIf="plannedCourses.length != 0">
-    <hr>
-    <p class="registered-message" style="color: white;">Planned Courses</p>
-</div>
-<div class="container" *ngIf="plannedCourses.length != 0">
-    <div class="card" *ngFor="let course of plannedCourses">
-        <div class="card-body text-center"
-        [ngClass]="{'flagged-registration':registeredNotPlanned(course.course_id),
-            'correct-registration':plannedAndRegistered(course.course_id),
-            'flagged-planning':plannedNotRegistered(course.course_id),
-            'flagged-neither':neitherPlannedNorRegistered(course.course_id)}">
-            <p class="card-text">{{course.name}}</p>
+<div class="row">
+    <div class="col">
+        <div class="text-center" *ngIf="plannedCourses.length != 0">
+            <p class="registered-message" [ngClass]="{'advisee-view':adviseeView}">Planned Courses</p>
+        </div>
+        <div class="container" *ngIf="plannedCourses.length != 0">
+            <div class="card" *ngFor="let course of plannedCourses">
+                <div class="card-body text-center"
+                [ngClass]="{'flagged-registration':registeredNotPlanned(course.course_id),
+                    'correct-registration':plannedAndRegistered(course.course_id),
+                    'flagged-planning':plannedNotRegistered(course.course_id),
+                    'flagged-neither':neitherPlannedNorRegistered(course.course_id)}">
+                    <p class="card-text">{{course.name}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center" *ngIf="plannedCourses.length == 0">
+            <h1 style="color: red;">No Planned Courses</h1>
         </div>
     </div>
-</div>
-<div class="container text-center" *ngIf="plannedCourses.length == 0">
-    <h1 style="color: red;">No Planned Courses</h1>
-</div>
-
-<div class="text-center" *ngIf="registeredCourses.length != 0">
-    <hr>
-    <p class="registered-message" style="color: white;">Registered Courses</p>
-</div>
-<div class="container" *ngIf="registeredCourses.length != 0">
-    <div class="card" *ngFor="let course of registeredCourses">
-        <div class="card-body text-center">
-            <p class="card-text">{{course.name}}</p>
+    
+    <div class="col">
+        <div class="text-center" *ngIf="registeredCourses.length != 0">
+    
+            <p class="registered-message" [ngClass]="{'advisee-view':adviseeView}" >Registered Courses</p>
+        </div>
+        <div class="container" *ngIf="registeredCourses.length != 0">
+            <div class="card" *ngFor="let course of registeredCourses">
+                <div class="card-body text-center"
+                [ngClass]="{'flagged-registration':registeredNotPlanned(course.course_id),
+                    'correct-registration':plannedAndRegistered(course.course_id),
+                    'flagged-planning':plannedNotRegistered(course.course_id),
+                    'flagged-neither':neitherPlannedNorRegistered(course.course_id)}">
+                    <p class="card-text">{{course.name}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center" *ngIf="registeredCourses.length == 0">
+            <h1 style="color: red;">No Registered Courses</h1>
         </div>
     </div>
+    
 </div>

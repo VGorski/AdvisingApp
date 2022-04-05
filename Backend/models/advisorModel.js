@@ -1,8 +1,11 @@
-let Advisee = require("./adviseeModelSeq");
-let sequelize = require("./sequelize");
-const Sequelize = require("sequelize");
+const { Model } = require("sequelize");
+const sequelize = require("./sequelize");
+const Sequelize = require('sequelize');
+let Advisee = require("./adviseeModel");
 
-const Advisor = sequelize.define("Advisor", {
+class advisorModel extends Model{};
+
+advisorModel.init({
   advisor_id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -12,9 +15,14 @@ const Advisor = sequelize.define("Advisor", {
   email: Sequelize.STRING,
   password: Sequelize.STRING,
   role: Sequelize.ENUM("ADMIN", "PROGRAMDIRECTOR", "ADVISOR"),
-  discipline: Sequelize.CHAR(3),
-});
+  discipline: Sequelize.CHAR(3)
+  }, {
+    modelName: "advisor",
+    sequelize,
+    tableName: "advisor"
+  });
 
-Advisor.hasMany(Advisee); // Set one to many relationship
+ // Advisor.hasMany(Advisee); // Set one to many relationship
 
-module.exports = Advisor;
+
+module.exports = advisorModel;

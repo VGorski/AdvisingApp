@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 import { Handler } from '../interface/handler';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,7 +28,9 @@ export class LoginComponent implements OnInit {
   handleSubmit() {
     this.authServe.login(this.loginForm.value).subscribe((res: Handler) => {
     this.authRouter.navigate(['/advisee-view']);
-    });
+ 
+  });
+    
 
   };
 

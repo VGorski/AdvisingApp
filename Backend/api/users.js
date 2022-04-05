@@ -2,6 +2,7 @@
 
 const express = require("express");
 const loginRouter = express.Router();
+const Advisor = require("../models/advisorModel");
 const Advisee = require("../models/adviseeModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -28,7 +29,7 @@ loginRouter.post("/register", (req, res) => {
     });
   } else {
     // Check if the email exists in the database
-    Advisee.findOne({
+    Advisor.findOne({
       attributes: ["email"],
       where: {
         email: req.body.email,
@@ -37,12 +38,13 @@ loginRouter.post("/register", (req, res) => {
       bcrypt.genSalt(10, function (error, salt) {
         bcrypt.hash(credentials.password, salt, (error, hash) => {
           console.log(hash);
-          Advisee.create({
+          Advisor.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
-            advisor_id: req.body.advisor_id,
             password: hash,
+            role: req.body.role,
+            disipline: req.body.discipline
           }).then((value) => {
             res
               .status(201)
@@ -81,61 +83,89 @@ loginRouter.post("/login", (req, res) => {
       status: res.status,
     });
   } else {
-    // Check if the email exists in the database
+    // Check if the email exists in the database for an advisee
     Advisee.findOne({
       where: {
-        email: req.body.email,
+        email: req.body.email
       },
     }).then((value) => {
       if (value === null) {
-        res.status(401).json({
-          message: "No account could be found",
-          status: res.status,
-          jwt: "",
-        });
+        Advisor.findOne({
+          where: {
+            email: req.body.email
+          }
+
+        }).then((value) => {
+          if(value === null) {
+            res.status(401).json({
+              message: "No advisor account",
+              status: res.status,
+              jwt: ""
+            });
+          } else {
+            const checkPassword = value.getDataValue("password");
+            bcrypt.compare(req.body.password, checkPassword, function(error, validity) {
+              if(validity) {
+                const userCredentials = {
+                  email: value.getDataValue("email"),
+                  id: value.getDataValue("advisor_id")
+                };
+
+                const token = jwt.sign(userCredentials, process.env.SECRET_KEY, { expiresIn: "1200s"});
+                res.status(200).json({
+                  message: "Logged in as an advisor",
+                  status: 200,
+                  data: {
+                    'token': token,
+                    'id': userCredentials.id
+                  }
+                });
+              } else {
+                res.status(401).json({
+                  message: "Wrong password",
+                  status: res.status,
+                  token: ""
+                });
+              };
+            })
+          }
+        })
       } else {
-        // Email does exist, so check the password
         const checkPassword = value.getDataValue("password");
-        /*             bcrypt.hash("password").then(hash => {
-                console.log(hash);
-            }); */
         bcrypt.compare(
           req.body.password,
           checkPassword,
           function (error, validity) {
             if (validity) {
-              // If password matches, then user is good to go
               const userCredentials = {
                 email: value.getDataValue("email"),
-                id: value.getDataValue("advisee_id"),
+                id: value.getDataValue("advisee_id")
               };
 
-              const token = jwt.sign(userCredentials, process.env.SECRET_KEY, {
-                expiresIn: "1200s",
-              });
-
+              const token = jwt.sign(userCredentials, process.env.SECRET_KEY, {expiresIn: "1200s"});
+            
               res.status(200).json({
-                message: "Hopefully logged in",
+                message: "Logged in as an advisee",
                 status: 200,
                 data:{
                   'token': token,
                   'id': userCredentials.id
                 }
               });
-
-              
             } else {
-              // Nope, wrong password
+              // Wrong password
               res.status(401).json({
                 message: "Wrong password",
                 status: res.status,
-                token: "",
+                token: ""
               });
-            }
+            };
+
           }
         );
       }
-    });
+    })    
+
   }
 });
 

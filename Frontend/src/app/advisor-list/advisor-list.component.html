@@ -10,7 +10,9 @@
                     </button>
             </ng-template>
             <ng-template ngbPanelContent>
-                <app-student-list [advisor_id]="advisor.advisor_id" (flagAdvisor)="flagAdvisor(advisor)"></app-student-list>
+                <div style="padding-left: 40px;">
+                    <app-student-list [advisor_id]="advisor.advisor_id" (flagAdvisor)="flagAdvisor(advisor)"></app-student-list>
+                </div>
             </ng-template>
         </ngb-panel>
     </ngb-accordion>

@@ -5,12 +5,12 @@
     <ngb-accordion #acc="ngbAccordion" *ngFor="let advisor of advisors" [destroyOnHide]="false">
         <ngb-panel>
             <ng-template ngbPanelHeader>
-                    <button ngbPanelToggle class="accordion-button justify-content-center">
+                    <button ngbPanelToggle class="accordion-button justify-content-center" [ngClass]="{'flagged': advisor.flagged, 'not-flagged': !advisor.flagged}">
                         {{advisor.firstName}} {{advisor.lastName}}
                     </button>
             </ng-template>
             <ng-template ngbPanelContent>
-                <app-student-list [advisor_id]="advisor.advisor_id"></app-student-list>
+                <app-student-list [advisor_id]="advisor.advisor_id" (flagAdvisor)="flagAdvisor(advisor)"></app-student-list>
             </ng-template>
         </ngb-panel>
     </ngb-accordion>

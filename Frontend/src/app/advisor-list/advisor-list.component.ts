@@ -12,6 +12,7 @@ export class AdvisorListComponent implements OnInit {
       advisor_id: -1,
       firstName: '',
       lastName: '',
+      flagged: false,
     },
   ];
 
@@ -22,5 +23,9 @@ export class AdvisorListComponent implements OnInit {
     this.dataservice.getAllAdvisors().subscribe((advisors) => {
       this.advisors = advisors;
     });
+  }
+
+  flagAdvisor(advisor: any) {
+    advisor.flagged = true;
   }
 }

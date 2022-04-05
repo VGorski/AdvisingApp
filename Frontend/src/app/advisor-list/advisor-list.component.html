@@ -1,0 +1,14 @@
+<div>
+    <ngb-accordion #acc="ngbAccordion" *ngFor="let advisor of advisors" [destroyOnHide]="false">
+        <ngb-panel>
+            <ng-template ngbPanelHeader>
+                    <button ngbPanelToggle class="accordion-button justify-content-center">
+                        {{advisor.firstName}} {{advisor.lastName}}
+                    </button>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <app-student-list [advisor_id]="advisor.advisor_id"></app-student-list>
+            </ng-template>
+        </ngb-panel>
+    </ngb-accordion>
+</div>

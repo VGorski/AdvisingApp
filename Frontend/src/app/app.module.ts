@@ -21,6 +21,8 @@ import { TestFileInputComponent } from './test-file-input/test-file-input.compon
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { AdminFileUploadComponent } from './admin-file-upload/admin-file-upload.component';
 import { FileUploadListComponent } from './file-upload-list/file-upload-list.component';
+import { AdvisorListComponent } from './advisor-list/advisor-list.component';
+import { AdminReportComponent } from './admin-report/admin-report.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { FileUploadListComponent } from './file-upload-list/file-upload-list.com
     TestFileInputComponent,
     AdminViewComponent,
     AdminFileUploadComponent,
-    FileUploadListComponent
+    FileUploadListComponent,
+    AdvisorListComponent,
+    AdminReportComponent
   ],
   imports: [
     BrowserModule,

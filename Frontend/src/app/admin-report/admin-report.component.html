@@ -1,0 +1,33 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #17067a;">
+        <div class="container-fluid">
+            <div class="logoContain" style="height: 40px; width: 40px;"></div>
+          <a class="navbar-brand" routerLink="../advisor-view">Advisor Dashboard</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+            </ul>
+          </div>
+          <div class="logoutContain" style="height: 30px; width: 30px;" routerLink="/"></div>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="viewContain">
+                    <h2 style="color: white; text-align: center; padding: 20px;">Select an Advisor to view their Advisees</h2>
+                    <div class="container" style="color:black">
+                        <app-advisor-list></app-advisor-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+</body>
+</html>

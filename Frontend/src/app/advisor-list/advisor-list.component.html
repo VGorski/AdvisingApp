@@ -1,4 +1,7 @@
 <div>
+    <div class="container text-center" *ngIf="advisors.length == 0">
+        <h1 style="color: white;">No Advisors</h1>
+    </div>
     <ngb-accordion #acc="ngbAccordion" *ngFor="let advisor of advisors" [destroyOnHide]="false">
         <ngb-panel>
             <ng-template ngbPanelHeader>

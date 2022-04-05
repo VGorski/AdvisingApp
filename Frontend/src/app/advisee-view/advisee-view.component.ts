@@ -38,6 +38,7 @@ export class AdviseeViewComponent implements OnInit {
     console.log("Logging out");
     localStorage.removeItem('token');
     localStorage.removeItem('advisee_id');
+    localStorage.removeItem('role');
     this.logoutRouter.navigate(['/']);
   }
 

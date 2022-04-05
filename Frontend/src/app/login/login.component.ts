@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 import { Handler } from '../interface/handler';
+import { ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   password: string = '';
   isRealEmail: boolean = true;
 
+
   constructor(private authServe: AuthenticationService, private authRouter: Router) { }
 
   ngOnInit(): void {
@@ -26,14 +28,18 @@ export class LoginComponent implements OnInit {
   });
 
   handleSubmit() {
+
     this.authServe.login(this.loginForm.value).subscribe((res: Handler) => {
-    this.authRouter.navigate(['/advisee-view']);
- 
-  });
-    
+      if (res.data.role == "ADVISOR") {
+          this.authRouter.navigate(['/advisor-view']); 
+      } else if (res.data.role == "ADMIN") {
+        this.authRouter.navigate(['/admin-view']);
+      } else {
+          this.authRouter.navigate(['/advisee-view']);
+      } 
 
-  };
-
+      //console.log(localStorage);
+  })}}
 
 
   /* checkIfString(event: any, type: string) {
@@ -52,4 +58,4 @@ export class LoginComponent implements OnInit {
       this.isRealEmail = false;
     }
   } */
-}
+

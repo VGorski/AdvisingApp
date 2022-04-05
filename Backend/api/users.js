@@ -29,7 +29,7 @@ loginRouter.post("/register", (req, res) => {
     });
   } else {
     // Check if the email exists in the database
-    Advisor.findOne({
+    Advisee.findOne({
       attributes: ["email"],
       where: {
         email: req.body.email,
@@ -38,13 +38,12 @@ loginRouter.post("/register", (req, res) => {
       bcrypt.genSalt(10, function (error, salt) {
         bcrypt.hash(credentials.password, salt, (error, hash) => {
           console.log(hash);
-          Advisor.create({
+          Advisee.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
+            advisor_id: req.body.advisor_id,
             password: hash,
-            role: req.body.role,
-            disipline: req.body.discipline
           }).then((value) => {
             res
               .status(201)
@@ -108,16 +107,18 @@ loginRouter.post("/login", (req, res) => {
               if(validity) {
                 const userCredentials = {
                   email: value.getDataValue("email"),
-                  id: value.getDataValue("advisor_id")
+                  id: value.getDataValue("advisor_id"),
+                  role: value.getDataValue("role")
                 };
 
                 const token = jwt.sign(userCredentials, process.env.SECRET_KEY, { expiresIn: "1200s"});
                 res.status(200).json({
-                  message: "Logged in as an advisor",
+                  message: userCredentials,
                   status: 200,
                   data: {
                     'token': token,
-                    'id': userCredentials.id
+                    'id': userCredentials.id,
+                    'role': userCredentials.role
                   }
                 });
               } else {

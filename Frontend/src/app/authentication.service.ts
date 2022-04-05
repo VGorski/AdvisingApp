@@ -22,11 +22,19 @@ export class AuthenticationService {
 
   // Set token in local storage
   storeJWT(handler: Handler) {
-    
-    if (handler.hasOwnProperty('data')) {
+  
+ if (handler.hasOwnProperty('data')) {
+   if (handler.data.role == "ADVISOR") {
+      localStorage.setItem('token', handler.data.token)
+      localStorage.setItem('advisor_id', handler.data.id)
+      localStorage.setItem('role', handler.data.role)
+      //console.log(localStorage);
+    } else {
       localStorage.setItem('token', handler.data.token)
       localStorage.setItem('advisee_id', handler.data.id)
-    }
+      //console.log(localStorage);
+    }   }
+
       
     
   }
@@ -36,7 +44,6 @@ export class AuthenticationService {
     return this.http.post<Handler>('http://localhost:3000/api/users/login', credentials, {headers: this.headers}).pipe(
       tap(async (res) => {
         await this.storeJWT(res);
-        
       })
     )
   }

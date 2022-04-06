@@ -1,64 +1,60 @@
 body {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    color: white;
-    background-image: url("../images/QUplaid.jpg");
-    background-size: cover;
-    background-repeat: no-repeat; 
-    padding: 0px;
-    margin: 0px;
-    min-height: 100%;
-    height: 100vh;
-  }
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: white;
+  background-image: url("../images/QUplaid.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 0px;
+  margin: 0px;
+  min-height: 100%;
+  height: 100vh;
+}
 
 button {
-    display: flex;
-    margin: 0 auto;
-    align-items: center;
-    vertical-align: middle;
-    width: 50vh;
-    height: 15vh;
-    padding: 60px;
-    font-size: x-large;
-    
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  vertical-align: middle;
+  width: 50vh;
+  height: 15vh;
+  padding: 60px;
+  font-size: x-large;
 }
 
 .imageContain {
-    background-image: url("../images/QUAdvisingLogo.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 20px;
+  background-image: url("../images/QUAdvisingLogo.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 20px;
 }
 
 .logoContain {
-    background-image: url("../images/QUAdvisingLogo.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 5px;
-    margin-right: 20px;
+  background-image: url("../images/QUAdvisingLogo.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px;
+  margin-right: 20px;
 }
 
 .logoutContain {
-    background-image: url("../images/logout.png");
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-image: url("../images/logout.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .viewContain {
-    height: 60vh; 
-    width: 70vh; 
-    background-color: darkblue;
-    margin: auto;
-    margin-top: 50px;
-    border-radius: 20px;
-  }
+  height: 60vh;
+  width: 70vh;
+  background-color: darkblue;
+  margin: auto;
+  margin-top: 50px;
+  border-radius: 20px;
+}
 
-  .fileContain {
-    height: 40vh; 
-    width: 70vh; 
-    background-color: white;
-    margin: auto;
-    border-radius: 20px;
-  }
-
-  input[type=checkbox]:checked{
-  }
+.fileContain {
+  height: 40vh;
+  width: 70vh;
+  background-color: white;
+  margin: auto;
+  border-radius: 20px;
+}

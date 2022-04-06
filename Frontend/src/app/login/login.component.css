@@ -37,7 +37,7 @@ body {
 }
 
 .imageContain {
-  background-image: url("../../assets/QUAdvisingLogo.png");
+  background-image: url("../images//QUlogo.png");
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 20px;

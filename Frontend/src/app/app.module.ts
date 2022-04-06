@@ -48,7 +48,8 @@ import { AdvisorListComponent } from './advisor-list/advisor-list.component';
     //HeaderComponent,
     ReadInputComponent,
     AdvisorListComponent,
-    AdminReportComponent
+    AdminReportComponent,
+
     //GenericLayoutComponent
   ],
   imports: [

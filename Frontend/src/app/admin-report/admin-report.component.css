@@ -1,53 +1,52 @@
 body {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    color: white;
-    background-image: url("../../assets/QUplaid.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 0px;
-    margin: 0px;
-    min-height: 100%;
-    height: 100vh;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: white;
+  background-image: url("../../assets/QUplaid.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 0px;
+  margin: 0px;
+  min-height: 100%;
+  height: 100vh;
 }
 
-
 .logoContain {
-    background-image: url("../../assets/QUAdvisingLogo.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 5px;
-    margin-right: 20px;
+  background-image: url("../images/QUlogo.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px;
+  margin-right: 20px;
 }
 
 .logoutContain {
-    background-image: url("../../assets/logout.png");
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-image: url("../../assets/logout.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .viewContain {
-    height: 80vh;
-    width: 150vh;
-    background-color: darkblue;
-    margin: auto;
-    margin-top: 50px;
-    border-radius: 20px;
+  height: 80vh;
+  width: 150vh;
+  background-color: darkblue;
+  margin: auto;
+  margin-top: 50px;
+  border-radius: 20px;
 }
 
 .adviseeRow {
-    width: 600px;
-    height: 20px;
-    background-color: grey;
-    padding-top: 40px;
-    margin-top: 20px;
-    margin-left: 250px;
+  width: 600px;
+  height: 20px;
+  background-color: grey;
+  padding-top: 40px;
+  margin-top: 20px;
+  margin-left: 250px;
 }
 
 .scheduleRow {
-    width: 350px;
-    height: 20px;
-    background-color: grey;
-    padding-top: 30px;
-    margin-top: 10px;
-    margin-left: 380px;
+  width: 350px;
+  height: 20px;
+  background-color: grey;
+  padding-top: 30px;
+  margin-top: 10px;
+  margin-left: 380px;
 }

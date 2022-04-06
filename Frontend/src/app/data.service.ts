@@ -38,6 +38,10 @@ export class DataService {
     return this.http.get(this.url + '/advisee/' + advisee_id + '/name');
   }
 
+  getAllAdvisors(): Observable<any> {
+    return this.http.get(this.url + '/advisor/all');
+  }
+
   getAdvisorName(advisor_id: number): Observable<any> {
     return this.http.get(this.url + '/advisor/' + advisor_id + '/name');
   }

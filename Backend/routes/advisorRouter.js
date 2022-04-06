@@ -27,6 +27,22 @@ advisorRouter.route("/:advisorId/advisees").get((req, res, next) => {
     });
 });
 
+advisorRouter.route("/all").get((req, res, next) => {
+  // Get all advisors that exist
+  advisorUtil
+    .getAllAdvisors()
+    .then((advisors) => {
+      res.status(200);
+      res.json(advisors);
+      res.end();
+    })
+    .catch((err) => {
+      res.status(404);
+      res.json(err);
+      res.end();
+    });
+});
+
 advisorRouter
   .route("/:advisorId/advisees/:adviseeId/schedule")
   .get((req, res, next) => {

@@ -1,4 +1,7 @@
 <div *ngIf="!advisingPeriodInProgress">
+    <div class="container text-center" *ngIf="advisees.length == 0">
+        <h1 style="color: red;">No Advisees</h1>
+    </div>
     <ngb-accordion #acc="ngbAccordion" *ngFor="let advisee of advisees" [destroyOnHide]="false">
         <ngb-panel>
             <ng-template ngbPanelHeader>

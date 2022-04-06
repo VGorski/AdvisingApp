@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { AdminReportComponent } from './admin-report/admin-report.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdvisorViewComponent } from './advisor-view/advisor-view.component';
@@ -24,6 +24,8 @@ import { AdminFileUploadComponent } from './admin-file-upload/admin-file-upload.
 import { FileUploadListComponent } from './file-upload-list/file-upload-list.component';
 //import { HeaderComponent } from './header/header.component';
 import { ReadInputComponent } from './read-input/read-input.component';
+import { Handler } from './interface/handler';
+import { AdvisorListComponent } from './advisor-list/advisor-list.component';
 //import { GenericLayoutComponent } from './generic-layout/generic-layout.component';
 
 
@@ -45,6 +47,8 @@ import { ReadInputComponent } from './read-input/read-input.component';
     FileUploadListComponent,
     //HeaderComponent,
     ReadInputComponent,
+    AdvisorListComponent,
+    AdminReportComponent
     //GenericLayoutComponent
   ],
   imports: [

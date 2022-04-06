@@ -40,11 +40,11 @@
             "
           >
              <form class="px-4 py-3" [formGroup] = 'loginForm' >
-              <h1 style="text-align: center; padding-bottom: 20px">Login</h1>
+              <h1 style="text-align: center; padding-bottom: 20px; font-weight: bold; font-size: 30px;">Login</h1>
               <div class="form-group">
                 <label
                   for="exampleDropdownFormEmail1"
-                  style="font-size: 20px; padding-bottom: 10px"
+                  style="font-size: 25px; padding-bottom: 10px"
                   >Email address:</label
                 >
                 <input
@@ -52,14 +52,14 @@
                   type="email"
                   class="form-control"
                   id="exampleDropdownFormEmail1"
-                  style="margin-bottom: 30px"
+                  style="margin-bottom: 30px; font-size: 20px; height: 25px;"
             
                 />
               </div>
               <div class="form-group">
                 <label
                   for="exampleDropdownFormPassword1"
-                  style="font-size: 20px; padding-bottom: 10px"
+                  style="font-size: 25px; padding-bottom: 10px"
                   >Password:</label
                 >
                 <input
@@ -67,7 +67,7 @@
                   type="password"
                   class="form-control"
                   id="exampleDropdownFormPassword1"
-                  style="margin-bottom: 30px"
+                  style="margin-bottom: 30px; font-size: 20px; height: 25px;"
                 />
               </div>
 <!--               <ngb-toast header="Notification header">
@@ -78,10 +78,14 @@
                 class="btn btn-primary"
                 style="margin-top: 15px; width: 450px; margin-left: 50px"
                 (click) = "handleSubmit()"
-                
+              
               >
                 Login
               </button>
+<!--               <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched
+               && loginForm.controls['password'].dirty && loginForm.controls['password'].touched">
+                Invalid email or password
+              </div> -->
             </form>
             <!-- <app-generic-layout>
               <h1 style="text-align: center; padding-bottom: 20px">Login</h1>

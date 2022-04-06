@@ -82,10 +82,11 @@
               >
                 Login
               </button>
-<!--               <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched
-               && loginForm.controls['password'].dirty && loginForm.controls['password'].touched">
+              <br/>
+              <div style="background-color: red; text-align: center; color: white; font-size: 20px; margin-top: 10px;" *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].dirty && loginForm.controls['email'].touched
+               && loginForm.controls['password'].dirty && loginForm.controls['password'].touched" >
                 Invalid email or password
-              </div> -->
+              </div>
             </form>
             <!-- <app-generic-layout>
               <h1 style="text-align: center; padding-bottom: 20px">Login</h1>

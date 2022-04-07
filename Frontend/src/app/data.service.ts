@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
-  url = 'http://localhost:3000';
+  url = 'https://quinnipiac-advising-assistant.herokuapp.com';
   headers = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
     "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",

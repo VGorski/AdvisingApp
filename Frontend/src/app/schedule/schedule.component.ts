@@ -8,10 +8,13 @@ import { DataService } from '../data.service';
 })
 export class ScheduleComponent implements OnInit {
   constructor(private dataService: DataService) {}
-
+  
   @Input() advisee_id: number = 0;
   @Input() advisingPeriodInProgress: boolean = false;
+  @Input() adviseeView = false;
   @Output() flagAdvisee = new EventEmitter();
+
+/*    */
 
   flagged = false;
 
@@ -59,12 +62,14 @@ export class ScheduleComponent implements OnInit {
     if (
       this.plannedCourses.filter((course) => {
         return course.course_id == course_id;
-      }).length != 0 &&
+      }).length == 0 &&
       this.registeredCourses.filter((course) => {
         return course.course_id == course_id;
-      }).length == 0
+      }).length != 0
     ) {
-      this.tellParent();
+      if (!this.adviseeView) {
+        this.tellParent();
+      }
       return true;
     }
     return false;
@@ -75,12 +80,14 @@ export class ScheduleComponent implements OnInit {
     if (
       this.plannedCourses.filter((course) => {
         return course.course_id == course_id;
-      }).length == 0 &&
+      }).length != 0 &&
       this.registeredCourses.filter((course) => {
         return course.course_id == course_id;
-      }).length != 0
+      }).length == 0
     ) {
-      this.tellParent();
+      if (!this.adviseeView) {
+        this.tellParent();
+      }
       return true;
     }
     return false;
@@ -96,7 +103,9 @@ export class ScheduleComponent implements OnInit {
         return course.course_id == course_id;
       }).length == 0
     ) {
-      this.tellParent();
+      if (!this.adviseeView) {
+        this.tellParent();
+      }
       return true;
     }
     return false;
@@ -114,7 +123,9 @@ export class ScheduleComponent implements OnInit {
     ) {
       return true;
     }
-    this.tellParent();
+    if (!this.adviseeView) {
+      this.tellParent();
+    }
     return false;
   }
 }

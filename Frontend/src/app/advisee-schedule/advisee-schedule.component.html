@@ -38,6 +38,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown"></div>
         <div
+        (click) = "logout()"
           class="logoutContain"
           style="height: 30px; width: 30px"
           routerLink="/"
@@ -62,7 +63,7 @@
           </h2>
           <!--Component start-->
           <div style="color: black">
-            <app-schedule [advisee_id]="advisee_id"></app-schedule>
+            <app-schedule [advisee_id]="advisee_id" [adviseeView]="true"></app-schedule>
           </div>
           <!--Component end-->
         </div>

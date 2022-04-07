@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class AdminFileUploadComponent implements OnInit {
 
   showSuccessfulUpload = false;
 
-  constructor(private http: HttpClient, private dataservice: DataService) {}
+  constructor(private http: HttpClient, private dataservice: DataService, private logoutRouter: Router) {}
 
   selectFile(event: any) {
     const file: File = event.target.files[0];
@@ -42,6 +43,14 @@ export class AdminFileUploadComponent implements OnInit {
     this.dataservice.getUploadedFiles().then((files) => {
       this.files = files;
     });
+  }
+
+  logout() {
+    console.log("Logging out");
+    localStorage.removeItem('token');
+    localStorage.removeItem('advisee_id');
+    localStorage.removeItem('role');
+    this.logoutRouter.navigate(['/']);
   }
 
   successfulUpload() {

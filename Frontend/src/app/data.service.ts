@@ -6,9 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
-  url = 'https://quinnipiac-advising-assistant.herokuapp.com';
+  url = 'http://localhost:3000';
   headers = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
+    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
   });
 
   constructor(private http: HttpClient) {}
@@ -34,6 +36,10 @@ export class DataService {
 
   getAdviseeName(advisee_id: number): Observable<any> {
     return this.http.get(this.url + '/advisee/' + advisee_id + '/name');
+  }
+
+  getAllAdvisors(): Observable<any> {
+    return this.http.get(this.url + '/advisor/all');
   }
 
   getAdvisorName(advisor_id: number): Observable<any> {
@@ -107,11 +113,16 @@ export class DataService {
       };
     });
 
-    this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
+    let chunkSize = 100;
+    for (let i = 0; i < courseData.length; i += chunkSize) {
+      let splitData = courseData.slice(i, i + chunkSize);
+      this.http.post(this.url + '/admin/upload/courses', splitData).subscribe();
+    }
   }
 
   async postRegisteredCourses(data: any) {
     //Reformat data to be like the MySQL database
+    console.log("Working")
     let courseData = data.map((element: any) => {
       return {
         course: element['Course Name'],

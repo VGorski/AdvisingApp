@@ -31,28 +31,36 @@
               </li>
             </ul>
           </div>
-          <div class="logoutContain" style="height: 30px; width: 30px;"></div>
+          <div class="logoutContain" style="height: 30px; width: 30px;" (click)="logout()"></div>
         </div>
       </nav>
       <div class="container">
         <div class="row">
           <div class="col">
-            <div class="row" style="font-size: 40px; padding-top: 40px;">Welcome, [Admin]</div>
+            <div class="row" style="font-size: 40px; padding-top: 40px;">Welcome,</div>
+            <div class="row" style="font-size: 40px;">
+              {{firstName}} {{lastName}}
+            </div>
             <div class="row" style="padding-top: 110px;">
                 <div class="imageContain" style="height: 300px; width: 300px;"></div>
             </div>
           </div>
-          <div class="col" style="padding-top: 30px; margin-left: 150px;">
+          <div class="col" style="padding-top: 30px;">
               <div class="buttonCol">
-                <button type="button" class="btn btn-primary" style="padding-left: 140px;" routerLink="/admin-file-upload">File Upload</button>
+                <button type="button" class="btn btn-primary" routerLink="/admin-file-upload">File Upload</button>
               </div>
               <div class="buttonCol">
-                <button type="button" class="btn btn-primary" style="margin-top: 40px; padding-left: 135px;" routerLink="/advisor-view-advisees">View Advisees</button>
-              </div>
-              <div class="buttonCol">
-                <button type="button" class="btn btn-danger" style="margin-top: 40px; padding-left: 100px;" routerLink="/advisor-report">1 Discrepancy Found!</button>
+                <button type="button" class="btn btn-primary" style="margin-top: 40px;" routerLink="/advisor-view-advisees">View My Advisees</button>
               </div>
           </div>
+          <div class="col" style="padding-top: 30px;">
+            <div class="buttonCol">
+              <button type="button" class="btn btn-danger"  routerLink="/advisor-report">My Advisee Report</button>
+            </div>
+            <div class="buttonCol">
+              <button type="button" class="btn btn-danger" style="margin-top: 40px;" routerLink="/admin-report">All Advisor Report</button>
+            </div>
+        </div>
         </div>
       </div>
 </body>

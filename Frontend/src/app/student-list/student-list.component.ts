@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { DataService} from '../data.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-student-list',
@@ -9,6 +9,7 @@ import { DataService} from '../data.service';
 export class StudentListComponent implements OnInit {
   @Input() advisor_id: number = -1;
   @Input() advisingPeriodInProgress: boolean = false;
+  @Output() flagAdvisor = new EventEmitter<boolean>();
 
   advisees = [
     {
@@ -29,6 +30,7 @@ export class StudentListComponent implements OnInit {
 
   flagAdvisee(advisee: any) {
     advisee.flagged = true;
+    this.flagAdvisor.emit();
   }
 
   setGlobalAdvisee(advisee_id: number) {

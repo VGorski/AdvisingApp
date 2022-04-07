@@ -8,6 +8,14 @@ async function getAdvisorName(advisor_id) {
   return advisor[0][0];
 }
 
+async function getAllAdvisors() {
+  let advisors = await sequelize.query(
+    "SELECT advisor_id, firstName, lastName FROM Advisor"
+  );
+  console.log(advisors[0]);
+  return advisors[0];
+}
+
 async function postAdvisors(uniqueAdvisors) {
   uniqueAdvisors.forEach(async (advisor) => {
     // Double check that the advisor is an actual advisor
@@ -27,5 +35,6 @@ async function postAdvisors(uniqueAdvisors) {
 
 module.exports = {
   getAdvisorName,
+  getAllAdvisors,
   postAdvisors,
 };

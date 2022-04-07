@@ -10,6 +10,7 @@ import { ScheduleBuildComponent } from './schedule-build/schedule-build.componen
 import { TestFileInputComponent } from './test-file-input/test-file-input.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { AdminFileUploadComponent } from './admin-file-upload/admin-file-upload.component';
+import { AdminReportComponent } from './admin-report/admin-report.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,8 +22,9 @@ const routes: Routes = [
   { path: 'advisee-view', component: AdviseeViewComponent },
   { path: 'advisee-schedule', component: AdviseeScheduleComponent },
   { path: 'fileTest', component: TestFileInputComponent },
-  { path: 'admin-view', component: AdminViewComponent},
-  { path: 'admin-file-upload', component:AdminFileUploadComponent},
+  { path: 'admin-view', component: AdminViewComponent },
+  { path: 'admin-file-upload', component: AdminFileUploadComponent },
+  { path: 'admin-report', component: AdminReportComponent },
 ];
 
 @NgModule({

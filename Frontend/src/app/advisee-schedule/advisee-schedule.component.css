@@ -26,7 +26,7 @@ body {
 }
 
 .logoContain {
-  background-image: url("../../assets/QUAdvisingLogo.png");
+  background-image: url("../images/QUlogo.png");
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 5px;
@@ -40,7 +40,7 @@ body {
 }
 
 .viewContain {
-  height: 60vh;
+  height: 70vh;
   width: 90vh;
   background-color: darkblue;
   margin: auto;

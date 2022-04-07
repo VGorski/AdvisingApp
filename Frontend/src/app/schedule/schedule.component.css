@@ -1,9 +1,9 @@
 .flagged-registration {
-    background-color: red;
+    background-color: orange;
 }
 
 .flagged-planning {
-
+background-color: orange;
 }
 
 .flagged-neither {
@@ -16,4 +16,8 @@
 
 .registered-message {
     font-size: larger;
+}
+
+.advisee-view {
+    color:white
 }

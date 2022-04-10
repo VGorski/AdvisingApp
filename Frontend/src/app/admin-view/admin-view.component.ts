@@ -8,7 +8,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./admin-view.component.css'],
 })
 export class AdminViewComponent implements OnInit {
-  admin_id = 4; //This will change if Professor Kiassat is no longer admin
+  admin_id = JSON.parse(localStorage.getItem('advisor_id') || '-1'); //This will change if Professor Kiassat is no longer admin
   firstName = '';
   lastName = '';
 
@@ -22,11 +22,10 @@ export class AdminViewComponent implements OnInit {
   }
 
   logout() {
-    console.log("Logging out");
+    console.log('Logging out');
     localStorage.removeItem('token');
     localStorage.removeItem('advisee_id');
     localStorage.removeItem('role');
     this.logoutRouter.navigate(['/']);
   }
-
 }

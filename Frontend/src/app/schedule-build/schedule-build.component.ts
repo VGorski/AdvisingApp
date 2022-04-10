@@ -123,8 +123,7 @@ export class ScheduleBuildComponent implements OnInit {
       this.dataService
         .postSchedule(this.advisee_id, this.scheduleForm, this.chosen_courses)
         .subscribe((res) => {
-          this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
-            this.chosen_courses = courses;
+          this.dataService.getCourses(this.advisee_id).subscribe(() => {
             this.scheduleForm.adviseeSignature = '';
             this.scheduleForm.advisorSignature = '';
           });

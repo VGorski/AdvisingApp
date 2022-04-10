@@ -25,16 +25,16 @@ export class AuthenticationService {
   storeJWT(handler: Handler) {
   
  if (handler.hasOwnProperty('data')) {
-   if (handler.data.role == "ADVISOR") {
-      localStorage.setItem('token', handler.data.token)
-      localStorage.setItem('advisor_id', handler.data.id)
-      localStorage.setItem('role', handler.data.role)
-      //console.log(localStorage);
-    } else {
-      localStorage.setItem('token', handler.data.token)
-      localStorage.setItem('advisee_id', handler.data.id)
-      //console.log(localStorage);
-    }   }
+   if (handler.data.role == 'ADVISOR' || handler.data.role == 'ADMIN') {
+     localStorage.setItem('token', handler.data.token);
+     localStorage.setItem('advisor_id', handler.data.id);
+     localStorage.setItem('role', handler.data.role);
+     //console.log(localStorage);
+   } else {
+     localStorage.setItem('token', handler.data.token);
+     localStorage.setItem('advisee_id', handler.data.id);
+     //console.log(localStorage);
+   }   }
 
       
     

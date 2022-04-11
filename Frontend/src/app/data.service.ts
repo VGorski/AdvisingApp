@@ -122,7 +122,7 @@ export class DataService {
 
   async postRegisteredCourses(data: any) {
     //Reformat data to be like the MySQL database
-    console.log("Working")
+    console.log('Working');
     let courseData = data.map((element: any) => {
       return {
         course: element['Course Name'],
@@ -279,12 +279,10 @@ export class DataService {
     this.http.post(this.url + '/login/changePassword', data).subscribe();
   }
 
-  //Acts as a holder for the selected advisee of the advisor
-  selectedAdvisee = -1;
   getSelectedAdvisee() {
-    return this.selectedAdvisee;
+    return Number.parseInt(localStorage.getItem('selected_advisee') || '-1');
   }
   setSelectedAdvisee(advisee_id: number) {
-    this.selectedAdvisee = advisee_id;
+    localStorage.setItem('selected_advisee', advisee_id.toString());
   }
 }

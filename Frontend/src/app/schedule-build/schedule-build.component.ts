@@ -126,6 +126,8 @@ export class ScheduleBuildComponent implements OnInit {
           this.dataService.getCourses(this.advisee_id).subscribe(() => {
             this.scheduleForm.adviseeSignature = '';
             this.scheduleForm.advisorSignature = '';
+
+            document.getElementById('confirmModal')?.click();
           });
         });
     } else {

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DataService } from '../data.service';
+import { GetDataService } from '../services/get-data.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-student-list',
@@ -20,10 +21,13 @@ export class StudentListComponent implements OnInit {
     },
   ];
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private getDataService: GetDataService,
+    private storageService: StorageService
+  ) {}
 
   ngOnInit(): void {
-    this.dataService.getAdvisees(this.advisor_id).subscribe((response) => {
+    this.getDataService.getAdvisees(this.advisor_id).subscribe((response) => {
       this.advisees = response;
     });
   }
@@ -34,6 +38,6 @@ export class StudentListComponent implements OnInit {
   }
 
   setGlobalAdvisee(advisee_id: number) {
-    this.dataService.setSelectedAdvisee(advisee_id);
+    this.storageService.setSelectedAdvisee(advisee_id);
   }
 }

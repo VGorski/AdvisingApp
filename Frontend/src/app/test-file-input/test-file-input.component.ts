@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Papa } from 'ngx-papaparse';
-import { DataService } from '../data.service';
+import { PostDataService } from '../services/post-data.service';
 
 @Component({
   selector: 'app-test-file-input',
@@ -8,7 +8,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./test-file-input.component.css'],
 })
 export class TestFileInputComponent implements OnInit {
-  constructor(private papa: Papa, private dataService: DataService) {}
+  constructor(private papa: Papa, private postDataService: PostDataService) {}
 
   @Output() updateCheckboxes = new EventEmitter<string>();
   @Output() successfulUpload = new EventEmitter<string>();
@@ -74,8 +74,8 @@ export class TestFileInputComponent implements OnInit {
         UC Area: ""
         */
 
-        this.dataService.postUCCourses(result.data).then(() => {
-          this.dataService.markFileAsUploaded('ucCourses');
+        this.postDataService.postUCCourses(result.data).then(() => {
+          this.postDataService.markFileAsUploaded('ucCourses');
           this.successfulUpload.emit();
         });
       },
@@ -117,8 +117,8 @@ export class TestFileInputComponent implements OnInit {
         discipline: ""
         */
 
-        this.dataService.postBatchUserInfo(result.data).then(() => {
-          this.dataService.markFileAsUploaded('studentsFaculty');
+        this.postDataService.postBatchUserInfo(result.data).then(() => {
+          this.postDataService.markFileAsUploaded('studentsFaculty');
           this.successfulUpload.emit();
         });
       },
@@ -171,8 +171,8 @@ export class TestFileInputComponent implements OnInit {
           delete element['Min Cred'];
         });
 
-        this.dataService.postMathCourses(result.data).then(() => {
-          this.dataService.markFileAsUploaded('mathCourses');
+        this.postDataService.postMathCourses(result.data).then(() => {
+          this.postDataService.markFileAsUploaded('mathCourses');
           this.successfulUpload.emit();
         });
       },
@@ -225,8 +225,8 @@ export class TestFileInputComponent implements OnInit {
           delete element['Sec Min Cred'];
         });
 
-        this.dataService.postEngineeringCourses(result.data).then(() => {
-          this.dataService.markFileAsUploaded('engineeringCourses');
+        this.postDataService.postEngineeringCourses(result.data).then(() => {
+          this.postDataService.markFileAsUploaded('engineeringCourses');
           this.successfulUpload.emit();
         });
       },
@@ -280,8 +280,8 @@ export class TestFileInputComponent implements OnInit {
           element['Course Name'] = nameArray[0] + ' ' + nameArray[1];
         });
 
-        this.dataService.postRegisteredCourses(result.data).then(() => {
-          this.dataService.markFileAsUploaded('registeredCourses');
+        this.postDataService.postRegisteredCourses(result.data).then(() => {
+          this.postDataService.markFileAsUploaded('registeredCourses');
           this.successfulUpload.emit();
         });
       },

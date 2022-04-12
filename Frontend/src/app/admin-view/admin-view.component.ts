@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../data.service';
+import { GetDataService } from '../services/get-data.service';
 
 @Component({
   selector: 'app-admin-view',
@@ -12,10 +12,13 @@ export class AdminViewComponent implements OnInit {
   firstName = '';
   lastName = '';
 
-  constructor(private dataService: DataService, private logoutRouter: Router) {}
+  constructor(
+    private getDataService: GetDataService,
+    private logoutRouter: Router
+  ) {}
 
   ngOnInit(): void {
-    this.dataService.getAdvisorName(this.admin_id).subscribe((name) => {
+    this.getDataService.getAdvisorName(this.admin_id).subscribe((name) => {
       this.firstName = name.firstName;
       this.lastName = name.lastName;
     });

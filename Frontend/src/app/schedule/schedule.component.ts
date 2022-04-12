@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DataService } from '../data.service';
+import { GetDataService } from '../services/get-data.service';
 
 @Component({
   selector: 'app-schedule',
@@ -7,7 +7,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./schedule.component.css'],
 })
 export class ScheduleComponent implements OnInit {
-  constructor(private dataService: DataService) {}
+  constructor(private getDataService: GetDataService) {}
 
   @Input() advisee_id: number = 0;
   @Input() advisingPeriodInProgress: boolean = false;
@@ -41,12 +41,12 @@ export class ScheduleComponent implements OnInit {
     this.plannedCourses.pop();
     this.registeredCourses.pop();
 
-    this.dataService
+    this.getDataService
       .getRegisteredCourses(this.advisee_id)
       .subscribe((registeredCourses) => {
         this.registeredCourses = registeredCourses;
 
-        this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
+        this.getDataService.getCourses(this.advisee_id).subscribe((courses) => {
           this.plannedCourses = courses;
           if (courses.length == 0) {
             this.tellParent();

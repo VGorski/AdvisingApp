@@ -1,67 +1,18 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { URLHolderService } from './urlholder.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DataService {
-  url = 'https://quinnipiac-advising-assistant.herokuapp.com';
-  headers = new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
-    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
-  });
-
-  constructor(private http: HttpClient) {}
-
-  // Upload files
-  fileUpload(file: File): Observable<HttpEvent<any>> {
-    const dataForm: FormData = new FormData();
-    dataForm.append('file', file);
-    const req = new HttpRequest('POST', `${this.url}/upload`, dataForm, {
-      responseType: 'json',
-    });
-    return this.http.request(req);
+export class PostDataService {
+  url: string;
+  constructor(private http: HttpClient, urlHolder: URLHolderService) {
+    this.url = urlHolder.URL;
   }
 
-  // Return the status of the files
-  fileStatus(): Observable<any> {
-    return this.http.get(`${this.url}/files`);
-  }
-
-  getAdvisees(advisor_id: number): Observable<any> {
-    return this.http.get(this.url + '/advisor/' + advisor_id + '/advisees');
-  }
-
-  getAdviseeName(advisee_id: number): Observable<any> {
-    return this.http.get(this.url + '/advisee/' + advisee_id + '/name');
-  }
-
-  getAllAdvisors(): Observable<any> {
-    return this.http.get(this.url + '/advisor/all');
-  }
-
-  getAdvisorName(advisor_id: number): Observable<any> {
-    return this.http.get(this.url + '/advisor/' + advisor_id + '/name');
-  }
-
-  getCourses(advisee_id: number): Observable<any> {
-    return this.http.get(this.url + '/advisee/' + advisee_id + '/schedule');
-  }
-
-  getTakenCourses(advisee_id: number): Observable<any> {
-    return this.http.get(
-      this.url + '/advisee/' + advisee_id + '/taken-courses'
-    );
-  }
-
-  getRegisteredCourses(advisee_id: number): Observable<any> {
-    return this.http.get(
-      this.url + '/advisee/' + advisee_id + '/registered-courses'
-    );
-  }
-
+  // Posts the planned schedule for the specified advisee
   postSchedule(
     advisee_id: number,
     scheduleForm: any,
@@ -92,6 +43,7 @@ export class DataService {
     this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
   }
 
+  // Posts the math courses from the uploaded math file
   async postMathCourses(data: any) {
     let courseData = data.map((element: any) => {
       return {
@@ -104,6 +56,7 @@ export class DataService {
     this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
   }
 
+  // Posts the engineering courses from the uploaded engineering courses file
   async postEngineeringCourses(data: any) {
     let courseData = data.map((element: any) => {
       return {
@@ -120,6 +73,7 @@ export class DataService {
     }
   }
 
+  // Posts the registered courses from the uploaded registered courses file
   async postRegisteredCourses(data: any) {
     //Reformat data to be like the MySQL database
     console.log('Working');
@@ -204,6 +158,7 @@ export class DataService {
     }, 2000);
   }
 
+  // Sets the file to an uploaded state
   markFileAsUploaded(fileType: string) {
     this.http.post(this.url + '/admin/files/', { fileType }).subscribe();
     /*
@@ -215,74 +170,5 @@ export class DataService {
         studentsFaculty
         registeredCourses
     */
-  }
-
-  async getUploadedFiles() {
-    let data = {
-      math: '',
-      engineering: '',
-      uc: '',
-      all: '',
-      studentFaculty: '',
-      registered: '',
-    };
-
-    await this.http.get(this.url + '/admin/files/math').subscribe((file) => {
-      data.math = file.toString();
-    });
-    await this.http
-      .get(this.url + '/admin/files/engineering')
-      .subscribe((file) => {
-        data.engineering = file.toString();
-      });
-    await this.http
-      .get(this.url + '/admin/files/ucCourses')
-      .subscribe((file) => {
-        data.uc = file.toString();
-      });
-    await this.http
-      .get(this.url + '/admin/files/allCourses')
-      .subscribe((file) => {
-        data.all = file.toString();
-      });
-    await this.http
-      .get(this.url + '/admin/files/studentsFaculty')
-      .subscribe((file) => {
-        data.studentFaculty = file.toString();
-      });
-    await this.http
-      .get(this.url + '/admin/files/registered')
-      .subscribe((file) => {
-        data.registered = file.toString();
-      });
-
-    return data;
-  }
-
-  getAvailableCourses(discipline: string): Observable<any> {
-    if (discipline == 'No Filter') {
-      return this.http.get(this.url + '/courses/');
-    } else {
-      return this.http.get(this.url + '/courses/' + discipline);
-    }
-  }
-
-  getDisciplines(): Observable<any> {
-    return this.http.get(this.url + '/courses/disciplines');
-  }
-
-  changePassword(user_id: number, newPassword: string) {
-    let data = {
-      id: user_id,
-      password: newPassword,
-    };
-    this.http.post(this.url + '/login/changePassword', data).subscribe();
-  }
-
-  getSelectedAdvisee() {
-    return Number.parseInt(localStorage.getItem('selected_advisee') || '-1');
-  }
-  setSelectedAdvisee(advisee_id: number) {
-    localStorage.setItem('selected_advisee', advisee_id.toString());
   }
 }

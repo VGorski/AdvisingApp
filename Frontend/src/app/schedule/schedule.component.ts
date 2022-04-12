@@ -8,13 +8,11 @@ import { DataService } from '../data.service';
 })
 export class ScheduleComponent implements OnInit {
   constructor(private dataService: DataService) {}
-  
+
   @Input() advisee_id: number = 0;
   @Input() advisingPeriodInProgress: boolean = false;
   @Input() adviseeView = false;
   @Output() flagAdvisee = new EventEmitter();
-
-/*    */
 
   flagged = false;
 
@@ -32,6 +30,13 @@ export class ScheduleComponent implements OnInit {
     },
   ];
 
+  correctCourses = [
+    {
+      course_id: -1,
+      name: '',
+    },
+  ];
+
   ngOnInit(): void {
     this.plannedCourses.pop();
     this.registeredCourses.pop();
@@ -40,14 +45,20 @@ export class ScheduleComponent implements OnInit {
       .getRegisteredCourses(this.advisee_id)
       .subscribe((registeredCourses) => {
         this.registeredCourses = registeredCourses;
-      });
 
-    this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
-      this.plannedCourses = courses;
-      if (courses.length == 0) {
-        this.tellParent();
-      }
-    });
+        this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
+          this.plannedCourses = courses;
+          if (courses.length == 0) {
+            this.tellParent();
+          }
+
+          this.correctCourses = this.plannedCourses.filter((course: any) => {
+            return this.plannedAndRegistered(course);
+          });
+
+          console.log(this.correctCourses);
+        });
+      });
   }
 
   tellParent() {
@@ -57,70 +68,27 @@ export class ScheduleComponent implements OnInit {
     }
   }
 
-  // Return true if a course has been registered for but was not planned during an advising meeting
-  registeredNotPlanned(course_id: number) {
-    if (
-      this.plannedCourses.filter((course) => {
-        return course.course_id == course_id;
-      }).length == 0 &&
-      this.registeredCourses.filter((course) => {
-        return course.course_id == course_id;
-      }).length != 0
-    ) {
-      if (!this.adviseeView) {
-        this.tellParent();
-      }
-      return true;
-    }
-    return false;
-  }
-
-  // Return true if a course was planned during an advising meeting but has not been registered for
-  plannedNotRegistered(course_id: number) {
-    if (
-      this.plannedCourses.filter((course) => {
-        return course.course_id == course_id;
-      }).length != 0 &&
-      this.registeredCourses.filter((course) => {
-        return course.course_id == course_id;
-      }).length == 0
-    ) {
-      if (!this.adviseeView) {
-        this.tellParent();
-      }
-      return true;
-    }
-    return false;
-  }
-
-  // Return true if a student has not registered nor attended an advising meeting
-  neitherPlannedNorRegistered(course_id: number) {
-    if (
-      this.plannedCourses.filter((course) => {
-        return course.course_id == course_id;
-      }).length == 0 &&
-      this.registeredCourses.filter((course) => {
-        return course.course_id == course_id;
-      }).length == 0
-    ) {
-      if (!this.adviseeView) {
-        this.tellParent();
-      }
-      return true;
-    }
-    return false;
-  }
-
   // Return true if a course was planned and also registered for
-  plannedAndRegistered(course_id: number) {
+  plannedAndRegistered(course: any) {
     if (
-      this.plannedCourses.filter((course) => {
-        return course.course_id == course_id;
+      this.plannedCourses.filter((planned) => {
+        return planned.course_id == course.course_id;
       }).length > 0 &&
-      this.registeredCourses.filter((course) => {
-        return course.course_id == course_id;
+      this.registeredCourses.filter((registered) => {
+        return registered.course_id == course.course_id;
       }).length > 0
     ) {
+      //Cut out the correctly planned courses
+      let element: any = this.plannedCourses.splice(
+        this.plannedCourses.indexOf(course.course_id),
+        1
+      );
+      this.registeredCourses.splice(
+        this.registeredCourses.indexOf(course.course_id),
+        1
+      );
+      //put the courses into the correct courses array
+      this.correctCourses.push(element);
       return true;
     }
     if (!this.adviseeView) {

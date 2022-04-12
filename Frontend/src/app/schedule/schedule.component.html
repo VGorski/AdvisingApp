@@ -5,12 +5,13 @@
             <p class="registered-message" [ngClass]="{'advisee-view':adviseeView}">Planned Courses</p>
         </div>
         <div class="container" *ngIf="plannedCourses.length != 0">
+            <div class="card" *ngFor="let course of correctCourses">
+                <div class="card-body text-center correct-registration">
+                    <p class="card-text">{{course.name}}</p>
+                </div>
+            </div>
             <div class="card" *ngFor="let course of plannedCourses">
-                <div class="card-body text-center"
-                [ngClass]="{'flagged-registration':registeredNotPlanned(course.course_id),
-                    'correct-registration':plannedAndRegistered(course.course_id),
-                    'flagged-planning':plannedNotRegistered(course.course_id),
-                    'flagged-neither':neitherPlannedNorRegistered(course.course_id)}">
+                <div class="card-body text-center flagged-planning">
                     <p class="card-text">{{course.name}}</p>
                 </div>
             </div>
@@ -22,16 +23,16 @@
     
     <div class="col">
         <div class="text-center" *ngIf="registeredCourses.length != 0">
-    
             <p class="registered-message" [ngClass]="{'advisee-view':adviseeView}" >Registered Courses</p>
         </div>
         <div class="container" *ngIf="registeredCourses.length != 0">
+            <div class="card" *ngFor="let course of correctCourses">
+                <div class="card-body text-center correct-registration">
+                    <p class="card-text">{{course.name}}</p>
+                </div>
+            </div>
             <div class="card" *ngFor="let course of registeredCourses">
-                <div class="card-body text-center"
-                [ngClass]="{'flagged-registration':registeredNotPlanned(course.course_id),
-                    'correct-registration':plannedAndRegistered(course.course_id),
-                    'flagged-planning':plannedNotRegistered(course.course_id),
-                    'flagged-neither':neitherPlannedNorRegistered(course.course_id)}">
+                <div class="card-body text-center flagged-registration">
                     <p class="card-text">{{course.name}}</p>
                 </div>
             </div>

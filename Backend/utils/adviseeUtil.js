@@ -10,7 +10,6 @@ async function getAdvisees(advisor_id) {
       advisor_id: advisor_id,
     },
   });
-  console.log(advisees);
   return advisees;
 }
 
@@ -66,7 +65,7 @@ async function postSchedule(scheduleInfo, courses) {
             `INSERT INTO Course_Schedule (schedule_id, course_id) VALUES(${schedule_id},${course.course_id});`
           )
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
       });
   });
@@ -88,7 +87,7 @@ async function postAdvisees(uniqueAdvisees) {
         VALUES (${advisorObject[0][0].advisor_id}, '${advisee.firstName}', '${advisee.lastName}', '${advisee.email}', 'password', '${advisee.discipline}')`
         )
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     }
   });
@@ -125,7 +124,7 @@ async function postTakenCourses(takenCourseData) {
       }
     })
     .catch((err) => {
-      console.log("ERROR: " + err);
+      console.error("ERROR: " + err);
     });
 }
 
@@ -162,7 +161,7 @@ async function postRegisteredCourses(registeredCourseData) {
       }
     })
     .catch((err) => {
-      console.log("ERROR: " + err);
+      console.error("ERROR: " + err);
     });
 }
 

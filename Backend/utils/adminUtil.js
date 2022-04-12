@@ -1,7 +1,6 @@
 const sequelize = require("../models/sequelize");
 
 function uploadFile(fileType) {
-  console.log(fileType);
   if (fileType) {
     switch (fileType) {
       case "mathCourses":

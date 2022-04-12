@@ -35,7 +35,6 @@ async function postCourses(courses) {
         let courseName = course.name.split("/");
         let firstCourse = courseName[0].split(" ")[0];
         let secondCourse = courseName[1].split(" ")[1];
-        //console.log(secondCourse);
         if (secondCourse.slice(-1) == "L" || secondCourse.slice(-1) == "H") {
           /// If it is listed as a course as well as its lab or honors
           let baseCourse = courseName[0].trim();

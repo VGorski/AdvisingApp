@@ -12,7 +12,6 @@ async function getAllAdvisors() {
   let advisors = await sequelize.query(
     "SELECT advisor_id, firstName, lastName FROM Advisor"
   );
-  console.log(advisors[0]);
   return advisors[0];
 }
 
@@ -27,7 +26,7 @@ async function postAdvisors(uniqueAdvisors) {
         VALUES ('${advisor.firstName}', '${advisor.lastName}', '${advisor.email}', 'password', 'ADVISOR', '${advisor.discipline}')`
         )
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     }
   });

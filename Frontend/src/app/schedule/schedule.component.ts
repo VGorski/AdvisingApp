@@ -55,8 +55,6 @@ export class ScheduleComponent implements OnInit {
           this.correctCourses = this.plannedCourses.filter((course: any) => {
             return this.plannedAndRegistered(course);
           });
-
-          console.log(this.correctCourses);
         });
       });
   }

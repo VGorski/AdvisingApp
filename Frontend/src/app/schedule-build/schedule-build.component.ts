@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { GetDataService } from '../services/get-data.service';
 import { PostDataService } from '../services/post-data.service';
 import { StorageService } from '../services/storage.service';

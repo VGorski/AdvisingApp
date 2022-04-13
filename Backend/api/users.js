@@ -1,5 +1,3 @@
-// Control + shift + p, format (forced)
-
 const express = require("express");
 const loginRouter = express.Router();
 const Advisor = require("../models/advisorModel");
@@ -7,8 +5,6 @@ const Advisee = require("../models/adviseeModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const saltRounds = 10;
-var password = "password";
 
 // Register API
 loginRouter.post("/register", (req, res) => {
@@ -29,7 +25,7 @@ loginRouter.post("/register", (req, res) => {
     });
   } else {
     // Check if the email exists in the database
-    Advisee.findOne({
+    Advisor.findOne({
       attributes: ["email"],
       where: {
         email: req.body.email,
@@ -38,22 +34,24 @@ loginRouter.post("/register", (req, res) => {
       bcrypt.genSalt(10, function (error, salt) {
         bcrypt.hash(credentials.password, salt, (error, hash) => {
           console.log(hash);
-          Advisee.create({
+          Advisor.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
-            advisor_id: req.body.advisor_id,
             password: hash,
-          }).then((value) => {
+            role: req.body.role,
+            discipline: req.body.discipline,
+          }).then(() => {
             res
               .status(201)
               .json({
-                message: "Yeet",
+                message: "An advisor has successfully been created",
                 status: res.status,
               })
               .catch((error) =>
                 res.status(404).json({
-                  message: "Nope",
+                  message:
+                    "An error has occured while creating an advisor user",
                 })
               );
           });
@@ -65,11 +63,6 @@ loginRouter.post("/register", (req, res) => {
 
 // Login API
 loginRouter.post("/login", (req, res) => {
-  const credentials = {
-    email: req.body.email,
-    password: req.body.password,
-  };
-
   // Check if all the fields are filled out
   if (
     req.body.email == undefined ||
@@ -85,52 +78,59 @@ loginRouter.post("/login", (req, res) => {
     // Check if the email exists in the database for an advisee
     Advisee.findOne({
       where: {
-        email: req.body.email
+        email: req.body.email,
       },
     }).then((value) => {
       if (value === null) {
         Advisor.findOne({
           where: {
-            email: req.body.email
-          }
-
+            email: req.body.email,
+          },
         }).then((value) => {
-          if(value === null) {
+          if (value === null) {
             res.status(401).json({
               message: "No advisor account",
               status: res.status,
-              jwt: ""
+              jwt: "",
             });
           } else {
             const checkPassword = value.getDataValue("password");
-            bcrypt.compare(req.body.password, checkPassword, function(error, validity) {
-              if(validity) {
-                const userCredentials = {
-                  email: value.getDataValue("email"),
-                  id: value.getDataValue("advisor_id"),
-                  role: value.getDataValue("role")
-                };
+            bcrypt.compare(
+              req.body.password,
+              checkPassword,
+              function (error, validity) {
+                if (validity) {
+                  const userCredentials = {
+                    email: value.getDataValue("email"),
+                    id: value.getDataValue("advisor_id"),
+                    role: value.getDataValue("role"),
+                  };
 
-                const token = jwt.sign(userCredentials, process.env.SECRET_KEY, { expiresIn: "1200s"});
-                res.status(200).json({
-                  message: userCredentials,
-                  status: 200,
-                  data: {
-                    'token': token,
-                    'id': userCredentials.id,
-                    'role': userCredentials.role
-                  }
-                });
-              } else {
-                res.status(401).json({
-                  message: "Wrong password",
-                  status: res.status,
-                  token: ""
-                });
-              };
-            })
+                  const token = jwt.sign(
+                    userCredentials,
+                    process.env.SECRET_KEY,
+                    { expiresIn: "1200s" }
+                  );
+                  res.status(200).json({
+                    message: userCredentials,
+                    status: 200,
+                    data: {
+                      token: token,
+                      id: userCredentials.id,
+                      role: userCredentials.role,
+                    },
+                  });
+                } else {
+                  res.status(401).json({
+                    message: "Wrong password",
+                    status: res.status,
+                    token: "",
+                  });
+                }
+              }
+            );
           }
-        })
+        });
       } else {
         const checkPassword = value.getDataValue("password");
         bcrypt.compare(
@@ -140,60 +140,34 @@ loginRouter.post("/login", (req, res) => {
             if (validity) {
               const userCredentials = {
                 email: value.getDataValue("email"),
-                id: value.getDataValue("advisee_id")
+                id: value.getDataValue("advisee_id"),
               };
 
-              const token = jwt.sign(userCredentials, process.env.SECRET_KEY, {expiresIn: "1200s"});
-            
+              const token = jwt.sign(userCredentials, process.env.SECRET_KEY, {
+                expiresIn: "1200s",
+              });
+
               res.status(200).json({
                 message: "Logged in as an advisee",
                 status: 200,
-                data:{
-                  'token': token,
-                  'id': userCredentials.id
-                }
+                data: {
+                  token: token,
+                  id: userCredentials.id,
+                },
               });
             } else {
               // Wrong password
               res.status(401).json({
                 message: "Wrong password",
                 status: res.status,
-                token: ""
+                token: "",
               });
-            };
-
+            }
           }
         );
       }
-    })    
-
+    });
   }
 });
-
-
-// User info API
-loginRouter.get("/userCredentials", (req, res) => {
-    const authenticate = req.header['authorization'];
-    if(authenticate) {
-        // Give the user a security token
-        const token = authenticate.substr("Bearer".length, +1);
-        jwt.verify(token, process.env.SECRET_KEY, (error, login) => {
-            if(login) {
-                // Send the login info just to make sure you got the right user
-                res.statusCode(200).json ({
-                    message: "login success",
-                    status: res.status,
-                    data: login
-                })
-            }
-        })
-    } else {
-    // User hasn't logged in so you have to tell them that 
-    res.status(401).json({
-        message: "You haven't logged in yet",
-        status: res.status  
-    });
-    
-}});
 
 module.exports = loginRouter;

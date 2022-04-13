@@ -8,7 +8,7 @@ import { GetDataService } from '../services/get-data.service';
   styleUrls: ['./advisor-view.component.css'],
 })
 export class AdvisorViewComponent implements OnInit {
-  advisor_id = -1; //TODO make this dependent upon who logged
+  advisor_id = -1;
 
   advisor = {
     firstName: '',

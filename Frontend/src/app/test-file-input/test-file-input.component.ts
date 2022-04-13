@@ -45,7 +45,6 @@ export class TestFileInputComponent implements OnInit {
             } else if (text.includes('ID')) {
               await this.processRegisteredCourses(file);
             } else {
-              // TODO: Throw an error and display that to the user
               console.log('File uploaded was not of the correct format...');
             }
           })

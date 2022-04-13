@@ -8,7 +8,7 @@ import { GetDataService } from '../services/get-data.service';
   styleUrls: ['./advisor-view-advisees.component.css'],
 })
 export class AdvisorViewAdviseesComponent implements OnInit {
-  advisor_id = JSON.parse(localStorage.getItem('advisor_id') || '-1'); //TODO make this dependent upon who logged in
+  advisor_id = JSON.parse(localStorage.getItem('advisor_id') || '-1');
 
   advisor = {
     firstName: '',

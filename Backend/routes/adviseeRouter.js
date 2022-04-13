@@ -1,8 +1,6 @@
 var express = require("express");
 var adviseeRouter = express.Router();
 var adviseeUtil = require("../utils/adviseeUtil");
-// Add designated model here
-// Add Microsoft database server here
 
 adviseeRouter.route("/:adviseeId").get((req, res, next) => {
   // Get advisee dashboard
@@ -50,22 +48,20 @@ adviseeRouter
       });
   });
 
-  adviseeRouter.route("/:adviseeId/taken-courses").get((req, res, next) => {
-    adviseeUtil.getTakenCourses(req.params.adviseeId).then((courses) => {
-      res.status(200);
-      res.json(courses);
-      res.end();
-    });
+adviseeRouter.route("/:adviseeId/taken-courses").get((req, res, next) => {
+  adviseeUtil.getTakenCourses(req.params.adviseeId).then((courses) => {
+    res.status(200);
+    res.json(courses);
+    res.end();
   });
+});
 
-  adviseeRouter
-    .route("/:adviseeId/registered-courses")
-    .get((req, res, next) => {
-      adviseeUtil.getRegisteredCourses(req.params.adviseeId).then((courses) => {
-        res.status(200);
-        res.json(courses);
-        res.end();
-      });
-    });
+adviseeRouter.route("/:adviseeId/registered-courses").get((req, res, next) => {
+  adviseeUtil.getRegisteredCourses(req.params.adviseeId).then((courses) => {
+    res.status(200);
+    res.json(courses);
+    res.end();
+  });
+});
 
 module.exports = adviseeRouter;

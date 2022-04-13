@@ -18,20 +18,26 @@ var app = express();
 const port = process.env.PORT || 3000;
 
 // Connect to the database
-databaseConnect.authenticate().then(() => {
-  console.log("Database is good to go");
-}).catch((error) =>
-console.error("Database cannot connect", error));
+databaseConnect
+  .authenticate()
+  .then(() => {
+    console.log("Database is good to go");
+  })
+  .catch((error) => console.error("Database cannot connect", error));
 
 // Parse the incoming JSON
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
 // API for users
 app.use("/api/users", require("./api/users"));
-app.get("/*", (req, res) => res.sendFile(path.join(__dirname, "/dist/advising-assistant")))
+app.get("/*", (req, res) =>
+  res.sendFile(path.join(__dirname, "/dist/advising-assistant"))
+);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -47,8 +53,6 @@ app.use(
     origin: "*",
   })
 );
-
-//app.get('/public', express.static('public'));
 
 app.use("/users", usersRouter);
 app.use("/admin", adminRouter);

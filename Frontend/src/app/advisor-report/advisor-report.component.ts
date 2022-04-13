@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-advisor-report',
@@ -6,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./advisor-report.component.css'],
 })
 export class AdvisorReportComponent implements OnInit {
-  advisor_id = JSON.parse(localStorage.getItem('advisor_id') || '-1'); //TODO make this dependent upon who logged in
-  constructor() {}
+  advisor_id = JSON.parse(localStorage.getItem('advisor_id') || '-1');
+  constructor(private logoutRouter: Router) {}
 
   ngOnInit(): void {}
-  
+
+  logout() {
+    console.log('Logging out');
+    localStorage.removeItem('token');
+    localStorage.removeItem('advisee_id');
+    localStorage.removeItem('role');
+    this.logoutRouter.navigate(['/']);
+  }
 }

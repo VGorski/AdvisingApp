@@ -1,4 +1,4 @@
-var express = require('express');
+var express = require("express");
 var adminRouter = express.Router();
 var advisorUtil = require("../utils/advisorUtil");
 var adviseeUtil = require("../utils/adviseeUtil");
@@ -95,7 +95,6 @@ adminRouter.route("/files/registered").get((req, res, next) => {
     res.end();
   });
 });
-
 
 adminRouter.route("/upload/advisors").post((req, res, next) => {
   console.log(req.body);

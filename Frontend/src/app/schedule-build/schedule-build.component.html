@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="logoContain" style="height: 40px; width: 40px"></div>
       <a class="navbar-brand" routerLink="../advisee-dashboard"
-        >Advisor Dashboard</a
+        >Schedule Builder</a
       >
       <button
         class="navbar-toggler"
@@ -39,7 +39,11 @@
           </li>
         </ul>
       </div>
-      <div (click) = "logout()" class="logoutContain" style="height: 30px; width: 30px"></div>
+      <div
+        (click)="logout()"
+        class="logoutContain"
+        style="height: 30px; width: 30px"
+      ></div>
     </div>
   </nav>
   <div class="container">
@@ -49,7 +53,7 @@
           <h2 style="color: white; text-align: center; padding-top: 20px">
             Available Courses
           </h2>
-          <!--Component start-->
+
           <div class="row" style="padding-top: 20px">
             <div class="col text-center">
               Filter:
@@ -89,12 +93,10 @@
               </div>
             </div>
           </div>
-          <!--Component end-->
         </div>
       </div>
       <div class="col">
         <div class="scheduleContain">
-          <!--Component start-->
           <h2 style="text-align: center; padding-top: 20px">
             Student: {{ advisee.firstName }} {{ advisee.lastName }}
           </h2>
@@ -124,7 +126,7 @@
             </div>
             <div class="col"></div>
           </div>
-         <br>
+          <br />
           <div>
             <div class="row text-center">
               <div class="col">
@@ -136,7 +138,6 @@
                 >
                   Confirm Courses
                 </button>
-                
               </div>
             </div>
           </div>
@@ -144,8 +145,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Modal -->
   <div
     class="modal"
     id="confirmModal"

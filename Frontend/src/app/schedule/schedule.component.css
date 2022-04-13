@@ -1,19 +1,19 @@
 .flagged-registration {
-    background-color: orange;
+  background-color: orange;
 }
 
 .flagged-planning {
-background-color: orange;
+  background-color: orange;
 }
 
 .correct-registration {
-    background-color: lightgreen;
+  background-color: lightgreen;
 }
 
 .registered-message {
-    font-size: larger;
+  font-size: larger;
 }
 
 .advisee-view {
-    color:white
+  color: white;
 }

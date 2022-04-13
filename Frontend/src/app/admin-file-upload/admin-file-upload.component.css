@@ -21,15 +21,8 @@ button {
   font-size: x-large;
 }
 
-.imageContain {
-  background-image: url("../images/QUAdvisingLogo.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 20px;
-}
-
 .logoContain {
-  background-image: url("../images/QUAdvisingLogo.png");
+  background-image: url("../images/QUlogo.png");
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 5px;

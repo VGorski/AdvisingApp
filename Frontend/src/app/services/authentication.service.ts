@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Handler } from '../interface/handler';
-import { tap, catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-//import { AdviseeDashboardComponent } from '../advisee-dashboard/advisee-dashboard.component';
-import { Token } from '@angular/compiler';
-import { observable } from 'rxjs';
 import { URLHolderService } from './urlholder.service';
 
 @Injectable({
@@ -32,11 +28,9 @@ export class AuthenticationService {
         localStorage.setItem('token', handler.data.token);
         localStorage.setItem('advisor_id', handler.data.id);
         localStorage.setItem('role', handler.data.role);
-        //console.log(localStorage);
       } else {
         localStorage.setItem('token', handler.data.token);
         localStorage.setItem('advisee_id', handler.data.id);
-        //console.log(localStorage);
       }
     }
   }

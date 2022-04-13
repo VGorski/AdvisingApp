@@ -34,7 +34,7 @@ body {
 }
 
 .logoutContain {
-  background-image: url("../../assets/logout.png");
+  background-image: url("../images/logout.png");
   background-size: cover;
   background-repeat: no-repeat;
 }

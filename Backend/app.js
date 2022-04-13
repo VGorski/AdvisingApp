@@ -6,12 +6,10 @@ var logger = require("morgan");
 var cors = require("cors");
 var bodyParser = require("body-parser");
 
-var indexRouter = require("./routes/indexRoute");
 var usersRouter = require("./routes/usersRouter");
 var adminRouter = require("./routes/adminRouter");
 var adviseeRouter = require("./routes/adviseeRouter");
 var advisorRouter = require("./routes/advisorRouter");
-var programDRouter = require("./routes/programDirectorRouter");
 var courseRouter = require("./routes/courseRouter");
 var databaseConnect = require("./models/sequelize");
 var router = require("./api/users");
@@ -56,7 +54,6 @@ app.use("/users", usersRouter);
 app.use("/admin", adminRouter);
 app.use("/advisee", adviseeRouter);
 app.use("/advisor", advisorRouter);
-app.use("/programDirector", programDRouter);
 app.use("/courses", courseRouter);
 app.use("/api/users", router);
 app.get("*", (req, res) => {
@@ -78,10 +75,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-
-/* app.get('', (req, res) => {
-  res.sendFile(__dirname + 'index');
-}); */
 
 // Find the port
 app.listen(port, () => console.log(`Listening on port ${port}`));

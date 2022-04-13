@@ -3,6 +3,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 import { GetDataService } from '../services/get-data.service';
 import { PostDataService } from '../services/post-data.service';
 import { StorageService } from '../services/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule-build',
@@ -57,7 +58,8 @@ export class ScheduleBuildComponent implements OnInit {
   constructor(
     private getDataService: GetDataService,
     private postDataService: PostDataService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private logoutRouter: Router
   ) {}
 
   ngOnInit(): void {
@@ -147,5 +149,12 @@ export class ScheduleBuildComponent implements OnInit {
         this.displayFillData = false;
       }, 5000);
     }
+  }
+
+  logout() {
+    console.log('Logging out');
+    localStorage.removeItem('token');
+    localStorage.removeItem('advisee_id');
+    this.logoutRouter.navigate(['/']);
   }
 }

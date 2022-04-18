@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GetDataService } from '../services/get-data.service';
@@ -9,6 +10,7 @@ import { GetDataService } from '../services/get-data.service';
   styleUrls: ['./admin-file-upload.component.css'],
 })
 export class AdminFileUploadComponent implements OnInit {
+  // Start off as no files have been uploaded yet
   fileName = '';
 
   files = {
@@ -27,14 +29,13 @@ export class AdminFileUploadComponent implements OnInit {
     private logoutRouter: Router
   ) {}
 
+  // Read in what file is getting uploaded
   selectFile(event: any) {
     const file: File = event.target.files[0];
     if (file) {
       this.fileName = file.name;
       const dataForm = new FormData();
       dataForm.append('file', file);
-      //const upload$ = this.http.post("/")
-      //upload$.subscribe;
     }
   }
 
@@ -42,12 +43,14 @@ export class AdminFileUploadComponent implements OnInit {
     this.getUploadedFiles();
   }
 
+  // Get information from uploaded file(s)
   getUploadedFiles() {
     this.getDataService.getUploadedFiles().then((files) => {
       this.files = files;
     });
   }
 
+  // Log the user out
   logout() {
     console.log('Logging out');
     localStorage.removeItem('token');
@@ -56,6 +59,7 @@ export class AdminFileUploadComponent implements OnInit {
     this.logoutRouter.navigate(['/']);
   }
 
+  // Show that a file has been successfully uploaded
   successfulUpload() {
     this.showSuccessfulUpload = true;
     setTimeout(() => {

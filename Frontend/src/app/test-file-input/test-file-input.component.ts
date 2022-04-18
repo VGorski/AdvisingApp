@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Papa } from 'ngx-papaparse';
 import { PostDataService } from '../services/post-data.service';
@@ -27,7 +29,8 @@ export class TestFileInputComponent implements OnInit {
     // If a file has actually been uploaded
     if (files.length > 0) {
       let file: File = files[0];
-      let extension = file.name.split('.').pop(); // Get the file extension
+      // Get the file extension
+      let extension = file.name.split('.').pop();
 
       if (extension == 'csv') {
         file
@@ -57,6 +60,7 @@ export class TestFileInputComponent implements OnInit {
     }
   }
 
+  // Process the UC courses in a given file
   processUCCourses(file: File) {
     console.log('Processing Courses CSV...');
     this.papa.parse(file, {
@@ -82,6 +86,7 @@ export class TestFileInputComponent implements OnInit {
     });
   }
 
+  // Process the courses an advisee has registered for
   processUsersCourses(file: File) {
     console.log('Processing Users and Courses CSV...');
     this.papa.parse(file, {
@@ -94,9 +99,6 @@ export class TestFileInputComponent implements OnInit {
           delete element['Term'];
           delete element['Class'];
           delete element['Program 2'];
-
-          // Change the code into a discipline format
-          // Add the discipline attribute
           element['discipline'] = this.getDisciplineFromCode(
             element['Program 1']
           );
@@ -125,6 +127,7 @@ export class TestFileInputComponent implements OnInit {
     });
   }
 
+  // Process the math courses in a given file
   processMathCourses(file: File) {
     console.log('Processing Specialized Courses CSV...');
     this.papa.parse(file, {
@@ -179,6 +182,7 @@ export class TestFileInputComponent implements OnInit {
     });
   }
 
+  // Process the engineering courses in a given file
   processEngineeringAllCourses(file: File) {
     this.papa.parse(file, {
       complete: (result) => {
@@ -233,6 +237,7 @@ export class TestFileInputComponent implements OnInit {
     });
   }
 
+  // Process the courses that an advisee has registered for
   processRegisteredCourses(file: File) {
     this.papa.parse(file, {
       complete: (result) => {
@@ -288,6 +293,7 @@ export class TestFileInputComponent implements OnInit {
     });
   }
 
+  // Get the discipline the course belongs to
   getDisciplineFromCode(code: string): string {
     let newCode: string = '';
     switch (code) {

@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 var Course = require("../models/courseModelSeq");
 
 async function findCourses() {
@@ -5,6 +7,7 @@ async function findCourses() {
   return courses;
 }
 
+// Test for getting a course
 findCourses()
   .then((courses) => {
     courses.forEach((course) => {
@@ -14,22 +17,3 @@ findCourses()
   .catch((err) => {
     console.log(err);
   });
-
-// async function createCourse(
-//   name,
-//   discipline,
-// ) {
-//   const course = await Course.create({
-//     name: name,
-//     discipline: discipline,
-//   });
-//   return course;
-// }
-
-// createAdvisee("IER490", "IER")
-//   .then((course) => {
-//     console.log(course);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });

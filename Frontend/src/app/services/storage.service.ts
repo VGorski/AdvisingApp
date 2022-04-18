@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Injectable } from '@angular/core';
 
 @Injectable({

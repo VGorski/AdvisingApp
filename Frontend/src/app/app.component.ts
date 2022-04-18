@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component } from '@angular/core';
 
 @Component({

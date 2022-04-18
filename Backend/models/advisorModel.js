@@ -1,10 +1,14 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 const { Model } = require("sequelize");
 const sequelize = require("./sequelize");
 const Sequelize = require("sequelize");
 let Advisee = require("./adviseeModel");
 
+// Class extends Sequelize model
 class advisorModel extends Model {}
 
+// Model creates an advisor user with all the required information
 advisorModel.init(
   {
     advisor_id: {

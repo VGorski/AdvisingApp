@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GetDataService } from '../services/get-data.service';
@@ -8,6 +10,7 @@ import { GetDataService } from '../services/get-data.service';
   styleUrls: ['./advisee-view.component.css'],
 })
 export class AdviseeViewComponent implements OnInit {
+  // Get the advisee's information based on their ID
   advisee_id = -1;
 
   advisee = {
@@ -30,12 +33,14 @@ export class AdviseeViewComponent implements OnInit {
     });
   }
 
+  // Get the advisee's ID
   async getAdviseeId() {
     this.advisee_id = await Number.parseInt(
       localStorage.getItem('advisee_id') || '-1'
     );
   }
 
+  // Log the user out
   logout() {
     console.log('Logging out');
     localStorage.removeItem('token');

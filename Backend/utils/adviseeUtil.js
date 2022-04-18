@@ -1,9 +1,11 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 var Course = require("../models/courseModelSeq");
 var Schedule = require("../models/scheduleModelSeq");
 var Advisee = require("../models/adviseeModel");
 const sequelize = require("../models/sequelize");
 
-// Returns all advisees that are under the given advisor
+// Return all advisees that are under the given advisor
 async function getAdvisees(advisor_id) {
   let advisees = await Advisee.findAll({
     where: {
@@ -13,7 +15,7 @@ async function getAdvisees(advisor_id) {
   return advisees;
 }
 
-// Returns advisor given id
+// Return advisor with a given ID
 async function getAdviseeName(advisee_id) {
   let advisee = await sequelize.query(
     `SELECT firstName, lastName FROM Advisee WHERE advisee_id = ${advisee_id}`
@@ -21,7 +23,7 @@ async function getAdviseeName(advisee_id) {
   return advisee[0][0];
 }
 
-// Returns all courses for the given advisee
+// Return all courses for a given advisee
 async function getSchedule(advisee_id) {
   courses = sequelize.query(`SELECT * FROM Course
   WHERE course_id IN 
@@ -40,7 +42,6 @@ async function getSchedule(advisee_id) {
 // Add a new schedule to the schedule table and then update the Course_Schedule table
 async function postSchedule(scheduleInfo, courses) {
   if (scheduleInfo.adviseeSignature != "REGISTERED") {
-    // [BEGIN] Delete previous schedule
     await sequelize.query(
       `DELETE FROM course_schedule WHERE schedule_id IN (select schedule_id FROM Schedule WHERE modified_date != 0 AND advisee_id = ${scheduleInfo.advisee_id});`
     );
@@ -48,10 +49,9 @@ async function postSchedule(scheduleInfo, courses) {
     await sequelize.query(
       `DELETE FROM Schedule WHERE advisee_id = ${scheduleInfo.advisee_id} AND modified_date != 0;`
     );
-    // [END] delete previous schedule
   }
 
-  // Update Course_Schedule table with all of the courses inserted
+  // Update the Course_Schedule table with all of the courses inserted
   courses.forEach(async (course) => {
     // Insert the planned schedule
     await sequelize
@@ -71,6 +71,7 @@ async function postSchedule(scheduleInfo, courses) {
   });
 }
 
+// Create a new advisee user
 async function postAdvisees(uniqueAdvisees) {
   await uniqueAdvisees.forEach(async (advisee) => {
     // Double check that the advisee is an actual advisee
@@ -93,6 +94,7 @@ async function postAdvisees(uniqueAdvisees) {
   });
 }
 
+// Record what courses an advisee has already taken
 async function postTakenCourses(takenCourseData) {
   takenCourseData
     .forEach(async (courseData) => {
@@ -128,6 +130,7 @@ async function postTakenCourses(takenCourseData) {
     });
 }
 
+// Record what courses an advisee has registered for
 async function postRegisteredCourses(registeredCourseData) {
   registeredCourseData
     .forEach(async (courseData) => {
@@ -165,6 +168,7 @@ async function postRegisteredCourses(registeredCourseData) {
     });
 }
 
+// Get which courses has already been taken by an advisee
 async function getTakenCourses(adviseeId) {
   courses = await sequelize.query(
     `SELECT * FROM Course
@@ -183,6 +187,7 @@ async function getTakenCourses(adviseeId) {
   return courses[0];
 }
 
+// Get which courses an advisee has registered for
 async function getRegisteredCourses(adviseeId) {
   courses = await sequelize.query(
     `SELECT * FROM Course

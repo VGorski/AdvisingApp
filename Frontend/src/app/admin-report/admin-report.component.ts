@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -11,6 +13,7 @@ export class AdminReportComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  // Log the user out
   logout() {
     console.log('Logging out');
     localStorage.removeItem('token');

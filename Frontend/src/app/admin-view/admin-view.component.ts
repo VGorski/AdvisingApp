@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GetDataService } from '../services/get-data.service';
@@ -8,7 +10,9 @@ import { GetDataService } from '../services/get-data.service';
   styleUrls: ['./admin-view.component.css'],
 })
 export class AdminViewComponent implements OnInit {
-  admin_id = JSON.parse(localStorage.getItem('advisor_id') || '-1'); //This will change if Professor Kiassat is no longer admin
+  // Currently only one admin exists in the system so the information is hardcoded
+  // This will change if Professor Kiassat is no longer admin
+  admin_id = JSON.parse(localStorage.getItem('advisor_id') || '-1'); 
   firstName = '';
   lastName = '';
 
@@ -24,6 +28,7 @@ export class AdminViewComponent implements OnInit {
     });
   }
 
+  // Log the user out
   logout() {
     console.log('Logging out');
     localStorage.removeItem('token');

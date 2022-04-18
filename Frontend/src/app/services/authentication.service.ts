@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Injectable } from '@angular/core';
 import { Handler } from '../interface/handler';
 import { tap } from 'rxjs/operators';
@@ -24,6 +26,7 @@ export class AuthenticationService {
   // Set token in local storage
   storeJWT(handler: Handler) {
     if (handler.hasOwnProperty('data')) {
+      // Check the role of the user
       if (handler.data.role == 'ADVISOR' || handler.data.role == 'ADMIN') {
         localStorage.setItem('token', handler.data.token);
         localStorage.setItem('advisor_id', handler.data.id);

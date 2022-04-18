@@ -1,6 +1,9 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 let sequelize = require("./sequelize");
 const Sequelize = require("sequelize");
 
+// Model defines an advisee's schedule and all its necessary information
 const Schedule = sequelize.define("Schedule", {
   schedule_id: {
     type: Sequelize.INTEGER,

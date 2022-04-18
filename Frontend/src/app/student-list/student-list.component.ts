@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GetDataService } from '../services/get-data.service';
 import { StorageService } from '../services/storage.service';
@@ -12,6 +14,7 @@ export class StudentListComponent implements OnInit {
   @Input() advisingPeriodInProgress: boolean = false;
   @Output() flagAdvisor = new EventEmitter<boolean>();
 
+  // Template for getting the list of advisees an advisor has 
   advisees = [
     {
       advisee_id: -1,
@@ -32,6 +35,7 @@ export class StudentListComponent implements OnInit {
     });
   }
 
+  // Flag an advisee if there is a discrepancy between their planned and registered schedule
   flagAdvisee(advisee: any) {
     advisee.flagged = true;
     this.flagAdvisor.emit();

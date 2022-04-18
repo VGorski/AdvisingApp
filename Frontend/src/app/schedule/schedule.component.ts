@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GetDataService } from '../services/get-data.service';
 
@@ -9,6 +11,7 @@ import { GetDataService } from '../services/get-data.service';
 export class ScheduleComponent implements OnInit {
   constructor(private getDataService: GetDataService) {}
 
+  // Get an advisee's schedule
   @Input() advisee_id: number = 0;
   @Input() advisingPeriodInProgress: boolean = false;
   @Input() adviseeView = false;
@@ -16,6 +19,7 @@ export class ScheduleComponent implements OnInit {
 
   flagged = false;
 
+  // Template for getting an advisee's planned course
   plannedCourses = [
     {
       course_id: -1,
@@ -23,6 +27,7 @@ export class ScheduleComponent implements OnInit {
     },
   ];
 
+  // Template for getting an advisee's registered course
   registeredCourses = [
     {
       course_id: -1,
@@ -30,6 +35,7 @@ export class ScheduleComponent implements OnInit {
     },
   ];
 
+  // Template for if the course matches the course that was planned on the schedule
   correctCourses = [
     {
       course_id: -1,
@@ -42,16 +48,17 @@ export class ScheduleComponent implements OnInit {
     this.registeredCourses.pop();
 
     this.getDataService
+      // Get an advisee's registered courses
       .getRegisteredCourses(this.advisee_id)
       .subscribe((registeredCourses) => {
         this.registeredCourses = registeredCourses;
-
+        // Get an advisee's planned courses
         this.getDataService.getCourses(this.advisee_id).subscribe((courses) => {
           this.plannedCourses = courses;
           if (courses.length == 0) {
             this.tellParent();
           }
-
+          // Check if the courses match between the planned and registered schedules
           this.correctCourses = this.plannedCourses.filter((course: any) => {
             return this.plannedAndRegistered(course);
           });
@@ -59,6 +66,7 @@ export class ScheduleComponent implements OnInit {
       });
   }
 
+  // Flag the course if it is not part of the planned schedule
   tellParent() {
     if (!this.flagged) {
       this.flagged = true;
@@ -76,7 +84,7 @@ export class ScheduleComponent implements OnInit {
         return registered.course_id == course.course_id;
       }).length > 0
     ) {
-      //Cut out the correctly planned courses
+      // Cut out the correctly planned courses
       let element: any = this.plannedCourses.splice(
         this.plannedCourses.indexOf(course.course_id),
         1
@@ -85,7 +93,7 @@ export class ScheduleComponent implements OnInit {
         this.registeredCourses.indexOf(course.course_id),
         1
       );
-      //put the courses into the correct courses array
+      // Put the courses into the correct courses array
       this.correctCourses.push(element);
       return true;
     }

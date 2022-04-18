@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -56,6 +58,7 @@ export class GetDataService {
     return this.http.get(`${this.url}/files`);
   }
 
+  // Set all uploaded files as empty when switching to the admin file upload page
   async getUploadedFiles() {
     let data = {
       math: '',
@@ -66,29 +69,40 @@ export class GetDataService {
       registered: '',
     };
 
+    // Get the file containing the uploaded math courses
     await this.http.get(this.url + '/admin/files/math').subscribe((file) => {
       data.math = file.toString();
     });
+
+    // Get the file containing the uploaded engineering courses
     await this.http
       .get(this.url + '/admin/files/engineering')
       .subscribe((file) => {
         data.engineering = file.toString();
       });
+
+    // Get the file containing the uploaded UC courses
     await this.http
       .get(this.url + '/admin/files/ucCourses')
       .subscribe((file) => {
         data.uc = file.toString();
       });
+
+    // Get the file containing all the uploaded courses  
     await this.http
       .get(this.url + '/admin/files/allCourses')
       .subscribe((file) => {
         data.all = file.toString();
       });
+
+    // Get the file containing all the advisors and advisees  
     await this.http
       .get(this.url + '/admin/files/studentsFaculty')
       .subscribe((file) => {
         data.studentFaculty = file.toString();
       });
+
+    // Get the file containing all the advisees' registered courses
     await this.http
       .get(this.url + '/admin/files/registered')
       .subscribe((file) => {

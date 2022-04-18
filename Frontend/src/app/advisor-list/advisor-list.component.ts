@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component, OnInit } from '@angular/core';
 import { GetDataService } from '../services/get-data.service';
 
@@ -7,6 +9,7 @@ import { GetDataService } from '../services/get-data.service';
   styleUrls: ['./advisor-list.component.css'],
 })
 export class AdvisorListComponent implements OnInit {
+  // Get a list of advisors
   advisors = [
     {
       advisor_id: -1,
@@ -25,6 +28,7 @@ export class AdvisorListComponent implements OnInit {
     });
   }
 
+  // Show if one or more of an advisor's advisees has a discrepancy in their schedule
   flagAdvisor(advisor: any) {
     advisor.flagged = true;
   }

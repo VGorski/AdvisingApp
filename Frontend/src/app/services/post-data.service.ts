@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -43,7 +45,7 @@ export class PostDataService {
     this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
   }
 
-  // Posts the math courses from the uploaded math file
+  // Post the math courses from the uploaded math file
   async postMathCourses(data: any) {
     let courseData = data.map((element: any) => {
       return {
@@ -56,7 +58,7 @@ export class PostDataService {
     this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
   }
 
-  // Posts the engineering courses from the uploaded engineering courses file
+  // Post the engineering courses from the uploaded engineering courses file
   async postEngineeringCourses(data: any) {
     let courseData = data.map((element: any) => {
       return {
@@ -73,7 +75,7 @@ export class PostDataService {
     }
   }
 
-  // Posts the registered courses from the uploaded registered courses file
+  // Post the registered courses from the uploaded registered courses file
   async postRegisteredCourses(data: any) {
     //Reformat data to be like the MySQL database
     console.log('Working');
@@ -128,6 +130,7 @@ export class PostDataService {
       }
     );
 
+    // Map the courses taken by the advisee
     let takenCourseData = data.map((element: any) => {
       let course = element['Course'];
       if (course) {

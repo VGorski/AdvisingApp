@@ -1,3 +1,5 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 require("dotenv").config();
 const Sequelize = require("sequelize");
 
@@ -15,9 +17,9 @@ const sequelize = new Sequelize(
       idle: 120000,
     },
     define: {
-      //prevent sequelize from pluralizing table names
+      // Prevent sequelize from pluralizing table names
       freezeTableName: true,
-      //Remove timestamps from the columns
+      // Remove timestamps from the columns
       timestamps: false,
     },
   }

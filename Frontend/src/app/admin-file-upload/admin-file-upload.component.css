@@ -58,3 +58,7 @@ button {
   margin: auto;
   border-radius: 20px;
 }
+
+input[type=checkbox] {
+  transform: scale(1.5);
+}

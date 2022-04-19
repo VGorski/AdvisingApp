@@ -75,8 +75,9 @@ export class TestFileInputComponent implements OnInit {
         */
 
         this.postDataService.postUCCourses(result.data).then(() => {
-          this.postDataService.markFileAsUploaded('ucCourses');
-          this.successfulUpload.emit();
+          this.postDataService.markFileAsUploaded('ucCourses').subscribe(() => {
+            this.successfulUpload.emit();
+          });
         });
       },
       header: true,
@@ -118,8 +119,11 @@ export class TestFileInputComponent implements OnInit {
         */
 
         this.postDataService.postBatchUserInfo(result.data).then(() => {
-          this.postDataService.markFileAsUploaded('studentsFaculty');
-          this.successfulUpload.emit();
+          this.postDataService
+            .markFileAsUploaded('studentsFaculty')
+            .subscribe(() => {
+              this.successfulUpload.emit();
+            });
         });
       },
       header: true,
@@ -172,8 +176,11 @@ export class TestFileInputComponent implements OnInit {
         });
 
         this.postDataService.postMathCourses(result.data).then(() => {
-          this.postDataService.markFileAsUploaded('mathCourses');
-          this.successfulUpload.emit();
+          this.postDataService
+            .markFileAsUploaded('mathCourses')
+            .subscribe(() => {
+              this.successfulUpload.emit();
+            });
         });
       },
       header: true,
@@ -225,9 +232,25 @@ export class TestFileInputComponent implements OnInit {
           delete element['Sec Min Cred'];
         });
 
-        this.postDataService.postEngineeringCourses(result.data).then(() => {
-          this.postDataService.markFileAsUploaded('engineeringCourses');
-          this.successfulUpload.emit();
+        let length = result.data.filter((element: any) => {
+          return element;
+        }).length;
+        console.log(length);
+
+        this.postDataService.postEngineeringAllCourses(result.data).then(() => {
+          if (length > 1500) {
+            this.postDataService
+              .markFileAsUploaded('allCourses')
+              .subscribe(() => {
+                this.successfulUpload.emit();
+              });
+          } else {
+            this.postDataService
+              .markFileAsUploaded('engineeringCourses')
+              .subscribe(() => {
+                this.successfulUpload.emit();
+              });
+          }
         });
       },
       header: true,
@@ -280,10 +303,18 @@ export class TestFileInputComponent implements OnInit {
           element['Course Name'] = nameArray[0] + ' ' + nameArray[1];
         });
 
-        this.postDataService.postRegisteredCourses(result.data).then(() => {
-          this.postDataService.markFileAsUploaded('registeredCourses');
-          this.successfulUpload.emit();
-        });
+        this.postDataService
+          .postRegisteredCourses(result.data)
+          .then(() => {
+            this.postDataService
+              .markFileAsUploaded('registeredCourses')
+              .subscribe(() => {
+                this.successfulUpload.emit();
+              });
+          })
+          .catch(() => {
+            this.updateCheckboxes.emit();
+          });
       },
       header: true,
     });

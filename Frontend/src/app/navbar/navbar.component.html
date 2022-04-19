@@ -1,0 +1,33 @@
+<script>
+      role = localStorage.json.parse(getItem('role'));
+      console.log(localStorage.getItem('role'));
+</script>
+
+    <nav class="navbar navbar-expand-lg" style="background-color: #17067a">
+    <a class="navbar-brand">
+        <div class="logoContain" style="height: 40px; width: 40px"></div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+          <div ng-switch="role">
+              <div ng-switch-when="ADVISOR">
+                <p>Test advisor</p>
+              </div>
+              <div ng-switch-when="ADMIN">
+                <p>Test admin</p>
+            </div>
+            <div ng-switch-default>
+                <p>Test advisee</p>
+            </div>
+          </div>
+      </ul>
+      <div
+      class="logoutContain"
+      style="height: 30px; width: 30px"
+      (click)="logout()"
+    ></div>
+    </div>
+  </nav>

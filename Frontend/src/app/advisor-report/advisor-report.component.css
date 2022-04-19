@@ -26,13 +26,15 @@ body {
 }
 
 .viewContain {
-  height: 80vh;
+  height: 100%;
   width: 70%;
   background-color: darkblue;
   margin: auto;
   margin-top: 2%;
   border-radius: 20px;
-  padding: 0 7% 0 7%;
+  padding-left: 7%;
+  padding-right: 7%;
+  padding-bottom: 2%;
 }
 
 .logoContain {

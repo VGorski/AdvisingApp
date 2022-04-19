@@ -1,9 +1,9 @@
 <div class="row">
-  <div class="col">
+  <div class="col" style="padding: auto;">
     <div class="text-center" *ngIf="plannedCourses.length != 0">
-      <p class="registered-message" [ngClass]="{ 'advisee-view': adviseeView }">
+      <h2 [ngClass]="{ 'advisee-view': adviseeView }" style="white-space: nowrap;">
         Planned Courses
-      </p>
+      </h2>
     </div>
     <div class="container" *ngIf="plannedCourses.length != 0">
       <div class="card" *ngFor="let course of correctCourses">
@@ -18,15 +18,15 @@
       </div>
     </div>
     <div class="container text-center" *ngIf="plannedCourses.length == 0">
-      <h1 style="color: red">No Planned Courses</h1>
+      <h2 style="color: red">No Planned Courses</h2>
     </div>
   </div>
 
   <div class="col">
     <div class="text-center" *ngIf="registeredCourses.length != 0">
-      <p class="registered-message" [ngClass]="{ 'advisee-view': adviseeView }">
+      <h2 [ngClass]="{ 'advisee-view': adviseeView }" style="white-space: nowrap;">
         Registered Courses
-      </p>
+      </h2>
     </div>
     <div class="container" *ngIf="registeredCourses.length != 0">
       <div class="card" *ngFor="let course of correctCourses">
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="container text-center" *ngIf="registeredCourses.length == 0">
-      <h1 style="color: red">No Registered Courses</h1>
+      <h2 style="color: red">No Registered Courses</h2>
     </div>
   </div>
 </div>

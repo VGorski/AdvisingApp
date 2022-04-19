@@ -42,3 +42,30 @@ button {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+a {
+  text-decoration: none;
+}
+
+.navbar ul li {
+  list-style-type: none;
+  float: left;
+  display: flex;
+  display: block;
+  margin-left: 15px;
+  padding-top: 3%;
+}
+
+.navbar a {
+  color: white;
+  font-size: large;
+}
+
+.navbar {
+  display: flex;
+  background-color: #17067a;
+}
+
+.navbar ul a:hover, .navbar ul a:focus, .navbar ul .active {
+  color: #FFFF00;
+}

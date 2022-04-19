@@ -6,22 +6,23 @@
     #acc="ngbAccordion"
     *ngFor="let advisee of advisees"
     [destroyOnHide]="false"
+    style="justify-content: center;"
   >
-    <ngb-panel>
-      <ng-template ngbPanelHeader>
-        <button
+    <ngb-panel >
+      <ng-template ngbPanelHeader >
+        <button     
           ngbPanelToggle
           class="accordion-button justify-content-center"
           [ngClass]="{
             flagged: advisee.flagged,
             'not-flagged': !advisee.flagged
-          }"
+          }" style="width: 100%; text-align: center; height: 70px;"
         >
           {{ advisee.firstName }} {{ advisee.lastName }}
         </button>
-      </ng-template>
-      <ng-template ngbPanelContent>
-        <app-schedule
+      </ng-template >
+      <ng-template ngbPanelContent >
+        <app-schedule 
           [advisee_id]="advisee.advisee_id"
           (flagAdvisee)="flagAdvisee(advisee)"
           [advisingPeriodInProgress]="advisingPeriodInProgress"
@@ -34,7 +35,7 @@
 <div *ngIf="advisingPeriodInProgress">
   <div
     class="card text-center"
-    style="width: 1250px"
+    style="width: 80%;"
     *ngFor="let advisee of advisees"
   >
     <div class="card-body">

@@ -1,6 +1,8 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../data.service';
+import { GetDataService } from '../services/get-data.service';
 
 @Component({
   selector: 'app-admin-view',
@@ -8,25 +10,30 @@ import { DataService } from '../data.service';
   styleUrls: ['./admin-view.component.css'],
 })
 export class AdminViewComponent implements OnInit {
-  admin_id = 4; //This will change if Professor Kiassat is no longer admin
+  // Currently only one admin exists in the system so the information is hardcoded
+  // This will change if Professor Kiassat is no longer admin
+  admin_id = JSON.parse(localStorage.getItem('advisor_id') || '-1'); 
   firstName = '';
   lastName = '';
 
-  constructor(private dataService: DataService, private logoutRouter: Router) {}
+  constructor(
+    private getDataService: GetDataService,
+    private logoutRouter: Router
+  ) {}
 
   ngOnInit(): void {
-    this.dataService.getAdvisorName(this.admin_id).subscribe((name) => {
+    this.getDataService.getAdvisorName(this.admin_id).subscribe((name) => {
       this.firstName = name.firstName;
       this.lastName = name.lastName;
     });
   }
 
+  // Log the user out
   logout() {
-    console.log("Logging out");
+    console.log('Logging out');
     localStorage.removeItem('token');
     localStorage.removeItem('advisee_id');
     localStorage.removeItem('role');
     this.logoutRouter.navigate(['/']);
   }
-
 }

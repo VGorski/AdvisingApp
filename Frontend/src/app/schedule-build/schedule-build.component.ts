@@ -1,7 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import { DataService } from '../data.service';
+// Authors: Timothy Carta and Victoria Gorski
 
+import { Component, OnInit } from '@angular/core';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
+import { GetDataService } from '../services/get-data.service';
+import { PostDataService } from '../services/post-data.service';
+import { StorageService } from '../services/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule-build',
@@ -9,6 +17,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./schedule-build.component.css'],
 })
 export class ScheduleBuildComponent implements OnInit {
+  // Template for getting the advisee's information
   advisee_id = -1;
 
   advisee = {
@@ -44,52 +53,73 @@ export class ScheduleBuildComponent implements OnInit {
     },
   ];
 
+  // Create the advisee's schedule
   scheduleForm = {
     advisee_id: this.advisee_id,
-    modified_date: new Date().toISOString().slice(0, 10), //todays date
+    // Today's date
+    modified_date: new Date().toISOString().slice(0, 10),
     adviseeSignature: '',
     advisorSignature: '',
   };
 
   displayFillData = false;
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private getDataService: GetDataService,
+    private postDataService: PostDataService,
+    private storageService: StorageService,
+    private logoutRouter: Router
+  ) {}
 
   ngOnInit(): void {
-    this.advisee_id = this.dataService.getSelectedAdvisee();
+    // Get the chosen advisee
+    this.advisee_id = this.storageService.getSelectedAdvisee();
     this.scheduleForm.advisee_id = this.advisee_id;
 
     this.available_courses.pop();
     this.chosen_courses.pop();
     this.taken_courses.pop();
 
-    this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
+    // Get an advisee's chosen courses
+    this.getDataService.getCourses(this.advisee_id).subscribe((courses) => {
       this.chosen_courses = courses;
     });
 
-    this.dataService.getAvailableCourses(this.filter).subscribe((courses) => {
-      this.available_courses = courses;
-    });
+    // Get the list of courses available to the advisee
+    this.getDataService
+      .getAvailableCourses(this.filter)
+      .subscribe((courses) => {
+        this.available_courses = courses;
+      });
 
-    this.dataService.getTakenCourses(this.advisee_id).subscribe((courses) => {
-      this.taken_courses = courses;
-    });
+    // Get the courses already taken by the advisee
+    this.getDataService
+      .getTakenCourses(this.advisee_id)
+      .subscribe((courses) => {
+        this.taken_courses = courses;
+      });
 
-    this.dataService.getDisciplines().subscribe((disciplines) => {
+    // Get the discipline of each course
+    this.getDataService.getDisciplines().subscribe((disciplines) => {
       this.disciplines = disciplines;
     });
 
-    this.dataService.getAdviseeName(this.advisee_id).subscribe((advisee) => {
+    // Get the advisee's name
+    this.getDataService.getAdviseeName(this.advisee_id).subscribe((advisee) => {
       this.advisee = advisee;
     });
   }
 
+  // Filter the courses based on the selected filter
   getFilteredCourses() {
-    this.dataService.getAvailableCourses(this.filter).subscribe((courses) => {
-      this.available_courses = courses;
-    });
+    this.getDataService
+      .getAvailableCourses(this.filter)
+      .subscribe((courses) => {
+        this.available_courses = courses;
+      });
   }
 
+  // Check if the course has been taken by the advisee
   hasCourseBeenTaken(course_id: number) {
     return (
       this.taken_courses.filter((course) => {
@@ -98,6 +128,7 @@ export class ScheduleBuildComponent implements OnInit {
     );
   }
 
+  // Controls the drag - and - drop functionality when building a schedule
   drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -115,18 +146,22 @@ export class ScheduleBuildComponent implements OnInit {
     }
   }
 
+  // Submit the built schedule when done
   submit() {
     if (
+      // Check if the signature boxes have been filled
       this.scheduleForm.adviseeSignature != '' &&
       this.scheduleForm.advisorSignature != ''
     ) {
-      this.dataService
+      // Save the schedule into the database
+      this.postDataService
         .postSchedule(this.advisee_id, this.scheduleForm, this.chosen_courses)
         .subscribe((res) => {
-          this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
-            this.chosen_courses = courses;
+          this.getDataService.getCourses(this.advisee_id).subscribe(() => {
             this.scheduleForm.adviseeSignature = '';
             this.scheduleForm.advisorSignature = '';
+
+            document.getElementById('confirmModal')?.click();
           });
         });
     } else {
@@ -135,5 +170,13 @@ export class ScheduleBuildComponent implements OnInit {
         this.displayFillData = false;
       }, 5000);
     }
+  }
+
+  // Log the user out
+  logout() {
+    console.log('Logging out');
+    localStorage.removeItem('token');
+    localStorage.removeItem('advisee_id');
+    this.logoutRouter.navigate(['/']);
   }
 }

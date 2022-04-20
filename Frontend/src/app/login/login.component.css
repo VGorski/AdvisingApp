@@ -1,6 +1,4 @@
-.col {
-  min-height: 100vh;
-}
+
 
 .buttonCol {
   width: 50%;
@@ -17,7 +15,8 @@ html {
 }
 
 .column {
-  flex: 50%;
+  width: 50%;
+  float: left;
 }
 
 head {
@@ -30,18 +29,24 @@ body {
   color: white;
   background-image: url("../images/QUplaid.jpg");
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   padding: 0px;
   margin: 0px;
   min-height: 100%;
+  overflow: hidden;
 }
 
 .imageContain {
-  background-image: url("../images//QUlogo.png");
+  background-image: url("../images/QUlogo.png");
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 20px;
-  margin-left: 100px;
+  display: flex;
+  width: 250px;
+  height: 250px;
+  flex-wrap: wrap;
+  margin: 10% auto auto auto;
+
 }
 
 main-body {
@@ -82,43 +87,19 @@ fullscreen-container {
   background-color: #0084ff;
 }
 
-register-form {
-  text-align: center;
-  background-color: rgb(195, 203, 211);
-  width: 30%;
-  border-radius: 8px;
-  margin: 0 auto;
-  padding-top: 20px;
-  padding-bottom: 70px;
-  padding-left: 40px;
-  padding-right: 40px;
-  line-height: 70px;
-  display: flex;
-  flex-direction: column;
-}
-
 label {
   text-align: left;
   font-size: large;
 }
 
 button {
-  border-radius: 8px;
-  width: 150px;
-  height: 60px;
-  font-size: 16px;
-  background-color: #0084ff;
-  color: white;
+  width: 60%;
+  height: 40px;
+  margin-left: 20%;
+  font-size: x-large;
+  font-weight: 500;
+  text-align: center;
+
+  white-space: normal;
 }
 
-forgot-password-form {
-  text-align: center;
-  background-color: rgb(195, 203, 211);
-  width: 30%;
-  border-radius: 8px;
-  margin: 0 auto;
-  padding-top: 20px;
-  padding-bottom: 40px;
-  padding-left: 30px;
-  padding-right: 30px;
-}

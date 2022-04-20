@@ -3,11 +3,16 @@ body {
   color: white;
   background-image: url("../images/QUplaid.jpg");
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   padding: 0px;
   margin: 0px;
   min-height: 100%;
-  height: 100vh;
+  overflow: hidden;
+}
+
+.column {
+  width: 50%;
+  float: left;
 }
 
 button {
@@ -21,15 +26,8 @@ button {
   font-size: x-large;
 }
 
-.imageContain {
-  background-image: url("../images/QUAdvisingLogo.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 20px;
-}
-
 .logoContain {
-  background-image: url("../images/QUAdvisingLogo.png");
+  background-image: url("../images/QUlogo.png");
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 5px;
@@ -43,18 +41,48 @@ button {
 }
 
 .viewContain {
-  height: 60vh;
-  width: 70vh;
+  width: 80%;
   background-color: darkblue;
-  margin: auto;
-  margin-top: 50px;
+  margin-top: 15%;
   border-radius: 20px;
 }
 
 .fileContain {
-  height: 40vh;
-  width: 70vh;
-  background-color: white;
-  margin: auto;
+  width: 80%;
+  background-color: darkblue;
+  margin-top: 15%;
   border-radius: 20px;
+  padding-bottom: 35%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar ul li {
+  list-style-type: none;
+  float: left;
+  display: flex;
+  display: block;
+  margin-left: 15px;
+  padding-top: 3%;
+}
+
+.navbar a {
+  color: white;
+  font-size: large;
+}
+
+.navbar {
+  display: flex;
+  background-color: #17067a;
+  white-space: nowrap;
+}
+
+.navbar ul a:hover, .navbar ul a:focus, .navbar ul .active {
+  color: #FFFF00;
+}
+
+input[type=checkbox] {
+  transform: scale(1.5);
 }

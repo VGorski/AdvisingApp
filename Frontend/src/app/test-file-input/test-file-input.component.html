@@ -1,10 +1,18 @@
 <div class="mb-3">
-    <input hidden class="file-upload" type="file" id="uploadFile" accept=".csv, .xlsx" (change)="fileChange($event)" multiple>
-    <label for="uploadFile">Select Files</label>
+  <input
+    hidden
+    class="file-upload"
+    type="file"
+    id="uploadFile"
+    accept=".csv, .xlsx"
+    (change)="fileChange($event)"
+    multiple
+  />
+  <label for="uploadFile">Select Files</label>
 </div>
 
 <div class="d-flex justify-content-center" *ngIf="doingWork">
-    <div class="spinner-border" role="status" style="width:5rem; height: 5rem">
-        <span class="sr-only">Loading...</span>
-    </div>
+  <div class="spinner-border" role="status" style="width: 5rem; height: 5rem">
+    <span class="sr-only">Loading...</span>
+  </div>
 </div>

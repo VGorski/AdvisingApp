@@ -1,9 +1,12 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 var Advisor = require("../models/advisorModelSeq");
 async function findAdvisors() {
   let advisors = await Advisor.findAll();
   return advisors;
 }
 
+// Test for getting an advisor
 findAdvisors()
   .then((advisors) => {
     advisors.forEach((advisor) => {
@@ -13,30 +16,3 @@ findAdvisors()
   .catch((err) => {
     console.log(err);
   });
-
-// async function createAdvisor(
-//   firstName,
-//   lastName,
-//   email,
-//   password,
-//   role,
-//   discipline
-// ) {
-//   const advisor = await Advisor.create({
-//     firstName: firstName,
-//     lastName: lastName,
-//     email: email,
-//     password: password,
-//     role: role,
-//     discipline: discipline,
-//   });
-//   return advisor;
-// }
-
-// createAdvisor("Christian", "Duncan", "Christian.Duncan@quinnipiac.edu", "password", "CSC")
-//   .then((advisor) => {
-//     console.log(advisor);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });

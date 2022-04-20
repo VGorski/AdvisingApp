@@ -11,7 +11,7 @@ import { AdvisorReportComponent } from './advisor-report/advisor-report.componen
 import { ScheduleComponent } from './schedule/schedule.component';
 import { ScheduleBuildComponent } from './schedule-build/schedule-build.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DragDropModule } from '@angular/cdk/drag-drop'
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
@@ -22,12 +22,12 @@ import { TestFileInputComponent } from './test-file-input/test-file-input.compon
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { AdminFileUploadComponent } from './admin-file-upload/admin-file-upload.component';
 import { FileUploadListComponent } from './file-upload-list/file-upload-list.component';
-//import { HeaderComponent } from './header/header.component';
-import { ReadInputComponent } from './read-input/read-input.component';
-import { Handler } from './interface/handler';
 import { AdvisorListComponent } from './advisor-list/advisor-list.component';
-//import { GenericLayoutComponent } from './generic-layout/generic-layout.component';
-
+import { NavbarComponent } from './navbar/navbar.component';
+import { AdminViewAdviseesComponent } from './admin-view-advisees/admin-view-advisees.component';
+import { AdminReportAdviseesComponent } from './admin-report-advisees/admin-report-advisees.component';
+import { BuildScheduleAdminComponent } from './build-schedule-admin/build-schedule-admin.component';
+import { StudentListAdminComponent } from './student-list-admin/student-list-admin.component';
 
 @NgModule({
   declarations: [
@@ -45,12 +45,13 @@ import { AdvisorListComponent } from './advisor-list/advisor-list.component';
     AdminViewComponent,
     AdminFileUploadComponent,
     FileUploadListComponent,
-    //HeaderComponent,
-    ReadInputComponent,
     AdvisorListComponent,
     AdminReportComponent,
-
-    //GenericLayoutComponent
+    NavbarComponent,
+    AdminViewAdviseesComponent,
+    AdminReportAdviseesComponent,
+    BuildScheduleAdminComponent,
+    StudentListAdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,9 +61,9 @@ import { AdvisorListComponent } from './advisor-list/advisor-list.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

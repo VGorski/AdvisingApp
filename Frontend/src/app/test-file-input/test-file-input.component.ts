@@ -1,6 +1,8 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Papa } from 'ngx-papaparse';
-import { DataService } from '../data.service';
+import { PostDataService } from '../services/post-data.service';
 
 @Component({
   selector: 'app-test-file-input',
@@ -8,7 +10,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./test-file-input.component.css'],
 })
 export class TestFileInputComponent implements OnInit {
-  constructor(private papa: Papa, private dataService: DataService) {}
+  constructor(private papa: Papa, private postDataService: PostDataService) {}
 
   @Output() updateCheckboxes = new EventEmitter<string>();
   @Output() successfulUpload = new EventEmitter<string>();
@@ -27,7 +29,8 @@ export class TestFileInputComponent implements OnInit {
     // If a file has actually been uploaded
     if (files.length > 0) {
       let file: File = files[0];
-      let extension = file.name.split('.').pop(); // Get the file extension
+      // Get the file extension
+      let extension = file.name.split('.').pop();
 
       if (extension == 'csv') {
         file
@@ -45,7 +48,6 @@ export class TestFileInputComponent implements OnInit {
             } else if (text.includes('ID')) {
               await this.processRegisteredCourses(file);
             } else {
-              // TODO: Throw an error and display that to the user
               console.log('File uploaded was not of the correct format...');
             }
           })
@@ -58,6 +60,7 @@ export class TestFileInputComponent implements OnInit {
     }
   }
 
+  // Process the UC courses in a given file
   processUCCourses(file: File) {
     console.log('Processing Courses CSV...');
     this.papa.parse(file, {
@@ -74,15 +77,17 @@ export class TestFileInputComponent implements OnInit {
         UC Area: ""
         */
 
-        this.dataService.postUCCourses(result.data).then(() => {
-          this.dataService.markFileAsUploaded('ucCourses');
-          this.successfulUpload.emit();
+        this.postDataService.postUCCourses(result.data).then(() => {
+          this.postDataService.markFileAsUploaded('ucCourses').subscribe(() => {
+            this.successfulUpload.emit();
+          });
         });
       },
       header: true,
     });
   }
 
+  // Process the courses an advisee has registered for
   processUsersCourses(file: File) {
     console.log('Processing Users and Courses CSV...');
     this.papa.parse(file, {
@@ -95,9 +100,6 @@ export class TestFileInputComponent implements OnInit {
           delete element['Term'];
           delete element['Class'];
           delete element['Program 2'];
-
-          // Change the code into a discipline format
-          // Add the discipline attribute
           element['discipline'] = this.getDisciplineFromCode(
             element['Program 1']
           );
@@ -117,15 +119,19 @@ export class TestFileInputComponent implements OnInit {
         discipline: ""
         */
 
-        this.dataService.postBatchUserInfo(result.data).then(() => {
-          this.dataService.markFileAsUploaded('studentsFaculty');
-          this.successfulUpload.emit();
+        this.postDataService.postBatchUserInfo(result.data).then(() => {
+          this.postDataService
+            .markFileAsUploaded('studentsFaculty')
+            .subscribe(() => {
+              this.successfulUpload.emit();
+            });
         });
       },
       header: true,
     });
   }
 
+  // Process the math courses in a given file
   processMathCourses(file: File) {
     console.log('Processing Specialized Courses CSV...');
     this.papa.parse(file, {
@@ -171,15 +177,19 @@ export class TestFileInputComponent implements OnInit {
           delete element['Min Cred'];
         });
 
-        this.dataService.postMathCourses(result.data).then(() => {
-          this.dataService.markFileAsUploaded('mathCourses');
-          this.successfulUpload.emit();
+        this.postDataService.postMathCourses(result.data).then(() => {
+          this.postDataService
+            .markFileAsUploaded('mathCourses')
+            .subscribe(() => {
+              this.successfulUpload.emit();
+            });
         });
       },
       header: true,
     });
   }
 
+  // Process the engineering courses in a given file
   processEngineeringAllCourses(file: File) {
     this.papa.parse(file, {
       complete: (result) => {
@@ -225,15 +235,32 @@ export class TestFileInputComponent implements OnInit {
           delete element['Sec Min Cred'];
         });
 
-        this.dataService.postEngineeringCourses(result.data).then(() => {
-          this.dataService.markFileAsUploaded('engineeringCourses');
-          this.successfulUpload.emit();
+        let length = result.data.filter((element: any) => {
+          return element;
+        }).length;
+        console.log(length);
+
+        this.postDataService.postEngineeringAllCourses(result.data).then(() => {
+          if (length > 1500) {
+            this.postDataService
+              .markFileAsUploaded('allCourses')
+              .subscribe(() => {
+                this.successfulUpload.emit();
+              });
+          } else {
+            this.postDataService
+              .markFileAsUploaded('engineeringCourses')
+              .subscribe(() => {
+                this.successfulUpload.emit();
+              });
+          }
         });
       },
       header: true,
     });
   }
 
+  // Process the courses that an advisee has registered for
   processRegisteredCourses(file: File) {
     this.papa.parse(file, {
       complete: (result) => {
@@ -280,15 +307,24 @@ export class TestFileInputComponent implements OnInit {
           element['Course Name'] = nameArray[0] + ' ' + nameArray[1];
         });
 
-        this.dataService.postRegisteredCourses(result.data).then(() => {
-          this.dataService.markFileAsUploaded('registeredCourses');
-          this.successfulUpload.emit();
-        });
+        this.postDataService
+          .postRegisteredCourses(result.data)
+          .then(() => {
+            this.postDataService
+              .markFileAsUploaded('registeredCourses')
+              .subscribe(() => {
+                this.successfulUpload.emit();
+              });
+          })
+          .catch(() => {
+            this.updateCheckboxes.emit();
+          });
       },
       header: true,
     });
   }
 
+  // Get the discipline the course belongs to
   getDisciplineFromCode(code: string): string {
     let newCode: string = '';
     switch (code) {

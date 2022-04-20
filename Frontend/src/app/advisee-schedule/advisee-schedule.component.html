@@ -13,59 +13,29 @@
     <title>Advisee Schedule</title>
   </head>
   <body>
-    <nav
-      class="navbar navbar-expand-lg navbar-dark"
-      style="background-color: #17067a"
-    >
-      <div class="container-fluid">
-        <div class="logoContain" style="height: 40px; width: 40px"></div>
-        <a
-          class="navbar-brand"
-          routerLink="../advisee-dashboard"
-          routerLink="/advisee-view"
-          >Advisee Dashboard</a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown"></div>
-        <div
-        (click) = "logout()"
-          class="logoutContain"
-          style="height: 30px; width: 30px"
-          routerLink="/"
+    <nav class="navbar">
+      <div class="logoContain" style="height: 40px; width: 40px; margin-right: 0px;"></div>
+      <ul class="navbar-right">
+        <li>
+          <a  style="padding-top: 20px;" routerLink="../advisee-view">Dashboard</a>
+        </li>
+        <li>
+          <a class="active" routerLink="../advisee-schedule">View Schedule</a>
+        </li>
+      </ul>
+              <div
+          class="logoutContain ml-auto"
+          style="height: 30px; width: 30px;"
+          (click)="logout()"
         ></div>
-      </div>
     </nav>
     <div class="row">
       <div class="col">
         <div class="viewContain">
-          <h1
-            style="
-              color: white;
-              text-align: center;
-              padding-top: 30px;
-              padding-bottom: 30px;
-            "
-          >
-            {{ advisee.firstName }} {{ advisee.lastName }}
-          </h1>
-          <h2 style="color: white; text-align: center">
-            Planned Schedule for Fall Term 2022
-          </h2>
-          <!--Component start-->
-          <div style="color: black">
+          <h4 style=" padding-top: 5%; font-size: 30px; font-weight:500; text-align: center; line-height: 40px;">Planned Schedule for Fall Term 2022</h4>
+          <div style="color: black; padding-right: 1%; padding-left: 1%;">
             <app-schedule [advisee_id]="advisee_id" [adviseeView]="true"></app-schedule>
           </div>
-          <!--Component end-->
         </div>
       </div>
     </div>

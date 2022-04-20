@@ -1,5 +1,7 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DataService } from '../data.service';
+import { GetDataService } from '../services/get-data.service';
 
 @Component({
   selector: 'app-schedule',
@@ -7,17 +9,17 @@ import { DataService } from '../data.service';
   styleUrls: ['./schedule.component.css'],
 })
 export class ScheduleComponent implements OnInit {
-  constructor(private dataService: DataService) {}
-  
+  constructor(private getDataService: GetDataService) {}
+
+  // Get an advisee's schedule
   @Input() advisee_id: number = 0;
   @Input() advisingPeriodInProgress: boolean = false;
   @Input() adviseeView = false;
   @Output() flagAdvisee = new EventEmitter();
 
-/*    */
-
   flagged = false;
 
+  // Template for getting an advisee's planned course
   plannedCourses = [
     {
       course_id: -1,
@@ -25,7 +27,16 @@ export class ScheduleComponent implements OnInit {
     },
   ];
 
+  // Template for getting an advisee's registered course
   registeredCourses = [
+    {
+      course_id: -1,
+      name: '',
+    },
+  ];
+
+  // Template for if the course matches the course that was planned on the schedule
+  correctCourses = [
     {
       course_id: -1,
       name: '',
@@ -36,20 +47,26 @@ export class ScheduleComponent implements OnInit {
     this.plannedCourses.pop();
     this.registeredCourses.pop();
 
-    this.dataService
+    this.getDataService
+      // Get an advisee's registered courses
       .getRegisteredCourses(this.advisee_id)
       .subscribe((registeredCourses) => {
         this.registeredCourses = registeredCourses;
+        // Get an advisee's planned courses
+        this.getDataService.getCourses(this.advisee_id).subscribe((courses) => {
+          this.plannedCourses = courses;
+          if (courses.length == 0) {
+            this.tellParent();
+          }
+          // Check if the courses match between the planned and registered schedules
+          this.correctCourses = this.plannedCourses.filter((course: any) => {
+            return this.plannedAndRegistered(course);
+          });
+        });
       });
-
-    this.dataService.getCourses(this.advisee_id).subscribe((courses) => {
-      this.plannedCourses = courses;
-      if (courses.length == 0) {
-        this.tellParent();
-      }
-    });
   }
 
+  // Flag the course if it is not part of the planned schedule
   tellParent() {
     if (!this.flagged) {
       this.flagged = true;
@@ -57,70 +74,27 @@ export class ScheduleComponent implements OnInit {
     }
   }
 
-  // Return true if a course has been registered for but was not planned during an advising meeting
-  registeredNotPlanned(course_id: number) {
-    if (
-      this.plannedCourses.filter((course) => {
-        return course.course_id == course_id;
-      }).length == 0 &&
-      this.registeredCourses.filter((course) => {
-        return course.course_id == course_id;
-      }).length != 0
-    ) {
-      if (!this.adviseeView) {
-        this.tellParent();
-      }
-      return true;
-    }
-    return false;
-  }
-
-  // Return true if a course was planned during an advising meeting but has not been registered for
-  plannedNotRegistered(course_id: number) {
-    if (
-      this.plannedCourses.filter((course) => {
-        return course.course_id == course_id;
-      }).length != 0 &&
-      this.registeredCourses.filter((course) => {
-        return course.course_id == course_id;
-      }).length == 0
-    ) {
-      if (!this.adviseeView) {
-        this.tellParent();
-      }
-      return true;
-    }
-    return false;
-  }
-
-  // Return true if a student has not registered nor attended an advising meeting
-  neitherPlannedNorRegistered(course_id: number) {
-    if (
-      this.plannedCourses.filter((course) => {
-        return course.course_id == course_id;
-      }).length == 0 &&
-      this.registeredCourses.filter((course) => {
-        return course.course_id == course_id;
-      }).length == 0
-    ) {
-      if (!this.adviseeView) {
-        this.tellParent();
-      }
-      return true;
-    }
-    return false;
-  }
-
   // Return true if a course was planned and also registered for
-  plannedAndRegistered(course_id: number) {
+  plannedAndRegistered(course: any) {
     if (
-      this.plannedCourses.filter((course) => {
-        return course.course_id == course_id;
+      this.plannedCourses.filter((planned) => {
+        return planned.course_id == course.course_id;
       }).length > 0 &&
-      this.registeredCourses.filter((course) => {
-        return course.course_id == course_id;
+      this.registeredCourses.filter((registered) => {
+        return registered.course_id == course.course_id;
       }).length > 0
     ) {
+      // Cut out the correctly planned courses
+      let element: any = this.plannedCourses.splice(
+        this.plannedCourses.indexOf(course.course_id),
+        1
+      );
+      this.registeredCourses.splice(
+        this.registeredCourses.indexOf(course.course_id),
+        1
+      );
+      // Put the courses into the correct courses array
+      this.correctCourses.push(element);
       return true;
     }
     if (!this.adviseeView) {

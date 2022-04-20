@@ -15,126 +15,98 @@
   </head>
   <body>
     <div class="container">
-      <div class="row">
-        <div class="col">
-          <div
-            class="row"
-            style="font-size: 48px; color: white; padding-top: 50px"
-          >
-            Welcome to Quinnipiac University's Advising Assistant App
-          </div>
-          <div class="row" style="padding-top: 30px">
-            <div class="imageContain" style="height: 400px; width: 400px"></div>
-          </div>
+      <div class="column">
+        <div class="row">
+          <h4 style="font-size: 48px; color: white; padding-top: 50px; padding-top: 10%; font-weight:500; text-align: center; line-height: 40px;"> Welcome to Quinnipiac University's Advising Assistant App</h4>
         </div>
-        <div class="col">
-          <div
-            class="container"
-            style="
-              background-color: darkblue;
-              border-radius: 20px;
-              padding-top: 30px;
-              margin-top: 100px;
-              margin-left: 50px;
-              padding-bottom: 30px;
-            "
-          >
-             <form class="px-4 py-3" [formGroup] = 'loginForm' >
-              <h1 style="text-align: center; padding-bottom: 20px; font-weight: bold; font-size: 30px;">Login</h1>
-              <div class="form-group">
-                <label
-                  for="exampleDropdownFormEmail1"
-                  style="font-size: 25px; padding-bottom: 10px"
-                  >Email address:</label
-                >
-                <input
-                  formControlName = "email"
-                  type="email"
-                  class="form-control"
-                  id="exampleDropdownFormEmail1"
-                  style="margin-bottom: 30px; font-size: 20px; height: 25px;"
-            
-                />
-              </div>
-              <div class="form-group">
-                <label
-                  for="exampleDropdownFormPassword1"
-                  style="font-size: 25px; padding-bottom: 10px"
-                  >Password:</label
-                >
-                <input
-                  formControlName = "password"
-                  type="password"
-                  class="form-control"
-                  id="exampleDropdownFormPassword1"
-                  style="margin-bottom: 30px; font-size: 20px; height: 25px;"
-                />
-              </div>
-<!--               <ngb-toast header="Notification header">
-                Content of the notification
-              </ngb-toast> -->
-              <button
-                type="button"
-                class="btn btn-primary"
-                style="margin-top: 15px; width: 450px; margin-left: 50px"
-                (click) = "handleSubmit()"
-              
-              >
-                Login
-              </button>
-              <br/>
-              <div style="background-color: red; text-align: center; color: white; font-size: 20px; margin-top: 10px;" *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].dirty && loginForm.controls['email'].touched
-               && loginForm.controls['password'].dirty && loginForm.controls['password'].touched" >
-                Invalid email or password
-              </div>
-            </form>
-            <!-- <app-generic-layout>
-              <h1 style="text-align: center; padding-bottom: 20px">Login</h1>
-              <form [formGroup] = "loginForm" class="py-3 px-4" (ngSubmit)="handleSubmit()">
-                <app-read-input
-                type="text" class="form-control form-control-sm"
-                control="email"
-                [controller]="loginForm.controls.email"
-                [formGroup]="loginForm"
-                label="Email Address">
-                </app-read-input>
-                <br>
-                <br>
-                <br>
-                <app-read-input
-                type="password" class="form-control form-control-sm"
-                control="password"
-                [controller]="loginForm.controls.password"
-                [formGroup]="loginForm"
-                label="Password">
-                </app-read-input>
-                <button type="submit" >Login</button>
-              </form>
-            </app-generic-layout> -->
-            <div class="dropdown-divider" style="border-top-color: white"></div>
-            <div class="row">
-              <div class="buttonCol">
-                <button
-                  type="submit"
-                  class="btn btn-info"
-                  style="margin-top: 15px; width: 200px; margin-left: 75px"
-                >
-                  Register
-                </button>
-              </div>
-              <div class="buttonCol">
-                <button
-                  type="submit"
-                  class="btn btn-info"
-                  style="margin-top: 15px; width: 200px; margin-left: 15px"
-                >
-                  Forgot Password
-                </button>
-              </div>
-            </div>
-          </div>
+
+        <div class="row" style="padding-top: 30px">
+          <div class="imageContain" style="height: 300px; width: 300px"></div>
         </div>
       </div>
+        <div class="column">
+          <div
+          class="container"
+          style="
+            background-color: darkblue;
+            border-radius: 20px;
+            padding-top: 30px;
+            margin-top: 30%;
+            margin-left: 10%;
+            margin-right: 10%;
+          justify-content: center;
+            padding-bottom: 30px;
+          "
+        >
+          <form class="px-4 py-3" [formGroup]="loginForm">
+            <h1
+              style="
+                text-align: center;
+                padding-bottom: 20px;
+                font-weight: bold;
+                font-size: 30px;
+              "
+            >
+              Login
+            </h1>
+            <div class="form-group">
+              <label
+                for="exampleDropdownFormEmail1"
+                style="font-size: 25px; padding-bottom: 10px"
+                >Email address:</label
+              >
+              <input
+                formControlName="email"
+                type="email"
+                class="form-control"
+                id="exampleDropdownFormEmail1"
+                style="margin-bottom: 30px; font-size: 20px; height: 25px; width: 90%"
+              />
+            </div>
+            <div class="form-group">
+              <label
+                for="exampleDropdownFormPassword1"
+                style="font-size: 25px; padding-bottom: 10px"
+                >Password:</label
+              >
+              <input
+                formControlName="password"
+                type="password"
+                class="form-control"
+                id="exampleDropdownFormPassword1"
+                style="margin-bottom: 30px; font-size: 20px; height: 25px; width: 90%"
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="handleSubmit()"
+            >
+              Login
+            </button>
+            <br />
+            <div
+              style="
+                background-color: red;
+                text-align: center;
+                color: white;
+                font-size: 20px;
+                margin-top: 10px;
+              "
+              *ngIf="
+                loginForm.controls['email'].invalid &&
+                loginForm.controls['email'].dirty &&
+                loginForm.controls['email'].touched &&
+                loginForm.controls['password'].dirty &&
+                loginForm.controls['password'].touched
+              "
+            >
+              Invalid email or password
+            </div>
+          </form>
+          <div class="dropdown-divider" style="border-top-color: white"></div>
+        </div>
+        </div>
     </div>
   </body>
 </html>

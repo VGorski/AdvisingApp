@@ -1,35 +1,13 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: white;
-  background-image: url("../../assets/QUplaid.jpg");
+  background-image: url("../images/QUplaid.jpg");
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   padding: 0px;
   margin: 0px;
   min-height: 100%;
-  height: 100vh;
-}
-
-button {
-  display: flex;
-  margin: 0 auto;
-  align-items: center;
-  vertical-align: middle;
-  width: 70vh;
-  height: 40vh;
-  padding: 100px;
-  font-size: xx-large;
-}
-
-.buttonCol {
-  vertical-align: middle;
-}
-
-.imageContain {
-  background-image: url("../images/QUlogo.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 20px;
+  overflow: hidden;
 }
 
 .logoContain {
@@ -37,11 +15,58 @@ button {
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 5px;
-  margin-right: 20px;
+
 }
 
 .logoutContain {
-  background-image: url("../../assets/logout.png");
+  background-image: url("../images/logout.png");
   background-size: cover;
   background-repeat: no-repeat;
+  float: right;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar ul li {
+  list-style-type: none;
+  float: left;
+  display: flex;
+  display: block;
+  margin-left: 15px;
+  padding-top: 3%;
+}
+
+.navbar a {
+  color: white;
+  font-size: large;
+}
+
+.navbar {
+  display: flex;
+  background-color: #17067a;
+}
+
+.navbar ul a:hover, .navbar ul a:focus, .navbar ul .active {
+  color: #FFFF00;
+}
+
+.viewContain {
+  height: 100%;
+  width: 70%;
+  background-color: darkblue;
+  margin: auto;
+  margin-top: 2%;
+  border-radius: 20px;
+  padding-bottom: 2%;
+}
+
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+.row {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

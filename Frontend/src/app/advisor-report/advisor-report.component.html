@@ -1,39 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="advisor-report.component.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="advisor-report.component.css" />
     <title>Advisor Dashboard</title>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #17067a;">
-        <div class="container-fluid">
-            <div class="logoContain" style="height: 40px; width: 40px;"></div>
-          <a class="navbar-brand" routerLink="../advisor-view">Advisor Dashboard</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-            </ul>
-          </div>
-          <div class="logoutContain" style="height: 30px; width: 30px;" routerLink="/"></div>
-        </div>
-      </nav>
-      <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="viewContain">
-                    <h2 style="color: white; text-align: center; padding: 20px;">Select an Advisee to View Their Schedule</h2>
-                    <div class="container" style="color:black">
-                        <app-student-list [advisor_id]=this.advisor_id></app-student-list>
-                    </div>
-                </div>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logoContain" style="height: 40px; width: 40px; margin-right: 0px;"></div>
+      <ul class="navbar-right">
+        <li>
+          <a  style="padding-top: 20px;" routerLink="../advisor-view">Dashboard</a>
+        </li>
+        <li>
+          <a routerLink="../advisor-view-advisees">Plan Schedule</a>
+        </li>
+        <li>
+          <a class="active" routerLink="../advisor-report">View Report</a>
+        </li>
+      </ul>
+              <div
+          class="logoutContain ml-auto"
+          style="height: 30px; width: 30px;"
+          (click)="logout()"
+        ></div>
+    </nav>
+    <div class="container">
+        <div class="col">
+          <div class="viewContain">
+            <h4 style=" padding-top: 5%; font-size: 30px; font-weight:500; text-align: center; line-height: 40px;">
+              Select an Advisee to View Their Schedule
+            </h4>
+            <div class="container">
+              <div class="row" style="text-align: center; color: black; display: block; overflow: scroll; height: 350px; overflow-x: hidden;">
+                <app-student-list 
+                [advisor_id]="this.advisor_id"
+              ></app-student-list>
+              </div>
+
             </div>
+          </div>
         </div>
-      </div>
-</body>
+    </div>
+  </body>
 </html>

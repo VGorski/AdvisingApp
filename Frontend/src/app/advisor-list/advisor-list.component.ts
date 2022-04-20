@@ -1,5 +1,7 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../data.service';
+import { GetDataService } from '../services/get-data.service';
 
 @Component({
   selector: 'app-advisor-list',
@@ -7,6 +9,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./advisor-list.component.css'],
 })
 export class AdvisorListComponent implements OnInit {
+  // Get a list of advisors
   advisors = [
     {
       advisor_id: -1,
@@ -16,15 +19,16 @@ export class AdvisorListComponent implements OnInit {
     },
   ];
 
-  constructor(private dataservice: DataService) {}
+  constructor(private getDataService: GetDataService) {}
 
   ngOnInit(): void {
     this.advisors.pop();
-    this.dataservice.getAllAdvisors().subscribe((advisors) => {
+    this.getDataService.getAllAdvisors().subscribe((advisors) => {
       this.advisors = advisors;
     });
   }
 
+  // Show if one or more of an advisor's advisees has a discrepancy in their schedule
   flagAdvisor(advisor: any) {
     advisor.flagged = true;
   }

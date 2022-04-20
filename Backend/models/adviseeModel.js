@@ -1,11 +1,16 @@
+// Authors: Timothy Carta and Victoria Gorski
+
 const { Model } = require("sequelize");
 const sequelize = require("./sequelize");
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 
-class adviseeModel extends Model{};
+// Class extends Sequelize model
+class adviseeModel extends Model {}
 
-adviseeModel.init({
-advisee_id: {
+// Model creates an advisee user with all the required information
+adviseeModel.init(
+  {
+    advisee_id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
     },
@@ -20,14 +25,13 @@ advisee_id: {
     lastName: Sequelize.STRING,
     email: Sequelize.STRING,
     password: Sequelize.STRING,
-    //discipline: Sequelize.CHAR(3),
-  }, {
+    discipline: Sequelize.CHAR(3),
+  },
+  {
     modelName: "advisee",
     sequelize,
-    tableName: "advisee"
-  });
-
-
-
+    tableName: "advisee",
+  }
+);
 
 module.exports = adviseeModel;

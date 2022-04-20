@@ -1,63 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <title>Advisor Build Schedule</title>
+  </head>
 <body>
-  <nav
-    class="navbar navbar-expand-lg navbar-dark"
-    style="background-color: #17067a"
-  >
-    <div class="container-fluid">
-      <div class="logoContain" style="height: 40px; width: 40px"></div>
-      <a class="navbar-brand" routerLink="../advisee-dashboard"
-        >Advisor Dashboard</a
-      >
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a
-              class="nav-link active"
-              aria-current="page"
-              routerLink="../advisee-schedule"
-              >View Advisees</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link active"
-              aria-current="page"
-              routerLink="../advisee-schedule"
-              >Create Schedule</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="logoutContain" style="height: 30px; width: 30px"></div>
-    </div>
+  <nav class="navbar">
+    <div class="logoContain" style="height: 40px; width: 40px; margin-right: 0%"></div>
+    <ul class="navbar-right">
+      <li>
+        <a style="padding-top: 20px;" routerLink="../advisor-view">Dashboard</a>
+      </li>
+      <li>
+        <a class="active" routerLink="../advisor-view-advisees">Plan Schedule</a>
+      </li>
+      <li>
+        <a routerLink="../advisor-report">View Report</a>
+      </li>
+    </ul>
+            <div
+        class="logoutContain ml-auto"
+        style="height: 30px; width: 30px;"
+        (click)="logout()"
+      ></div>
   </nav>
   <div class="container">
     <div class="row">
       <div class="col">
         <div class="courseContain">
-          <h2 style="color: white; text-align: center; padding-top: 20px">
+          <h4 style=" padding-top: 5%; font-size: 20px; font-weight:500; text-align: center; line-height: 40px;">
             Available Courses
-          </h2>
-          <!--Component start-->
-          <div class="row" style="padding-top: 20px">
-            <div class="col text-center">
+          </h4>
+
+          <div class="row">
+            <div class="col text-center" style="font-weight: 700;">
               Filter:
               <select
                 name="filter"
                 [(ngModel)]="filter"
                 (change)="getFilteredCourses()"
-                style="color:black"
+                style="color: black; font-weight: 300;"
               >
                 <option value="No Filter">No Filter Selected</option>
                 <option
@@ -68,7 +58,7 @@
                 </option>
               </select>
               <br />
-              <div class="example-container">
+              <div class="example-container" style="padding-top:5%; overflow-x: hidden;">
                 <div
                   cdkDropList
                   #todoList="cdkDropList"
@@ -89,26 +79,23 @@
               </div>
             </div>
           </div>
-          <!--Component end-->
         </div>
       </div>
       <div class="col">
         <div class="scheduleContain">
-          <!--Component start-->
-          <h2 style="text-align: center; padding-top: 20px">
+          <h4 style=" padding-top: 5%; font-size: 20px; font-weight:500; text-align: center; line-height: 40px;">
             Student: {{ advisee.firstName }} {{ advisee.lastName }}
-          </h2>
-          <h3 style="text-align: center; padding-top: 20px">Planned Courses</h3>
+          </h4>
+          <h3 style="text-align: center; font-weight: 600">Planned Courses</h3>
           <div class="row">
-            <div class="col"></div>
-            <div class="col">
+            <div class="col" style="padding-left: 15%;">
               <div
                 cdkDropList
                 #doneList="cdkDropList"
                 [cdkDropListData]="chosen_courses"
                 [cdkDropListConnectedTo]="[todoList]"
                 class="example-list"
-                style="width: 400px; max-height: 250px"
+                style="width: 100%; min-width: 170%;"
                 (cdkDropListDropped)="drop($event)"
               >
                 <div *ngFor="let item of chosen_courses">
@@ -124,9 +111,48 @@
             </div>
             <div class="col"></div>
           </div>
-
-          <h5 style="text-align: center; padding-top: 30px">Signatures</h5>
-          <!--Component end-->
+          <br />
+          <div>
+            <div class="row text-center">
+              <div class="col">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#confirmModal"
+                >
+                  Confirm Courses
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal"
+    id="confirmModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="confirmModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" style="color: black; white-space: nowrap; text-align: center;">Confirm Planned Schedule</h2>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close" 
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="color: black">
+          <h3 style="text-align: center; font-weight: 500;">Signatures</h3>
           <div class="row">
             <div class="col">
               <div class="row text-center">
@@ -135,7 +161,7 @@
                   <input
                     type="text"
                     [(ngModel)]="scheduleForm.advisorSignature"
-                    style="color: black;"
+                    style="color: black"
                   />
                 </div>
               </div>
@@ -148,28 +174,25 @@
                     name=""
                     id=""
                     [(ngModel)]="scheduleForm.adviseeSignature"
-                    style="color: black;"
+                    style="color: black"
                   />
                 </div>
               </div>
-              <br />
-              <div class="row text-center">
-                <div class="col">
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    (click)="submit()"
-                  >
-                    Confirm Courses
-                  </button>
-                  <p style="color: red;" *ngIf="displayFillData">Please Sign Before Submitting</p>
-                </div>
-              </div>
+              <p class="text-center" style="color: red" *ngIf="displayFillData">
+                Please Sign Before Submitting
+              </p>
             </div>
           </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin:auto;">
+            No
+          </button>
+          <button type="button" class="btn btn-primary" (click)="submit()" style="margin:auto; margin-top: 3%;">
+            Yes
+          </button>
+        </div>
       </div>
     </div>
-  
   </div>
 </body>

@@ -8,8 +8,8 @@
 
 .example-list {
   border: solid 1px #ccc;
-  min-height: 60px;
-  max-height: 450px;
+  min-height: 0px;
+  max-height: 380px;
   background: white;
   border-radius: 4px;
   overflow: scroll;
@@ -17,7 +17,7 @@
 }
 
 .example-box {
-  padding: 20px 10px;
+  padding: 20px 20px;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
@@ -28,6 +28,7 @@
   cursor: move;
   background: white;
   font-size: 14px;
+  font-weight: 300;
 }
 
 .cdk-drag-preview {
@@ -56,65 +57,54 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: white;
-  background-image: url("../../assets/QUplaid.jpg");
+  background-image: url("../images/QUplaid.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   padding: 0px;
   margin: 0px;
   min-height: 100%;
-  height: 100vh;
+  overflow: hidden;
 }
 
 .col {
   width: 50%;
 }
 
-.example-box.cdk-drag-disabled {
-  background: #ccc;
-  cursor: default;
-}
-
 .scheduleContain {
-  height: 80vh;
-  width: 90vh;
+  height: 95%;
+  width: 95%;
   background-color: darkblue;
-  margin-top: 50px;
+  margin-top: 10%;
   border-radius: 20px;
 }
 
 .courseContain {
-  height: 80vh;
-  width: 55vh;
+  height: 95%;
+  width: 80%;
   background-color: darkblue;
-  margin: auto;
-  margin-top: 50px;
+  margin-top: 10%;
   border-radius: 20px;
   margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
-.courseRow {
-  width: 300px;
-  height: 20px;
-  background-color: grey;
-  padding-top: 40px;
-  margin-top: 20px;
-  margin-left: 60px;
-}
-
-.classRow {
-  width: 350px;
-  height: 20px;
-  background-color: grey;
-  padding-top: 40px;
-  margin-top: 10px;
-  margin-left: 170px;
+button {
+  margin-top: 10%;
+  width: 80%;
+  height: 70%;
+  font-size: large;
+  font-weight: 700;
+  text-align: center;
+  white-space: normal;
 }
 
 .filter {
   width: 145px;
   height: 20px;
   background-color: grey;
-  padding-top: 30px;
+  padding-top: 5%;
 }
 
 .logoContain {
@@ -126,7 +116,34 @@ body {
 }
 
 .logoutContain {
-  background-image: url("../../assets/logout.png");
+  background-image: url("../images/logout.png");
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar ul li {
+  list-style-type: none;
+  float: left;
+  display: flex;
+  display: block;
+  margin-left: 15px;
+  padding-top: 3%;
+}
+
+.navbar a {
+  color: white;
+  font-size: large;
+}
+
+.navbar {
+  display: flex;
+  background-color: #17067a;
+}
+
+.navbar ul a:hover, .navbar ul a:focus, .navbar ul .active {
+  color: #FFFF00;
 }

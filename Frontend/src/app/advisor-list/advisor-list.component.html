@@ -1,19 +1,33 @@
 <div>
-    <div class="container text-center" *ngIf="advisors.length == 0">
-        <h1 style="color: white;">No Advisors</h1>
-    </div>
-    <ngb-accordion #acc="ngbAccordion" *ngFor="let advisor of advisors" [destroyOnHide]="false">
-        <ngb-panel>
-            <ng-template ngbPanelHeader>
-                    <button ngbPanelToggle class="accordion-button justify-content-center" [ngClass]="{'flagged': advisor.flagged, 'not-flagged': !advisor.flagged}">
-                        {{advisor.firstName}} {{advisor.lastName}}
-                    </button>
-            </ng-template>
-            <ng-template ngbPanelContent>
-                <div style="padding-left: 40px;">
-                    <app-student-list [advisor_id]="advisor.advisor_id" (flagAdvisor)="flagAdvisor(advisor)"></app-student-list>
-                </div>
-            </ng-template>
-        </ngb-panel>
-    </ngb-accordion>
+  <div class="container text-center" *ngIf="advisors.length == 0">
+    <h1 style="color: white">No Advisors</h1>
+  </div>
+  <ngb-accordion
+    #acc="ngbAccordion"
+    *ngFor="let advisor of advisors"
+    [destroyOnHide]="false"
+  >
+    <ngb-panel>
+      <ng-template ngbPanelHeader>
+        <button
+          ngbPanelToggle
+          class="accordion-button justify-content-center"
+          [ngClass]="{
+            flagged: advisor.flagged,
+            'not-flagged': !advisor.flagged
+          }"
+        >
+          {{ advisor.firstName }} {{ advisor.lastName }}
+        </button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <div style="padding-left: 40px">
+          <app-student-list
+            [advisor_id]="advisor.advisor_id"
+            (flagAdvisor)="flagAdvisor(advisor)"
+          ></app-student-list>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
 </div>

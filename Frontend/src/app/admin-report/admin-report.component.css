@@ -8,6 +8,7 @@ body {
   margin: 0px;
   min-height: 100%;
   height: 100vh;
+  overflow: hidden;
 }
 
 .logoContain {
@@ -25,28 +26,63 @@ body {
 }
 
 .viewContain {
-  height: 80vh;
-  width: 150vh;
+  height: 100%;
+  width: 70%;
   background-color: darkblue;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 2%;
   border-radius: 20px;
+  padding-left: 7%;
+  padding-right: 7%;
+  padding-bottom: 2%;
 }
 
-.adviseeRow {
-  width: 600px;
-  height: 20px;
-  background-color: grey;
-  padding-top: 40px;
-  margin-top: 20px;
-  margin-left: 250px;
+.logoContain {
+  background-image: url("../images/QUlogo.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px;
 }
 
-.scheduleRow {
-  width: 350px;
-  height: 20px;
-  background-color: grey;
-  padding-top: 30px;
-  margin-top: 10px;
-  margin-left: 380px;
+.logoutContain {
+  background-image: url("../images/logout.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  float: right;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar ul li {
+  list-style-type: none;
+  float: left;
+  display: flex;
+  display: block;
+  margin-left: 15px;
+  padding-top: 3%;
+}
+
+.navbar a {
+  color: white;
+  font-size: large;
+}
+
+.navbar {
+  display: flex;
+  background-color: #17067a;
+}
+
+.navbar ul a:hover, .navbar ul a:focus, .navbar ul .active {
+  color: #FFFF00;
+}
+
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+.row {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

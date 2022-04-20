@@ -1,12 +1,11 @@
 label {
   background-color: #0d6efd;
-  margin-left: 120px;
+  margin-left: 20%;
   color: white;
-  padding: auto;
   border-radius: 10px;
   cursor: pointer;
-  width: 250px;
+  width: 60%;
   height: 50px;
   text-align: center;
-  padding-top: 13px;
+  padding: 15px;
 }

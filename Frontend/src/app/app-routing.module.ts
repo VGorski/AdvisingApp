@@ -13,6 +13,9 @@ import { TestFileInputComponent } from './test-file-input/test-file-input.compon
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { AdminFileUploadComponent } from './admin-file-upload/admin-file-upload.component';
 import { AdminReportComponent } from './admin-report/admin-report.component';
+import { AdminViewAdviseesComponent } from './admin-view-advisees/admin-view-advisees.component';
+import { AdminReportAdviseesComponent } from './admin-report-advisees/admin-report-advisees.component';
+import { BuildScheduleAdminComponent } from './build-schedule-admin/build-schedule-admin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -27,6 +30,9 @@ const routes: Routes = [
   { path: 'admin-view', component: AdminViewComponent },
   { path: 'admin-file-upload', component: AdminFileUploadComponent },
   { path: 'admin-report', component: AdminReportComponent },
+  { path: 'admin-view-advisees', component: AdminViewAdviseesComponent},
+  { path: 'admin-report-advisees', component: AdminReportAdviseesComponent},
+  { path: 'build-schedule-admin', component: BuildScheduleAdminComponent}
 ];
 
 @NgModule({

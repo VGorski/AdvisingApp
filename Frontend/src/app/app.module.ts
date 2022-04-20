@@ -24,6 +24,10 @@ import { AdminFileUploadComponent } from './admin-file-upload/admin-file-upload.
 import { FileUploadListComponent } from './file-upload-list/file-upload-list.component';
 import { AdvisorListComponent } from './advisor-list/advisor-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { AdminViewAdviseesComponent } from './admin-view-advisees/admin-view-advisees.component';
+import { AdminReportAdviseesComponent } from './admin-report-advisees/admin-report-advisees.component';
+import { BuildScheduleAdminComponent } from './build-schedule-admin/build-schedule-admin.component';
+import { StudentListAdminComponent } from './student-list-admin/student-list-admin.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,10 @@ import { NavbarComponent } from './navbar/navbar.component';
     AdvisorListComponent,
     AdminReportComponent,
     NavbarComponent,
+    AdminViewAdviseesComponent,
+    AdminReportAdviseesComponent,
+    BuildScheduleAdminComponent,
+    StudentListAdminComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
+  role = localStorage.getItem('role');
+ 
 
   constructor(private logoutRouter: Router) { }
 

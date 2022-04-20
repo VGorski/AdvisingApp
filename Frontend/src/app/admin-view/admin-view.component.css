@@ -3,23 +3,22 @@ body {
   color: white;
   background-image: url("../images/QUplaid.jpg");
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   padding: 0px;
   margin: 0px;
   min-height: 100%;
-  height: 100vh;
+  overflow: hidden;
 }
 
 button {
-  display: flex;
-  margin: 0 auto;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
-  width: 50vh;
-  height: 23vh;
-  padding: 20px;
-  font-size: xx-large;
+  margin: 10% auto auto auto;
+  width: 90%;
+  height: 200px;
+  font-size: x-large;
+  font-weight: 700;
+  text-align: center;
+  float: right;
+  white-space: normal;
 }
 
 .imageContain {
@@ -27,6 +26,22 @@ button {
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 20px;
+  display: flex;
+  width: 250px;
+  height: 250px;
+  flex-wrap: wrap;
+  margin: 10% auto auto auto;
+
+}
+
+.column {
+  width: 50%;
+  float: left;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto auto;
 }
 
 .logoContain {
@@ -34,7 +49,7 @@ button {
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 5px;
-  margin-right: 20px;
+
 }
 
 .logoutContain {
@@ -64,6 +79,7 @@ a {
 .navbar {
   display: flex;
   background-color: #17067a;
+  white-space: nowrap;
 }
 
 .navbar ul a:hover, .navbar ul a:focus, .navbar ul .active {

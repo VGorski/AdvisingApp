@@ -13,47 +13,43 @@
     <title>Admin Report</title>
   </head>
   <body>
-    <nav
-      class="navbar navbar-expand-lg navbar-dark"
-      style="background-color: #17067a"
-    >
-      <div class="container-fluid">
-        <div class="logoContain" style="height: 40px; width: 40px"></div>
-        <a class="navbar-brand" routerLink="../admin-view">Admin Dashboard</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav"></ul>
-        </div>
-        <div
-          class="logoutContain"
-          style="height: 30px; width: 30px"
+    <nav class="navbar">
+      <div class="logoContain" style="height: 40px; width: 40px; margin-right: 0px"></div>
+      <ul class="navbar-right">
+        <li>
+          <a style="padding-top: 20px;" routerLink="../admin-view">Dashboard</a>
+        </li>
+        <li>
+          <a routerLink="../admin-file-upload">File Upload</a>
+        </li>
+        <li>
+          <a routerLink="../admin-view-advisees">Plan Schedule</a>
+        </li>
+        <li>
+          <a routerLink="../admin-report-advisees">Advisee Report</a>
+        </li>
+        <li>
+          <a class="active" routerLink="../admin-report">All Advisors Report</a>
+        </li>
+      </ul>
+              <div
+          class="logoutContain ml-auto"
+          style="height: 30px; width: 30px;"
           (click)="logout()"
         ></div>
-      </div>
     </nav>
     <div class="container">
-      <div class="row">
-        <div class="col">
           <div class="viewContain">
-            <h2 style="color: white; text-align: center; padding: 20px">
+            <h4 style= "padding-top: 5%; font-size: 30px; font-weight:500; text-align: center; line-height: 40px;">
               Select an Advisor to view their Advisees
-            </h2>
+            </h4>
             <div class="container" style="color: black">
+              <div class="row" style="text-align: center; color: black; display: block; overflow: scroll; height: 350px; overflow-x: hidden;">
               <app-advisor-list></app-advisor-list>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+
   </body>
 </html>

@@ -31,7 +31,9 @@ function uploadFile(fileType) {
         sequelize.query(`INSERT INTO Files (registeredCourses) VALUES (1)`);
         break;
     }
+    sequelize.query(`INSERT INTO Files (${fileType}) VALUES (1)`);
   }
+  return;
 }
 
 // Get all math courses from the database

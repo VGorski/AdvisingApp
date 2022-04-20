@@ -82,3 +82,7 @@ a {
 .navbar ul a:hover, .navbar ul a:focus, .navbar ul .active {
   color: #FFFF00;
 }
+
+input[type=checkbox] {
+  transform: scale(1.5);
+}

@@ -56,49 +56,36 @@
               The Following Files Can Be Uploaded:
             </h4>
             <h3 style="margin-left: 15%">
-              <input
-                type="checkbox"
-                disabled
-                [checked]="files.math == 'true'"
+              <input type="checkbox" onclick="return false;" [checked]="files.math == 'true'"
               />
               Math Courses
             </h3>
             <h3 style="margin-left: 15%">
-              <input
-                type="checkbox"
-                disabled
+              <input type="checkbox" onclick="return false;"
                 [checked]="files.engineering == 'true'"
               />
               Engineering Courses
             </h3>
             <h3 style="margin-left: 15%">
-              <input
-                type="checkbox"
-                disabled
+              <input type="checkbox" onclick="return false;"
                 [checked]="files.uc == 'true'"
               />
               Courses with Specific UC Areas
             </h3>
             <h3 style="margin-left: 15%">
-              <input
-                type="checkbox"
-                disabled
+              <input type="checkbox" onclick="return false;"
                 [checked]="files.all == 'true'"
               />
               All Courses Offered at Quinnipiac
             </h3>
             <h3 style="margin-left: 15%">
-              <input
-                type="checkbox"
-                disabled
+              <input type="checkbox" onclick="return false;"
                 [checked]="files.studentFaculty == 'true'"
               />
               Students, Their Courses Taken, Their Advisors
             </h3>
             <h3 style="margin-left: 15%">
-              <input
-                type="checkbox"
-                disabled
+              <input type="checkbox" onclick="return false;"
                 [checked]="files.registered == 'true'"
                 style="margin-bottom: 10%;"
               />
@@ -118,10 +105,8 @@
             >
               Uploaded Files
             </h2>
-            <app-test-file-input
-              (updateCheckboxes)="getUploadedFiles()"
-              (successfulUpload)="successfulUpload()"
-            ></app-test-file-input>
+            <app-test-file-input (updateCheckboxes)="getUploadedFiles()" (successfulUpload)="successfulUpload()"></app-test-file-input>
+
           </div>
         </div>
     </div>

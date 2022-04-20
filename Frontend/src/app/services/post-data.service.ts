@@ -58,8 +58,8 @@ export class PostDataService {
     this.http.post(this.url + '/admin/upload/courses', courseData).subscribe();
   }
 
-  // Post the engineering courses from the uploaded engineering courses file
-  async postEngineeringCourses(data: any) {
+  // Posts the engineering or all courses from the uploaded engineering or all courses file
+  async postEngineeringAllCourses(data: any) {
     let courseData = data.map((element: any) => {
       return {
         name: element['Crs Name'],
@@ -163,7 +163,7 @@ export class PostDataService {
 
   // Sets the file to an uploaded state
   markFileAsUploaded(fileType: string) {
-    this.http.post(this.url + '/admin/files/', { fileType }).subscribe();
+    return this.http.post(this.url + '/admin/files/', { fileType });
     /*
       This can be: 
         mathCourses

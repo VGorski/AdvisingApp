@@ -63,8 +63,8 @@ app.use("/advisee", adviseeRouter);
 app.use("/advisor", advisorRouter);
 app.use("/courses", courseRouter);
 app.use("/api/users", router);
-app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+app.get("/*", (req, res) => {
+  res.sendFile(__dirname + "/dist/advising-assistant/index.html");
 });
 
 // Catch 404 and forward to the error handler

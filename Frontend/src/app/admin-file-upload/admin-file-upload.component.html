@@ -56,39 +56,33 @@
               The Following Files Can Be Uploaded:
             </h4>
             <h3 style="margin-left: 15%">
-              <input type="checkbox" onclick="return false;" [checked]="files.math == 'true'"
-              />
+              <span *ngIf="files.math">✅</span>
+              <span *ngIf="!files.math">❌</span>
               Math Courses
             </h3>
             <h3 style="margin-left: 15%">
-              <input type="checkbox" onclick="return false;"
-                [checked]="files.engineering == 'true'"
-              />
+              <span *ngIf="files.engineering">✅</span>
+              <span *ngIf="!files.engineering">❌</span>
               Engineering Courses
             </h3>
             <h3 style="margin-left: 15%">
-              <input type="checkbox" onclick="return false;"
-                [checked]="files.uc == 'true'"
-              />
+              <span *ngIf="files.uc">✅</span>
+              <span *ngIf="!files.uc">❌</span>
               Courses with Specific UC Areas
             </h3>
             <h3 style="margin-left: 15%">
-              <input type="checkbox" onclick="return false;"
-                [checked]="files.all == 'true'"
-              />
+              <span *ngIf="files.all">✅</span>
+              <span *ngIf="!files.all">❌</span>
               All Courses Offered at Quinnipiac
             </h3>
             <h3 style="margin-left: 15%">
-              <input type="checkbox" onclick="return false;"
-                [checked]="files.studentFaculty == 'true'"
-              />
+              <span *ngIf="files.studentFaculty">✅</span>
+              <span *ngIf="!files.studentFaculty">❌</span>
               Students, Their Courses Taken, Their Advisors
             </h3>
             <h3 style="margin-left: 15%">
-              <input type="checkbox" onclick="return false;"
-                [checked]="files.registered == 'true'"
-                style="margin-bottom: 10%;"
-              />
+              <span *ngIf="files.registered">✅</span>
+              <span *ngIf="!files.registered">❌</span>
               Courses Students have Registered For
             </h3>
           </div>

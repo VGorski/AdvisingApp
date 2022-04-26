@@ -37,6 +37,7 @@ adviseeRouter
         res.end();
       });
   })
+
   // Get the advisee's schedule
   .post((req, res, next) => {
     adviseeUtil
@@ -52,7 +53,7 @@ adviseeRouter
       });
   });
 
-// Get the advisee's taken courses 
+// Get the advisee's taken courses
 adviseeRouter.route("/:adviseeId/taken-courses").get((req, res, next) => {
   adviseeUtil.getTakenCourses(req.params.adviseeId).then((courses) => {
     res.status(200);

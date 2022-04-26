@@ -79,10 +79,12 @@ a {
   white-space: nowrap;
 }
 
-.navbar ul a:hover, .navbar ul a:focus, .navbar ul .active {
-  color: #FFFF00;
+.navbar ul a:hover,
+.navbar ul a:focus,
+.navbar ul .active {
+  color: #ffff00;
 }
 
-input[type=checkbox] {
+input[type="checkbox"] {
   transform: scale(1.5);
 }

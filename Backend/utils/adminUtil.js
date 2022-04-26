@@ -26,7 +26,7 @@ function uploadFile(fileType) {
       case "studentsFaculty":
         sequelize.query(`INSERT INTO Files (studentsFaculty) VALUES (1)`);
         break;
-      // If the file uploaded is for advisees' registered courses 
+      // If the file uploaded is for advisees' registered courses
       case "registeredCourses":
         sequelize.query(`INSERT INTO Files (registeredCourses) VALUES (1)`);
         break;

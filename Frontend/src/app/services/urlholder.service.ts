@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class URLHolderService {
-  URL = 'http://localhost:3000';
+  URL = 'https://quinnipiac-advising-assistant.herokuapp.com';
   HEADERS = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',

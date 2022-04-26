@@ -3,6 +3,7 @@
 require("dotenv").config();
 const Sequelize = require("sequelize");
 
+// Model defines the Sequelize JavaScript library so that Sequelize can be used 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,

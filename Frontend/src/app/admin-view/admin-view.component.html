@@ -15,10 +15,15 @@
   </head>
   <body>
     <nav class="navbar">
-      <div class="logoContain" style="height: 40px; width: 40px; margin-right: 0px"></div>
+      <div
+        class="logoContain"
+        style="height: 40px; width: 40px; margin-right: 0px"
+      ></div>
       <ul class="navbar-right">
         <li>
-          <a class="active"  style="padding-top: 20px;" routerLink="../admin-view">Dashboard</a>
+          <a class="active" style="padding-top: 20px" routerLink="../admin-view"
+            >Dashboard</a
+          >
         </li>
         <li>
           <a routerLink="../admin-file-upload">File Upload</a>
@@ -33,63 +38,73 @@
           <a routerLink="../admin-report">All Advisors Report</a>
         </li>
       </ul>
-              <div
-          class="logoutContain ml-auto"
-          style="height: 30px; width: 30px;"
-          (click)="logout()"
-        ></div>
+      <div
+        class="logoutContain ml-auto"
+        style="height: 30px; width: 30px"
+        (click)="logout()"
+      ></div>
     </nav>
     <div class="container">
-          <div class="column">
-            <div class="row">
-              <h4 style="font-size: 50px; padding-top: 15%; font-weight:500; text-align: center; line-height: 50px;">Welcome, {{ firstName }} {{ lastName }}</h4>
-            </div>
-            <div class="row">
-              <div class="imageContain"></div>
-            </div>
-          </div>
-          <div class="column">
-            <div class="grid">
-              <div>
-                <button
+      <div class="column">
+        <div class="row">
+          <h4
+            style="
+              font-size: 50px;
+              padding-top: 15%;
+              font-weight: 500;
+              text-align: center;
+              line-height: 50px;
+            "
+          >
+            Welcome, {{ firstName }} {{ lastName }}
+          </h4>
+        </div>
+        <div class="row">
+          <div class="imageContain"></div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="grid">
+          <div>
+            <button
               type="button"
               class="btn btn-primary"
               routerLink="/admin-file-upload"
-              style="margin-top: 30%;"
+              style="margin-top: 30%"
             >
               File Upload
             </button>
-              </div>
-              <div>
-                <button
-                type="button"
-                class="btn btn-primary"
-                style="margin-top: 30%"
-                routerLink="/admin-view-advisees"
-              >
-                Plan Schedule
-              </button>
-              </div>
-              <div>
-                <button
-                type="button"
-                class="btn btn-primary"
-                routerLink="/admin-report-advisees"
-              >
-                My Advisee Report
-              </button>
-              </div>
-              <div>
-                <button
+          </div>
+          <div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              style="margin-top: 30%"
+              routerLink="/admin-view-advisees"
+            >
+              Plan Schedule
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              routerLink="/admin-report-advisees"
+            >
+              My Advisee Report
+            </button>
+          </div>
+          <div>
+            <button
               type="button"
               class="btn btn-primary"
               routerLink="/admin-report"
             >
               All Advisor Report
             </button>
-              </div>
-            </div>
           </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

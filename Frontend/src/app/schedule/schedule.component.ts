@@ -53,16 +53,19 @@ export class ScheduleComponent implements OnInit {
       .subscribe((registeredCourses) => {
         this.registeredCourses = registeredCourses;
         // Get an advisee's planned courses
-        this.getDataService.getCourses(this.advisee_id).subscribe((courses) => {
-          this.plannedCourses = courses;
-          if (courses.length == 0) {
-            this.tellParent();
-          }
-          // Check if the courses match between the planned and registered schedules
-          this.correctCourses = this.plannedCourses.filter((course: any) => {
-            return this.plannedAndRegistered(course);
+        this.getDataService
+          .getCourses(this.advisee_id)
+          .subscribe((plannedCourses) => {
+            this.plannedCourses = plannedCourses;
+            if (plannedCourses.length == 0) {
+              this.tellParent();
+            }
+            // Check if the courses match between the planned and registered schedules
+            this.correctCourses = this.plannedCourses.filter((course: any) => {
+              //return this.filterCourses(course);
+              return this.plannedAndRegistered(course);
+            });
           });
-        });
       });
   }
 
@@ -85,16 +88,12 @@ export class ScheduleComponent implements OnInit {
       }).length > 0
     ) {
       // Cut out the correctly planned courses
-      let element: any = this.plannedCourses.splice(
-        this.plannedCourses.indexOf(course.course_id),
-        1
-      );
-      this.registeredCourses.splice(
-        this.registeredCourses.indexOf(course.course_id),
-        1
-      );
-      // Put the courses into the correct courses array
-      this.correctCourses.push(element);
+      this.plannedCourses = this.plannedCourses.filter((plannedCourse) => {
+        return plannedCourse.course_id != course.course_id
+      })
+      this.registeredCourses = this.registeredCourses.filter((registeredCourse) => {
+        return registeredCourse.course_id != course.course_id
+      })
       return true;
     }
     if (!this.adviseeView) {

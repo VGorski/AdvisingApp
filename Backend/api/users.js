@@ -56,8 +56,7 @@ loginRouter.post("/register", (req, res) => {
               // Notify the user that something went wrong with creating the user
               .catch((error) =>
                 res.status(404).json({
-                  message:
-                    "An error has occured while creating an advisor user",
+                  message: "An error has occured while creating an advisor user",
                 })
               );
           });

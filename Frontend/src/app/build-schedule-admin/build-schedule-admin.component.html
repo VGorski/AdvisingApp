@@ -12,193 +12,239 @@
     />
     <title>Advisor Build Schedule</title>
   </head>
-<body>
+  <body>
     <nav class="navbar">
-        <div class="logoContain" style="height: 40px; width: 40px; margin-right: 0px"></div>
-        <ul class="navbar-right">
-          <li>
-            <a style="padding-top: 20px;" routerLink="../admin-view">Dashboard</a>
-          </li>
-          <li>
-            <a routerLink="../admin-file-upload">File Upload</a>
-          </li>
-          <li>
-            <a class="active" routerLink="../admin-view-advisees">Plan Schedule</a>
-          </li>
-          <li>
-            <a routerLink="../admin-report-advisees">Advisee Report</a>
-          </li>
-          <li>
-            <a routerLink="../admin-report">All Advisors Report</a>
-          </li>
-        </ul>
-                <div
-            class="logoutContain ml-auto"
-            style="height: 30px; width: 30px;"
-            (click)="logout()"
-          ></div>
-      </nav>
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <div class="courseContain">
-          <h4 style=" padding-top: 5%; font-size: 20px; font-weight:500; text-align: center; line-height: 40px;">
-            Available Courses
-          </h4>
+      <div
+        class="logoContain"
+        style="height: 40px; width: 40px; margin-right: 0px"
+      ></div>
+      <ul class="navbar-right">
+        <li>
+          <a style="padding-top: 20px" routerLink="../admin-view">Dashboard</a>
+        </li>
+        <li>
+          <a routerLink="../admin-file-upload">File Upload</a>
+        </li>
+        <li>
+          <a class="active" routerLink="../admin-view-advisees"
+            >Plan Schedule</a
+          >
+        </li>
+        <li>
+          <a routerLink="../admin-report-advisees">Advisee Report</a>
+        </li>
+        <li>
+          <a routerLink="../admin-report">All Advisors Report</a>
+        </li>
+      </ul>
+      <div
+        class="logoutContain ml-auto"
+        style="height: 30px; width: 30px"
+        (click)="logout()"
+      ></div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="courseContain">
+            <h4
+              style="
+                padding-top: 5%;
+                font-size: 20px;
+                font-weight: 500;
+                text-align: center;
+                line-height: 40px;
+              "
+            >
+              Available Courses
+            </h4>
 
-          <div class="row">
-            <div class="col text-center" style="font-weight: 700;">
-              Filter:
-              <select
-                name="filter"
-                [(ngModel)]="filter"
-                (change)="getFilteredCourses()"
-                style="color: black; font-weight: 300;"
-              >
-                <option value="No Filter">No Filter Selected</option>
-                <option
-                  *ngFor="let discipline of disciplines"
-                  [value]="discipline.discipline"
+            <div class="row">
+              <div class="col text-center" style="font-weight: 700">
+                Filter:
+                <select
+                  name="filter"
+                  [(ngModel)]="filter"
+                  (change)="getFilteredCourses()"
+                  style="color: black; font-weight: 300"
                 >
-                  {{ discipline.discipline }}
-                </option>
-              </select>
-              <br />
-              <div class="example-container" style="padding-top:5%; overflow-x: hidden;">
+                  <option value="No Filter">No Filter Selected</option>
+                  <option
+                    *ngFor="let discipline of disciplines"
+                    [value]="discipline.discipline"
+                  >
+                    {{ discipline.discipline }}
+                  </option>
+                </select>
+                <br />
+                <div
+                  class="example-container"
+                  style="padding-top: 5%; overflow-x: hidden"
+                >
+                  <div
+                    cdkDropList
+                    #todoList="cdkDropList"
+                    [cdkDropListData]="available_courses"
+                    [cdkDropListConnectedTo]="[doneList]"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)"
+                  >
+                    <div
+                      class="example-box justify-content-center overflow-auto"
+                      *ngFor="let item of available_courses"
+                      cdkDrag
+                      [cdkDragDisabled]="hasCourseBeenTaken(item.course_id)"
+                    >
+                      {{ item.name }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="scheduleContain">
+            <h4
+              style="
+                padding-top: 5%;
+                font-size: 20px;
+                font-weight: 500;
+                text-align: center;
+                line-height: 40px;
+              "
+            >
+              Student: {{ advisee.firstName }} {{ advisee.lastName }}
+            </h4>
+            <h3 style="text-align: center; font-weight: 600">
+              Planned Courses
+            </h3>
+            <div class="row">
+              <div class="col" style="padding-left: 15%">
                 <div
                   cdkDropList
-                  #todoList="cdkDropList"
-                  [cdkDropListData]="available_courses"
-                  [cdkDropListConnectedTo]="[doneList]"
+                  #doneList="cdkDropList"
+                  [cdkDropListData]="chosen_courses"
+                  [cdkDropListConnectedTo]="[todoList]"
                   class="example-list"
+                  style="width: 100%; min-width: 170%"
                   (cdkDropListDropped)="drop($event)"
                 >
-                  <div
-                    class="example-box justify-content-center overflow-auto"
-                    *ngFor="let item of available_courses"
-                    cdkDrag
-                    [cdkDragDisabled]="hasCourseBeenTaken(item.course_id)"
-                  >
-                    {{ item.name }}
+                  <div *ngFor="let item of chosen_courses">
+                    <div
+                      class="example-box justify-content-center"
+                      *ngIf="item.course_id != -1"
+                      cdkDrag
+                    >
+                      {{ item.name }}
+                    </div>
                   </div>
+                </div>
+              </div>
+              <div class="col"></div>
+            </div>
+            <br />
+            <div>
+              <div class="row text-center">
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#confirmModal"
+                  >
+                    Confirm Courses
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="scheduleContain">
-          <h4 style=" padding-top: 5%; font-size: 20px; font-weight:500; text-align: center; line-height: 40px;">
-            Student: {{ advisee.firstName }} {{ advisee.lastName }}
-          </h4>
-          <h3 style="text-align: center; font-weight: 600">Planned Courses</h3>
-          <div class="row">
-            <div class="col" style="padding-left: 15%;">
-              <div
-                cdkDropList
-                #doneList="cdkDropList"
-                [cdkDropListData]="chosen_courses"
-                [cdkDropListConnectedTo]="[todoList]"
-                class="example-list"
-                style="width: 100%; min-width: 170%;"
-                (cdkDropListDropped)="drop($event)"
-              >
-                <div *ngFor="let item of chosen_courses">
-                  <div
-                    class="example-box justify-content-center"
-                    *ngIf="item.course_id != -1"
-                    cdkDrag
-                  >
-                    {{ item.name }}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col"></div>
+    </div>
+    <div
+      class="modal"
+      id="confirmModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="confirmModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2
+              class="modal-title"
+              style="color: black; white-space: nowrap; text-align: center"
+            >
+              Confirm Planned Schedule
+            </h2>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <br />
-          <div>
-            <div class="row text-center">
+          <div class="modal-body" style="color: black">
+            <h3 style="text-align: center; font-weight: 500">Signatures</h3>
+            <div class="row">
               <div class="col">
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-toggle="modal"
-                  data-target="#confirmModal"
+                <div class="row text-center">
+                  <div class="col">
+                    Advisor Signature:
+                    <input
+                      type="text"
+                      [(ngModel)]="scheduleForm.advisorSignature"
+                      style="color: black"
+                    />
+                  </div>
+                </div>
+                <br />
+                <div class="row text-center">
+                  <div class="col">
+                    Advisee Signature:
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      [(ngModel)]="scheduleForm.adviseeSignature"
+                      style="color: black"
+                    />
+                  </div>
+                </div>
+                <p
+                  class="text-center"
+                  style="color: red"
+                  *ngIf="displayFillData"
                 >
-                  Confirm Courses
-                </button>
+                  Please Sign Before Submitting
+                </p>
               </div>
             </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              style="margin: auto"
+            >
+              No
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="submit()"
+              style="margin: auto; margin-top: 3%"
+            >
+              Yes
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="modal"
-    id="confirmModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="confirmModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title" style="color: black; white-space: nowrap; text-align: center;">Confirm Planned Schedule</h2>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close" 
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" style="color: black">
-          <h3 style="text-align: center; font-weight: 500;">Signatures</h3>
-          <div class="row">
-            <div class="col">
-              <div class="row text-center">
-                <div class="col">
-                  Advisor Signature:
-                  <input
-                    type="text"
-                    [(ngModel)]="scheduleForm.advisorSignature"
-                    style="color: black"
-                  />
-                </div>
-              </div>
-              <br />
-              <div class="row text-center">
-                <div class="col">
-                  Advisee Signature:
-                  <input
-                    type="text"
-                    name=""
-                    id=""
-                    [(ngModel)]="scheduleForm.adviseeSignature"
-                    style="color: black"
-                  />
-                </div>
-              </div>
-              <p class="text-center" style="color: red" *ngIf="displayFillData">
-                Please Sign Before Submitting
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin:auto;">
-            No
-          </button>
-          <button type="button" class="btn btn-primary" (click)="submit()" style="margin:auto; margin-top: 3%;">
-            Yes
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
+  </body>
+</html>

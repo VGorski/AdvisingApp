@@ -22,7 +22,7 @@ courseRouter.route("/disciplines/").get((req, res, next) => {
   });
 });
 
-// Get courses from a specific discipline 
+// Get courses from a specific discipline
 courseRouter.route("/:discipline/").get((req, res, next) => {
   courseUtil.getCourses(req.params.discipline).then((courses) => {
     res.status(200);

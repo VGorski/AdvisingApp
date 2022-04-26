@@ -15,16 +15,19 @@
   </head>
   <body>
     <nav class="navbar">
-      <div class="logoContain" style="height: 40px; width: 40px; margin-right: 0px"></div>
+      <div
+        class="logoContain"
+        style="height: 40px; width: 40px; margin-right: 0px"
+      ></div>
       <ul class="navbar-right">
         <li>
-          <a style="padding-top: 20px;" routerLink="../admin-view">Dashboard</a>
+          <a style="padding-top: 20px" routerLink="../admin-view">Dashboard</a>
         </li>
         <li>
           <a class="active" routerLink="../admin-file-upload">File Upload</a>
         </li>
         <li>
-          <a  routerLink="../admin-view-advisees">Plan Schedule</a>
+          <a routerLink="../admin-view-advisees">Plan Schedule</a>
         </li>
         <li>
           <a routerLink="../admin-report-advisees">Advisee Report</a>
@@ -33,11 +36,11 @@
           <a routerLink="../admin-report">All Advisors Report</a>
         </li>
       </ul>
-              <div
-          class="logoutContain ml-auto"
-          style="height: 30px; width: 30px;"
-          (click)="logout()"
-        ></div>
+      <div
+        class="logoutContain ml-auto"
+        style="height: 30px; width: 30px"
+        (click)="logout()"
+      ></div>
     </nav>
     <div class="container">
       <div class="row">
@@ -48,67 +51,70 @@
         >
           Successfully Uploaded!
         </div>
+      </div>
+      <div class="column">
+        <div class="viewContain">
+          <h4
+            style="
+              padding-top: 5%;
+              font-size: 20px;
+              font-weight: 500;
+              text-align: center;
+              line-height: 40px;
+            "
+          >
+            The Following Files Can Be Uploaded:
+          </h4>
+          <h3 style="margin-left: 15%">
+            <span *ngIf="files.math">✅</span>
+            <span *ngIf="!files.math">❌</span>
+            Math Courses
+          </h3>
+          <h3 style="margin-left: 15%">
+            <span *ngIf="files.engineering">✅</span>
+            <span *ngIf="!files.engineering">❌</span>
+            Engineering Courses
+          </h3>
+          <h3 style="margin-left: 15%">
+            <span *ngIf="files.uc">✅</span>
+            <span *ngIf="!files.uc">❌</span>
+            Courses with Specific UC Areas
+          </h3>
+          <h3 style="margin-left: 15%">
+            <span *ngIf="files.all">✅</span>
+            <span *ngIf="!files.all">❌</span>
+            All Courses Offered at Quinnipiac
+          </h3>
+          <h3 style="margin-left: 15%">
+            <span *ngIf="files.studentFaculty">✅</span>
+            <span *ngIf="!files.studentFaculty">❌</span>
+            Students, Their Courses Taken, Their Advisors
+          </h3>
+          <h3 style="margin-left: 15%">
+            <span *ngIf="files.registered">✅</span>
+            <span *ngIf="!files.registered">❌</span>
+            Courses Students have Registered For
+          </h3>
         </div>
-        <div class="column">
-          <div class="viewContain">
-            <h4 style=" padding-top: 5%; font-size: 20px; font-weight:500; text-align: center; line-height: 40px;"
-            >
-              The Following Files Can Be Uploaded:
-            </h4>
-            <h3 style="margin-left: 15%">
-              <input type="checkbox" onclick="return false;" [checked]="files.math == 'true'"
-              />
-              Math Courses
-            </h3>
-            <h3 style="margin-left: 15%">
-              <input type="checkbox" onclick="return false;"
-                [checked]="files.engineering == 'true'"
-              />
-              Engineering Courses
-            </h3>
-            <h3 style="margin-left: 15%">
-              <input type="checkbox" onclick="return false;"
-                [checked]="files.uc == 'true'"
-              />
-              Courses with Specific UC Areas
-            </h3>
-            <h3 style="margin-left: 15%">
-              <input type="checkbox" onclick="return false;"
-                [checked]="files.all == 'true'"
-              />
-              All Courses Offered at Quinnipiac
-            </h3>
-            <h3 style="margin-left: 15%">
-              <input type="checkbox" onclick="return false;"
-                [checked]="files.studentFaculty == 'true'"
-              />
-              Students, Their Courses Taken, Their Advisors
-            </h3>
-            <h3 style="margin-left: 15%">
-              <input type="checkbox" onclick="return false;"
-                [checked]="files.registered == 'true'"
-                style="margin-bottom: 10%;"
-              />
-              Courses Students have Registered For
-            </h3>
-          </div>
+      </div>
+      <div class="column">
+        <div class="fileContain">
+          <h2
+            style="
+              color: white;
+              text-align: center;
+              padding-top: 30px;
+              padding-bottom: 20px;
+            "
+          >
+            Uploaded Files
+          </h2>
+          <app-test-file-input
+            (updateCheckboxes)="getUploadedFiles()"
+            (successfulUpload)="successfulUpload()"
+          ></app-test-file-input>
         </div>
-        <div class="column">
-          <div class="fileContain">
-            <h2
-              style="
-                color: white;
-                text-align: center;
-                padding-top: 30px;
-                padding-bottom: 20px;
-              "
-            >
-              Uploaded Files
-            </h2>
-            <app-test-file-input (updateCheckboxes)="getUploadedFiles()" (successfulUpload)="successfulUpload()"></app-test-file-input>
-
-          </div>
-        </div>
+      </div>
     </div>
   </body>
 </html>

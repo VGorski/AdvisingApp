@@ -7,7 +7,7 @@ import { GetDataService } from '../services/get-data.service';
 @Component({
   selector: 'app-admin-view-advisees',
   templateUrl: './admin-view-advisees.component.html',
-  styleUrls: ['./admin-view-advisees.component.css']
+  styleUrls: ['./admin-view-advisees.component.css'],
 })
 export class AdminViewAdviseesComponent implements OnInit {
   // Get the information that corresponds to the advisor's ID
@@ -17,8 +17,10 @@ export class AdminViewAdviseesComponent implements OnInit {
     firstName: '',
     lastName: '',
   };
-  constructor(    private getDataService: GetDataService,
-    private logoutRouter: Router) { }
+  constructor(
+    private getDataService: GetDataService,
+    private logoutRouter: Router
+  ) {}
 
   ngOnInit(): void {
     this.getDataService.getAdvisorName(this.advisor_id).subscribe((advisor) => {
@@ -34,5 +36,4 @@ export class AdminViewAdviseesComponent implements OnInit {
     localStorage.removeItem('advisee_id');
     this.logoutRouter.navigate(['/']);
   }
-
 }

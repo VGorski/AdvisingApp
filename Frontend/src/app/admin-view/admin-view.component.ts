@@ -12,7 +12,7 @@ import { GetDataService } from '../services/get-data.service';
 export class AdminViewComponent implements OnInit {
   // Currently only one admin exists in the system so the information is hardcoded
   // This will change if Professor Kiassat is no longer admin
-  admin_id = JSON.parse(localStorage.getItem('advisor_id') || '-1'); 
+  admin_id = JSON.parse(localStorage.getItem('advisor_id') || '-1');
   firstName = '';
   lastName = '';
 

@@ -35,7 +35,6 @@ button {
   height: 250px;
   flex-wrap: wrap;
   margin: 10% auto auto auto;
-
 }
 
 .logoContain {
@@ -43,7 +42,6 @@ button {
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 5px;
-
 }
 
 .logoutContain {
@@ -76,6 +74,8 @@ a {
   background-color: #17067a;
 }
 
-.navbar ul a:hover, .navbar ul a:focus, .navbar ul .active {
-  color: #FFFF00;
+.navbar ul a:hover,
+.navbar ul a:focus,
+.navbar ul .active {
+  color: #ffff00;
 }

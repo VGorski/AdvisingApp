@@ -144,6 +144,8 @@ a {
   background-color: #17067a;
 }
 
-.navbar ul a:hover, .navbar ul a:focus, .navbar ul .active {
-  color: #FFFF00;
+.navbar ul a:hover,
+.navbar ul a:focus,
+.navbar ul .active {
+  color: #ffff00;
 }

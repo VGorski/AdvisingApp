@@ -88,14 +88,14 @@ export class GetDataService {
         data.uc = file.toString();
       });
 
-    // Get the file containing all the uploaded courses  
+    // Get the file containing all the uploaded courses
     await this.http
       .get(this.url + '/admin/files/allCourses')
       .subscribe((file) => {
         data.all = file.toString();
       });
 
-    // Get the file containing all the advisors and advisees  
+    // Get the file containing all the advisors and advisees
     await this.http
       .get(this.url + '/admin/files/studentsFaculty')
       .subscribe((file) => {

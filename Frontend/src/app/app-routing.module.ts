@@ -30,9 +30,9 @@ const routes: Routes = [
   { path: 'admin-view', component: AdminViewComponent },
   { path: 'admin-file-upload', component: AdminFileUploadComponent },
   { path: 'admin-report', component: AdminReportComponent },
-  { path: 'admin-view-advisees', component: AdminViewAdviseesComponent},
-  { path: 'admin-report-advisees', component: AdminReportAdviseesComponent},
-  { path: 'build-schedule-admin', component: BuildScheduleAdminComponent}
+  { path: 'admin-view-advisees', component: AdminViewAdviseesComponent },
+  { path: 'admin-report-advisees', component: AdminReportAdviseesComponent },
+  { path: 'build-schedule-admin', component: BuildScheduleAdminComponent },
 ];
 
 @NgModule({

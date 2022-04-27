@@ -1,52 +1,52 @@
 <div *ngIf="!advisingPeriodInProgress">
-    <div class="container text-center" *ngIf="advisees.length == 0">
-      <h1 style="color: red">No Advisees</h1>
-    </div>
-    <ngb-accordion
-      #acc="ngbAccordion"
-      *ngFor="let advisee of advisees"
-      [destroyOnHide]="false"
-      style="justify-content: center;"
-    >
-      <ngb-panel >
-        <ng-template ngbPanelHeader >
-          <button     
-            ngbPanelToggle
-            class="accordion-button justify-content-center"
-            [ngClass]="{
-              flagged: advisee.flagged,
-              'not-flagged': !advisee.flagged
-            }" style="width: 100%; text-align: center; height: 70px;"
-          >
-            {{ advisee.firstName }} {{ advisee.lastName }}
-          </button>
-        </ng-template >
-        <ng-template ngbPanelContent >
-          <app-schedule 
-            [advisee_id]="advisee.advisee_id"
-            (flagAdvisee)="flagAdvisee(advisee)"
-            [advisingPeriodInProgress]="advisingPeriodInProgress"
-          ></app-schedule>
-        </ng-template>
-      </ngb-panel>
-    </ngb-accordion>
+  <div class="container text-center" *ngIf="advisees.length == 0">
+    <h1 style="color: red">No Advisees</h1>
   </div>
-  
-  <div *ngIf="advisingPeriodInProgress">
-    <div
-      class="card text-center"
-      style="width: 80%;"
-      *ngFor="let advisee of advisees"
-    >
-      <div class="card-body">
-        <h1
-          class="card-title"
-          routerLink="/build-schedule-admin"
-          (click)="setGlobalAdvisee(advisee.advisee_id)"
+  <ngb-accordion
+    #acc="ngbAccordion"
+    *ngFor="let advisee of advisees"
+    [destroyOnHide]="false"
+    style="justify-content: center"
+  >
+    <ngb-panel>
+      <ng-template ngbPanelHeader>
+        <button
+          ngbPanelToggle
+          class="accordion-button justify-content-center"
+          [ngClass]="{
+            flagged: advisee.flagged,
+            'not-flagged': !advisee.flagged
+          }"
+          style="width: 100%; text-align: center; height: 70px"
         >
           {{ advisee.firstName }} {{ advisee.lastName }}
-        </h1>
-      </div>
+        </button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <app-schedule
+          [advisee_id]="advisee.advisee_id"
+          (flagAdvisee)="flagAdvisee(advisee)"
+          [advisingPeriodInProgress]="advisingPeriodInProgress"
+        ></app-schedule>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
+
+<div *ngIf="advisingPeriodInProgress">
+  <div
+    class="card text-center"
+    style="width: 80%"
+    *ngFor="let advisee of advisees"
+  >
+    <div class="card-body">
+      <h1
+        class="card-title"
+        routerLink="/build-schedule-admin"
+        (click)="setGlobalAdvisee(advisee.advisee_id)"
+      >
+        {{ advisee.firstName }} {{ advisee.lastName }}
+      </h1>
     </div>
   </div>
-  
+</div>

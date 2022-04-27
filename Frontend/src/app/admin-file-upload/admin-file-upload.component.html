@@ -66,33 +66,33 @@
             The Following Files Can Be Uploaded:
           </h4>
           <h3 style="margin-left: 15%">
-            <span *ngIf="files.math">✅</span>
-            <span *ngIf="!files.math">❌</span>
+            <span *ngIf="files.math == 'true'">✅</span>
+            <span *ngIf="files.math == 'false'">❌</span>
             Math Courses
           </h3>
           <h3 style="margin-left: 15%">
-            <span *ngIf="files.engineering">✅</span>
-            <span *ngIf="!files.engineering">❌</span>
+            <span *ngIf="files.engineering == 'true'">✅</span>
+            <span *ngIf="files.engineering == 'false'">❌</span>
             Engineering Courses
           </h3>
           <h3 style="margin-left: 15%">
-            <span *ngIf="files.uc">✅</span>
-            <span *ngIf="!files.uc">❌</span>
+            <span *ngIf="files.uc == 'true'">✅</span>
+            <span *ngIf="files.uc == 'false'">❌</span>
             Courses with Specific UC Areas
           </h3>
           <h3 style="margin-left: 15%">
-            <span *ngIf="files.all">✅</span>
-            <span *ngIf="!files.all">❌</span>
+            <span *ngIf="files.all == 'true'">✅</span>
+            <span *ngIf="files.all == 'false'">❌</span>
             All Courses Offered at Quinnipiac
           </h3>
           <h3 style="margin-left: 15%">
-            <span *ngIf="files.studentFaculty">✅</span>
-            <span *ngIf="!files.studentFaculty">❌</span>
+            <span *ngIf="files.studentFaculty == 'true'">✅</span>
+            <span *ngIf="files.studentFaculty == 'false'">❌</span>
             Students, Their Courses Taken, Their Advisors
           </h3>
           <h3 style="margin-left: 15%">
-            <span *ngIf="files.registered">✅</span>
-            <span *ngIf="!files.registered">❌</span>
+            <span *ngIf="files.registered == 'true'">✅</span>
+            <span *ngIf="files.registered == 'false'">❌</span>
             Courses Students have Registered For
           </h3>
         </div>

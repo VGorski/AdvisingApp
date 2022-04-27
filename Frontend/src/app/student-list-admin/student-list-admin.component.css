@@ -1,13 +1,12 @@
 .flagged {
-    background-color: orange;
-  }
-  
-  .not-flagged {
-    background-color: lightgreen;
-  }
-  
-  .accordion-button {
-    font-size: x-large;
-    justify-content: center;
-  }
-  
+  background-color: orange;
+}
+
+.not-flagged {
+  background-color: lightgreen;
+}
+
+.accordion-button {
+  font-size: x-large;
+  justify-content: center;
+}

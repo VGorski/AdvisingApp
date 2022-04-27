@@ -14,7 +14,7 @@ export class StudentListComponent implements OnInit {
   @Input() advisingPeriodInProgress: boolean = false;
   @Output() flagAdvisor = new EventEmitter<boolean>();
 
-  // Template for getting the list of advisees an advisor has 
+  // Template for getting the list of advisees an advisor has
   advisees = [
     {
       advisee_id: -1,

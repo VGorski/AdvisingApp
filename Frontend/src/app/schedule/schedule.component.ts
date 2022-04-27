@@ -89,11 +89,13 @@ export class ScheduleComponent implements OnInit {
     ) {
       // Cut out the correctly planned courses
       this.plannedCourses = this.plannedCourses.filter((plannedCourse) => {
-        return plannedCourse.course_id != course.course_id
-      })
-      this.registeredCourses = this.registeredCourses.filter((registeredCourse) => {
-        return registeredCourse.course_id != course.course_id
-      })
+        return plannedCourse.course_id != course.course_id;
+      });
+      this.registeredCourses = this.registeredCourses.filter(
+        (registeredCourse) => {
+          return registeredCourse.course_id != course.course_id;
+        }
+      );
       return true;
     }
     if (!this.adviseeView) {
